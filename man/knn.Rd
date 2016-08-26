@@ -12,6 +12,8 @@ knn(nodes, graph, k = 1, ...)
 \item{graph}{an <code>igraph</code> object}
 
 \item{k}{the depth of the nearest neighbor search}
+
+\item{...}{additional params}
 }
 \value{
 returns the kNN graph as an an <code>igraph</code> object

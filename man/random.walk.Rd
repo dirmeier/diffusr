@@ -12,6 +12,8 @@ random.walk(p0, graph, r, ...)
 \item{graph}{a weighted <code>igraph</code> object}
 
 \item{r}{the restart probability if a Markov random walk with restart is desired}
+
+\item{...}{additional params}
 }
 \value{
 returns the stationary distribution of the

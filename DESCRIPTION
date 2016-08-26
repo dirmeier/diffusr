@@ -1,6 +1,6 @@
 Package: diffusr
 Type: Package
-Title:  Network diffusion algorithms in R.
+Title: Network diffusion algorithms in R
 Version: 0.1.0
 Authors@R: person("Simon", "Dirmeier", email = "simon.dirmeier@bsse.ethz.ch", role = c("aut", "cre"))
 Maintainer: Simon Dirmeier <simon.dirmeier@bsse.ethz.ch>
@@ -10,7 +10,9 @@ LazyData: TRUE
 LinkingTo: Rcpp
 Imports:
     Rcpp,
-    RcppEigen
+    RcppEigen,
+    Matrix,
+    igraph
 Suggests:
     knitr,
     rmarkdown,

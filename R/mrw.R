@@ -8,6 +8,7 @@
 #' @param p0  the staring distribution for the Markov chain
 #' @param graph  a weighted <code>igraph</code> object
 #' @param r  the restart probability if a Markov random walk with restart is desired
+#' @param ...  additional params
 #' @return  returns the stationary distribution of the
 #' @examples
 #' \dontrun{

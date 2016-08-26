@@ -8,6 +8,7 @@
 #' @param nodes  vector of nodes for which the k-NN algorithm is applied  is applied
 #' @param graph  an <code>igraph</code> object
 #' @param k  the depth of the nearest neighbor search
+#' @param ...  additional params
 #' @return  returns the kNN graph as an an <code>igraph</code> object
 #' @examples
 #' \dontrun{
