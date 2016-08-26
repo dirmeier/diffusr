@@ -1,16 +1,19 @@
 Package: diffusr
 Type: Package
-Title: What the Package Does (Title Case)
+Title:  Network diffusion algorithms in R.
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
-Description: More about what it does (maybe more than one line)
-License: What license is it under?
+Authors@R: person("Simon", "Dirmeier", email = "simon.dirmeier@bsse.ethz.ch", role = c("aut", "cre"))
+Maintainer: Simon Dirmeier <simon.dirmeier@bsse.ethz.ch>
+Description: Implementation of algorithms such a k-NN or Markov random walks for network diffusion.
+License: GPL (>=3)
 LazyData: TRUE
 LinkingTo: Rcpp
-Imports: Rcpp,
+Imports:
+    Rcpp,
     RcppEigen
-Suggests: knitr,
+Suggests:
+    knitr,
     rmarkdown,
     testthat
 VignetteBuilder: knitr
+RoxygenNote: 5.0.1

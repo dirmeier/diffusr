@@ -1,4 +1,4 @@
-#' Package: diffusr
+#' diffusr
 #'
 #' Network diffusion algorithms in R.
 #'
