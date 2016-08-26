@@ -3,7 +3,7 @@
 \docType{package}
 \name{diffusr-package}
 \alias{diffusr-package}
-\title{Package: diffusr}
+\title{diffusr}
 \description{
 Network diffusion algorithms in R.
 }
