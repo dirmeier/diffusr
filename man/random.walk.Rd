@@ -2,22 +2,22 @@
 % Please edit documentation in R/mrw.R
 \name{random.walk}
 \alias{random.walk}
-\title{Finds the k-NN nearest neighbors of every node in a graph}
+\title{Do a Markov random walk on a graph}
 \usage{
-random.walk(nodes, graph, r, ...)
+random.walk(p0, graph, r, ...)
 }
 \arguments{
-\item{nodes}{vector of nodes for which the k-NN algorithm is applied  is applied}
+\item{p0}{the staring distribution for the Markov chain}
 
-\item{graph}{an <code>igraph</code> object}
+\item{graph}{a weighted <code>igraph</code> object}
 
 \item{r}{the restart probability if a Markov random walk with restart is desired}
 }
 \value{
-the kNN graph as an an <code>igraph</code> object
+returns the stationary distribution of the
 }
 \description{
-Finds the k-NN nearest neighbors of every node in a graph
+Do a Markov random walk on a graph
 }
 \examples{
 \dontrun{

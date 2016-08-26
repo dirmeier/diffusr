@@ -2,7 +2,7 @@
 % Please edit documentation in R/knn.R
 \name{knn}
 \alias{knn}
-\title{Finds the k-NN nearest neighbors of every node in a graph}
+\title{Find the k-NN nearest neighbors of every node in a graph}
 \usage{
 knn(nodes, graph, k = 1, ...)
 }
@@ -14,10 +14,10 @@ knn(nodes, graph, k = 1, ...)
 \item{k}{the depth of the nearest neighbor search}
 }
 \value{
-the kNN graph as an an <code>igraph</code> object
+returns the kNN graph as an an <code>igraph</code> object
 }
 \description{
-Finds the k-NN nearest neighbors of every node in a graph
+Find the k-NN nearest neighbors of every node in a graph
 }
 \examples{
 \dontrun{
