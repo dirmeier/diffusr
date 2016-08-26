@@ -2,8 +2,6 @@
 #'
 #' @export
 #' @author Simon Dirmeier
-#' @import igraph
-#' @import Matrix
 #'
 #' @param p0  the staring distribution for the Markov chain
 #' @param graph  a weighted <code>igraph</code> object
@@ -19,7 +17,12 @@ random.walk <- function(p0, graph, r, ...) UseMethod("random.walk")
 
 #' @noRd
 #' @export
-random.walk.default <- function(p0, graph, r, ...)
+#' @import igraph
+#' @import Matrix
+random.walk.numeric <- function(p0, graph, r, ...)
 {
-  # TODO
+  if (any(p0 < 0)) stop("p0 can only contain non-negative values")
+  if (!.equals.double(p0, 1, .0001)) stop("p0 does not sum to 1.")
+  if (class())
 }
+
