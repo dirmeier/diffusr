@@ -10,8 +10,7 @@ LazyData: TRUE
 LinkingTo: Rcpp
 Imports: Rcpp,
     RcppEigen
-Suggests: covr,
-    knitr,
+Suggests: knitr,
     rmarkdown,
     testthat
 VignetteBuilder: knitr

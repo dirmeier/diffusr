@@ -1,20 +1,27 @@
-# diffusr
+<h1 align="center"> diffusr </h1>
 
-The goal of diffusr is to ...
+[![Build Status](https://travis-ci.org/dirmeier/diffusr.svg?branch=master)](https://travis-ci.org/dirmeier/diffusr.svg?branch=master)
+[![codecov](https://codecov.io/gh/dirmeier/diffusr/branch/master/graph/badge.svg)](https://codecov.io/gh/dirmeier/diffusr)
+
+Network diffusion algorithms in R.
+
+## Introduction
+
+Implementation of algorithms such a k-NN or Markov random walks for network diffusion.
 
 ## Installation
-
-You can install diffusr from github with:
-
-```R
-# install.packages("devtools")
-devtools::install_github("diffusr/dirmeier")
+ 
+Install `diffusr` using:
+```{r}
+devtools::install_github("dirmeier/diffusr") 
 ```
+from the R-console.
 
-## Example
+## Usage
 
-This is a basic example which shows you how to solve a common problem:
+Load the package using `library(diffusr)`. We provide a vignette for the package that can be called using: `vignette("diffusr")`.
+Basically that is all you have to know.
 
-```R
-...
-```
+## Author
+
+* Simon Dirmeier <a href="mailto:simon.dirmeier@bsse.ethz.ch">simon.dirmeier@bsse.ethz.ch</a>
