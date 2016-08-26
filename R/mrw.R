@@ -21,8 +21,23 @@ random.walk <- function(p0, graph, r, ...) UseMethod("random.walk")
 #' @import Matrix
 random.walk.numeric <- function(p0, graph, r, ...)
 {
-  if (any(p0 < 0)) stop("p0 can only contain non-negative values")
-  if (!.equals.double(p0, 1, .0001)) stop("p0 does not sum to 1.")
-  if (class())
+  if (any(p0 < 0)) stop("p0 can only contain non-negative values!")
+  if (!.equals.double(p0, 1, .0001)) stop("p0 does not sum to 1!")
+  if (!igraph::is_igraph(graph) & !is.matrix(graph) & !.is.Matrix(graph))
+    stop("'graph' is not a graph object or matrix!")
+  if (missing(r)) r <- 0
+  if (!.in(r, 0, 1)) stop("r must be \in [0, 1]!")
+  .rwr(p0, graph, r)
 }
+
+#' @noRd
+#' @export
+#' @import igraph
+#' @import Matrix
+.rwr <-  function(p0, graph, r, ...)
+{
+  mat <- .as.Matrix(graph)
+}
+
+
 
