@@ -22,7 +22,7 @@ Eigen::VectorXd do_mrwr(Eigen::VectorXd p0, Eigen::VectorXd W, double r) {
     pold = pt;
     pt = (1  - r) * W * pold + r * p0;
   }
-  while ((pt-pold).sum() >  .00001);
+  while ((pt - pold).sum() >  .000001);
   return pt;
 }
 
