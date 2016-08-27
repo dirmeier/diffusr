@@ -9,5 +9,6 @@
 #' @keywords package
 #'
 #' @useDynLib diffusr
-#' @importFrom Rcpp sourceCpp
+#' @import Rcpp
+#' @import RcppEigen
 NULL

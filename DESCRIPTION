@@ -7,10 +7,9 @@ Maintainer: Simon Dirmeier <simon.dirmeier@bsse.ethz.ch>
 Description: Implementation of algorithms such a k-NN or Markov random walks for network diffusion.
 License: GPL (>=3)
 LazyData: TRUE
-LinkingTo: Rcpp
+LinkingTo: Rcpp, RcppEigen
 Imports:
     Rcpp,
-    RcppEigen,
     Matrix,
     igraph
 Suggests:
