@@ -1,14 +1,14 @@
 #' @noRd
-.is.Matrix <- function(g) "dgCMatrix" %in% class(g)
+.is.Matrix <- function(g) "dgCMatrix" %in% class(g) | "dgeMatrix" %in% class(g)
 
 #' @noRd
 #' @import igraph
 #' @import Matrix
-.as.Matrix <- function(g)
+.as.matrix <- function(g)
 {
   if (igraph::is_igraph(g)) g <- igraph::get.adjacency(g)
-  invisible(Matrix::Matrix(g))
+  invisible(as.matrix(g))
 }
 
 #' @noRd
-.stoch.col.norm <- function(mat) Matrix::as.matrix(do_stoch_col_norm(mat))
+.stoch.col.norm <- function(mat) Matrix::as.matrix(do_stoch_col_norm(as.matrix(mat)))

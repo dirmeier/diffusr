@@ -4,7 +4,7 @@
 \alias{random.walk}
 \title{Do a Markov random walk on a graph}
 \usage{
-random.walk(p0, graph, r, ...)
+random.walk(p0, graph, r = 0.5, ...)
 }
 \arguments{
 \item{p0}{the staring distribution for the Markov chain}
