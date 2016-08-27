@@ -18,7 +18,7 @@ Eigen::MatrixXd do_stoch_col_norm(Eigen::MatrixXd W) {
   const double empt_col_val = 1.0 / W.rows();
   for (unsigned int i = 0; i < W.cols(); ++i )
   {
-    if ((W.col(i)).all() == 0.0) res.col(i).fill(empt_col_val);
+    if ((W.col(i)).sum() <= 0.00001) res.col(i).fill(empt_col_val);
     else res.col(i) = W.col(i) / colsums(i);
   }
   return res;
