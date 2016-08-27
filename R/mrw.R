@@ -36,6 +36,9 @@ random.walk.numeric <- function(p0, graph, r, ...)
 .rwr <-  function(p0, graph, r, ...)
 {
   mat <- .as.Matrix(graph)
+  if (any(mat < 0)) stop("graph has to be non-negative")
+  if (dim(mat)[1] != dim(mat)[2]) stop("graph has to be of dimension (n x n)!")
+  if (any(dim(mat[1])) != length(p0)) stop("p0 has to have same dim as your graph!")
 
 }
 

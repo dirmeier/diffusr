@@ -34,8 +34,15 @@ Eigen::VectorXd mrwr_(const Eigen::VectorXd& p0,
   return pt;
 }
 
+//' Do a Markon random walk (with restart) on an column-normalized adjacency matrix.
+//'
+//' @noRd
+//' @param p0  the staring distribution
+//' @param W  the column normalized adjacency matrix
+//' @param r  restart probability
+//' @return  returns the stationary distribution p_inf
 // [[Rcpp::export]]
-Eigen::VectorXd mrwr(Eigen::VectorXd p0, SEXP W, double r) {
+Eigen::VectorXd do_mrwr(Eigen::VectorXd p0, SEXP W, double r) {
   if (Rf_isS4(W))
   {
     if(Rf_inherits(W, "dgCMatrix"))
