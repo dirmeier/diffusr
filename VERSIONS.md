@@ -3,7 +3,7 @@ Versions
 
 ### v0.1
 
-* Basic submit utility
+* Basic MRW and KNN utility
 * Setup
   * Vignette, documentation for all classes and methods
   * License

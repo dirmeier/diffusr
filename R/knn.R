@@ -21,5 +21,5 @@ knn <- function(nodes, graph, k=1, ...) UseMethod("knn")
 #' @export
 knn.default <- function(nodes, graph, k=1,...)
 {
-  # TODO
+  stop("not yet implamented")
 }
