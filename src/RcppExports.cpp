@@ -7,7 +7,7 @@
 using namespace Rcpp;
 
 // do_stoch_col_norm
-SEXP do_stoch_col_norm(Eigen::MatrixXd W);
+Eigen::MatrixXd do_stoch_col_norm(Eigen::MatrixXd W);
 RcppExport SEXP diffusr_do_stoch_col_norm(SEXP WSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
