@@ -10,5 +10,4 @@
 #'
 #' @useDynLib diffusr
 #' @import Rcpp
-#' @import RcppEigen
 NULL
