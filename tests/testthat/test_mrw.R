@@ -1,8 +1,8 @@
 context("mrw")
 
 p0 <- c(1, rep(0, 4))
-graph <-  igraph::make_graph(c(1, 2, 2, 3, 3, 4, 4, 5), directed = FALSE)
-r <- .5
+adja <- matrix(1, 5, 5)
+graph <-  igraph::graph_from_adjacency_matrix(adja)
 
 test_that("random walk if w restarts", {
   s <- random.walk(p0, graph, 1)
@@ -11,7 +11,7 @@ test_that("random walk if w restarts", {
 
 test_that("random walk if w/o restarts", {
   s <- random.walk(p0, Matrix::as.matrix(igraph::get.adjacency(graph)), 0)
-   expect_equal(s, c(0,1, 0,0,0))
+   expect_equal(s, rep(.2, 5))
 })
 
 test_that("random walk with mat for graph", {
