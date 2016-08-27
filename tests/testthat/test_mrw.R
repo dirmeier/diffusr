@@ -56,3 +56,12 @@ test_that("random walk p0 smaller zero", {
   expect_error(random.walk(p0 - 5, graph, 1))
 })
 
+ptt <- p0
+pold <- rep(1, 5)
+r <- 0
+while (sum(abs(ptt-pold)) > .0001)
+{
+  pold <- ptt
+  ptt <- (1-r)* s %*% ptt +  r * p0
+}
+

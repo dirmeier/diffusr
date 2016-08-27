@@ -8,7 +8,7 @@ test_that("stochastic col norm", {
   ad <- igraph::get.adjacency(graph)
   stoch.norm <- diffusr::.stoch.col.norm(ad)
   cor.mat <- scale(ad, center=F, scale=Matrix::colSums(ad))
-  expect_equal(stoch.norm, cor.mat)
+  expect_equivalent(stoch.norm, cor.mat)
 })
 
 test_that("is dgc matrix", {
@@ -26,18 +26,18 @@ test_that("as matrix", {
   expect_true(is.matrix(ma))
 })
 
-test_that("equals double true", {
+test_that("equals double is true", {
   expect_true(.equals.double(0.9, 1, .1))
 })
 
-test_that("equals double false", {
-  expect_true(.equals.double(0.9, 1, .05))
+test_that("equals double is false", {
+  expect_false(.equals.double(0.9, 1, .05))
 })
 
-test_that("is in true", {
+test_that(".is is true", {
   expect_true(.in(0.9, 0, 1))
 })
 
-test_that("is in false", {
-  expect_true(.in(0.9, 0, .5))
+test_that(".in is false", {
+  expect_false(.in(0.9, 0, .5))
 })

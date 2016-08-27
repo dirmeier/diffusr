@@ -9,8 +9,8 @@
 Eigen::VectorXd mrwr_(const Eigen::VectorXd& p0,
                       const Eigen::SparseMatrix<double>& W,
                       double r){
-  Eigen::VectorXd pt = Eigen::VectorXd::Zero(W.rows());
-  Eigen::VectorXd pold = Eigen::VectorXd::Zero(W.rows());
+  Eigen::VectorXd pt = p0;
+  Eigen::VectorXd pold;
   do
   {
     pold = pt;
@@ -23,8 +23,8 @@ Eigen::VectorXd mrwr_(const Eigen::VectorXd& p0,
 Eigen::VectorXd mrwr_(const Eigen::VectorXd& p0,
                       const Eigen::MatrixXd& W,
                       double r){
-  Eigen::VectorXd pt = Eigen::VectorXd::Zero(W.rows());
-  Eigen::VectorXd pold = Eigen::VectorXd::Zero(W.rows());
+  Eigen::VectorXd pt = p0;
+  Eigen::VectorXd pold;
   do
   {
     pold = pt;
@@ -52,5 +52,7 @@ Eigen::VectorXd do_mrwr(Eigen::VectorXd p0, SEXP W, double r) {
   else
     return mrwr_(p0, Rcpp::as<Eigen::MatrixXd>(W), r) ;
 }
+
+
 
 
