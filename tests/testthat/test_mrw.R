@@ -11,7 +11,7 @@ test_that("random walk if w restarts", {
 
 test_that("random walk if w/o restarts", {
   s <- random.walk(p0, Matrix::as.matrix(igraph::get.adjacency(graph)), 0)
-  expect_equal(s, p0)
+   expect_equal(s, c(0,1, 0,0,0))
 })
 
 test_that("random walk with mat for graph", {
@@ -55,13 +55,3 @@ test_that("random walk if false dim", {
 test_that("random walk p0 smaller zero", {
   expect_error(random.walk(p0 - 5, graph, 1))
 })
-
-ptt <- p0
-pold <- rep(1, 5)
-r <- 0
-while (sum(abs(ptt-pold)) > .0001)
-{
-  pold <- ptt
-  ptt <- (1-r)* s %*% ptt +  r * p0
-}
-
