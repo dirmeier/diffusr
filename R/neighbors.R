@@ -15,16 +15,15 @@
 #' \dontrun{
 #'  TODO
 #' }
-knn <- function(node.idxs, graph, k=1, use.edge.weights=F, ...) UseMethod("knn")
+neighbors <- function(node.idxs, graph, k=1, use.edge.weights=F, ...) UseMethod("knn")
 
 #' @noRd
 #' @export
 #' @import igraph
 #' @import Matrix
-knn.numeric <- function(node.idxs, graph, k=1, use.edge.weights=F, ...)
+neighbors.numeric <- function(node.idxs, graph, k=1, use.edge.weights=F, ...)
 {
-  if (any(p0 < 0)) stop("p0 can only contain non-negative values!")
-  if (!.equals.double(sum(p0), 1, .0001)) stop("p0 does not sum to 1!")
+  if (node.idxs) stop("p0 can only contain non-negative values!")
   if (!igraph::is_igraph(graph) & !is.matrix(graph) & !.is.Matrix(graph))
     stop("'graph' is not a graph object or matrix!")
   if (!is.numeric(r)) stop("r has to be numeric!")
