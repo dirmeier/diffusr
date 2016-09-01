@@ -8,6 +8,7 @@
 #include <RcppEigen.h>
 #include <vector>
 #include <set>
+#include <queue>
 #include <cstdlib>
 #ifdef _OPENMP
 #include <omp.h>
@@ -16,14 +17,39 @@
 
 
 void add_neighbors_(std::set<int>& nodes,
+                    std::vector<bool>& visited,
                     const int row_idx,
                     const int curr_depth,
                     const int k,
-                    const Rcpp::NumericMatrix& W)
+                    const std::vector< std::vector<int> >& adj)
 {
-
+  visited[row_idx] = true;
+  if (curr_depth < k)
+  {
+    for (uint32_t i = 0; i < adj[row_idx].size(); ++i)
+    {
+      int idx = adj[row_idx][i];
+      if (!visited[idx])
+      {
+        nodes.insert(idx);
+        add_neighbors_(nodes, visited, idx, curr_depth + 1, k, adj);
+      }
+    }
+  }
 }
 
+std::vector< std::vector<int> > init_adj_list_(const Rcpp::NumericMatrix& W)
+{
+  std::vector< std::vector<int> > adj(W.nrow());
+  for (int i = 0; i < W.nrow(); ++i)
+  {
+    std::vector<int> neighs;
+    for (int j = 0; j < W.ncol(); ++j)
+        if (W(i, j)) neighs.push_back(j);
+    adj[i] = neighs;
+  }
+  return adj;
+}
 
 //' Find the closest neighbors of a group of nodes in a graph.
 //'
@@ -39,28 +65,26 @@ Rcpp::List do_neighbors(const Rcpp::IntegerVector& node_idxs,
                         const int k,
                         const bool use_edge_weights)
 {
+  // number of idxs given
   uint32_t len = static_cast<uint32_t>(node_idxs.size());
+  // neighbors for every node
   std::vector< std::set<int> > neighbors(len);
-  const int nrow = W.nrow();
-  const int ncol = W.ncol();
+  // setup adjacency list
+  std::vector<std::vector<int> > adj = init_adj_list_(W);
+  // parallelize node search
   # pragma omp parallel for
-  for (uint32_t i = 0; i < len, ++i)
+  for (uint32_t i = 0; i < len; ++i)
   {
-    const int node_idx = node_idxs[i];
+    // substract one, cause R was one-based
+    const int node_idx = node_idxs[i] - 1;
+    // neighbors of current node
     std::set<int> node_neighbors;
     neighbors.push_back(node_neighbors);
-    add_neighbors_(node_neighbors, i, 0, k, W);
+    // set visited matrix
+    std::vector<bool> visited(W.nrow(), false);
+    // recursively add neighbors
+    add_neighbors_(node_neighbors, visited, node_idx, 0, k, adj);
   }
   return Rcpp::wrap(neighbors);
-}
-
-
-void add_neighbors_(std::set<int>& nodes,
-                    const int row_idx,
-                    const int curr_depth,
-                    const int k,
-                    const Rcpp::NumericMatrix& W)
-{
-
 }
 

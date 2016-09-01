@@ -21,7 +21,7 @@ do_mrwr <- function(p0, W, r) {
     .Call('diffusr_do_mrwr', PACKAGE = 'diffusr', p0, W, r)
 }
 
-#' Do a Markon random walk (with restart) on an column-normalized adjacency matrix.
+#' Find the closest neighbors of a group of nodes in a graph.
 #'
 #' @noRd
 #' @param node_idxs  the staring distribution
