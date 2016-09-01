@@ -14,7 +14,6 @@
 #' }
 random.walk <- function(p0, graph, r=.5, ...) UseMethod("random.walk")
 
-
 #' @noRd
 #' @export
 #' @import igraph
