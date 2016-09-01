@@ -4,6 +4,7 @@
  */
 
 // [[Rcpp::plugins(cpp11)]]
+#include <Rcpp.h>
 #include <vector>
 #include <set>
 #include <cstdlib>
