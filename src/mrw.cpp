@@ -16,17 +16,18 @@
 //' @return  returns the stationary distribution p_inf
 // [[Rcpp::export(name=".mrwr_cpp")]]
 Eigen::VectorXd mrwr_(const Eigen::VectorXd& p0,
-                        const Eigen::MatrixXd& W,
-                        double r)
+                      const Eigen::MatrixXd& W,
+                      const double r)
 {
   Eigen::VectorXd pt = p0;
   Eigen::VectorXd pold;
+  const double thresh = .000001;
   do
   {
     pold = pt;
     pt = (1  - r) * W * pold + r * p0;
   }
-  while ((pt - pold).norm() > .0000000001);
+  while ((pt - pold).norm() > thresh);
   return pt;
 }
 

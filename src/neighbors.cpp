@@ -16,11 +16,11 @@ void add_neighbors_(std::set<int>& nodes,
                     std::vector<bool>& visited,
                     const int row_idx,
                     const int curr_depth,
-                    const int DEPTH,
+                    const int MAX_DEPTH,
                     const std::vector< std::vector<int> >& adj)
 {
   visited[row_idx] = true;
-  if (curr_depth < DEPTH)
+  if (curr_depth < MAX_DEPTH)
   {
     for (uint32_t i = 0; i < adj[row_idx].size(); ++i)
     {
@@ -28,7 +28,7 @@ void add_neighbors_(std::set<int>& nodes,
       if (!visited[idx])
       {
         nodes.insert(idx + 1);
-        add_neighbors_(nodes, visited, idx, curr_depth + 1, DEPTH, adj);
+        add_neighbors_(nodes, visited, idx, curr_depth + 1, MAX_DEPTH, adj);
       }
     }
   }
@@ -58,9 +58,9 @@ std::vector< std::vector<int> > init_adj_list_(const Rcpp::NumericMatrix& W)
 //' @return  returns a list of nearest neighbors for every node idxs given in <emph>node_idxs</emph>
 // [[Rcpp::export(name=".neighbors_cpp")]]
 Rcpp::List neighbors_(const Rcpp::IntegerVector& node_idxs,
-                        const Rcpp::NumericMatrix& W,
-                        const int k,
-                        const bool use_edge_weights)
+                      const Rcpp::NumericMatrix& W,
+                      const int k,
+                      const bool use_edge_weights)
 {
   // number of idxs given
   uint32_t len = static_cast<uint32_t>(node_idxs.size());
