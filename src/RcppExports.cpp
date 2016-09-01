@@ -7,25 +7,25 @@
 using namespace Rcpp;
 
 // stoch_col_norm_
-Eigen::MatrixXd stoch_col_norm_(Eigen::MatrixXd W);
+Eigen::MatrixXd stoch_col_norm_(const Eigen::MatrixXd& W);
 RcppExport SEXP diffusr_stoch_col_norm_(SEXP WSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type W(WSEXP);
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type W(WSEXP);
     __result = Rcpp::wrap(stoch_col_norm_(W));
     return __result;
 END_RCPP
 }
 // mrwr_
-Eigen::VectorXd mrwr_(const Eigen::VectorXd& p0, const Eigen::MatrixXd& W, double r);
+Eigen::VectorXd mrwr_(const Eigen::VectorXd& p0, const Eigen::MatrixXd& W, const double r);
 RcppExport SEXP diffusr_mrwr_(SEXP p0SEXP, SEXP WSEXP, SEXP rSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
     Rcpp::traits::input_parameter< const Eigen::VectorXd& >::type p0(p0SEXP);
     Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type W(WSEXP);
-    Rcpp::traits::input_parameter< double >::type r(rSEXP);
+    Rcpp::traits::input_parameter< const double >::type r(rSEXP);
     __result = Rcpp::wrap(mrwr_(p0, W, r));
     return __result;
 END_RCPP
