@@ -31,12 +31,12 @@ BEGIN_RCPP
 END_RCPP
 }
 // do_neighbors
-Rcpp::List do_neighbors(const Rcpp::IntegerVector& node_idxs, const Rcpp::NumericMatrix& W, const int k, const bool use_edge_weights);
+Rcpp::List do_neighbors(std::vector<int>& node_idxs, const Rcpp::NumericMatrix& W, const int k, const bool use_edge_weights);
 RcppExport SEXP diffusr_do_neighbors(SEXP node_idxsSEXP, SEXP WSEXP, SEXP kSEXP, SEXP use_edge_weightsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< const Rcpp::IntegerVector& >::type node_idxs(node_idxsSEXP);
+    Rcpp::traits::input_parameter< std::vector<int>& >::type node_idxs(node_idxsSEXP);
     Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type W(WSEXP);
     Rcpp::traits::input_parameter< const int >::type k(kSEXP);
     Rcpp::traits::input_parameter< const bool >::type use_edge_weights(use_edge_weightsSEXP);

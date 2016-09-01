@@ -3,18 +3,13 @@
  * @email simon.dirmeier@bsse.ethz.ch
  */
 
-// [[Rcpp::depends(RcppEigen)]]
 // [[Rcpp::plugins(cpp11)]]
-#include <RcppEigen.h>
 #include <vector>
 #include <set>
-#include <queue>
 #include <cstdlib>
 #ifdef _OPENMP
 #include <omp.h>
 #endif
-
-
 
 void add_neighbors_(std::set<int>& nodes,
                     std::vector<bool>& visited,
@@ -48,6 +43,13 @@ std::vector< std::vector<int> > init_adj_list_(const Rcpp::NumericMatrix& W)
         if (W(i, j)) neighs.push_back(j);
     adj[i] = neighs;
   }
+  for (int i = 0; i < adj.size(); ++i)
+  {
+    Rcpp::Rcout <<  "Idx " << i << " -> ";
+    for (int j = 0; j < adj[i].size(); ++j)
+      Rcpp::Rcout << adj[i][j] << " ";
+    Rcpp::Rcout <<  "\n";
+  }
   return adj;
 }
 
@@ -60,7 +62,7 @@ std::vector< std::vector<int> > init_adj_list_(const Rcpp::NumericMatrix& W)
 //' @param use_edge_weights  boolean flags if the edge weights should be considered when doing nearest neighbor lookup
 //' @return  returns a list of nearest neighbors for every node idxs given in <emph>node_idxs</emph>
 // [[Rcpp::export]]
-Rcpp::List do_neighbors(const Rcpp::IntegerVector& node_idxs,
+Rcpp::List do_neighbors(std::vector<int>& node_idxs,
                         const Rcpp::NumericMatrix& W,
                         const int k,
                         const bool use_edge_weights)
@@ -79,7 +81,8 @@ Rcpp::List do_neighbors(const Rcpp::IntegerVector& node_idxs,
     const int node_idx = node_idxs[i] - 1;
     // neighbors of current node
     std::set<int> node_neighbors;
-    neighbors.push_back(node_neighbors);
+    node_neighbors.insert(100);
+    neighbors[i] =  node_neighbors;
     // set visited matrix
     std::vector<bool> visited(W.nrow(), false);
     // recursively add neighbors
