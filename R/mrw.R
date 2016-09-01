@@ -39,7 +39,7 @@ random.walk.numeric <- function(p0, graph, r=.5, ...)
   if (dim(mat)[1] != dim(mat)[2]) stop("graph has to be of dimension (n x n)!")
   if (dim(mat)[1] != length(p0)) stop("p0 has to have same dim as your graph!")
   mat <- .stoch.col.norm(mat)
-  invisible(do_mrwr(p0, mat, r))
+  invisible(.mrwr_cpp(p0, mat, r))
 }
 
 

@@ -15,7 +15,7 @@
 #' \dontrun{
 #'  TODO
 #' }
-neighbors <- function(node.idxs, graph, k=1L, use.edge.weights=F, ...) UseMethod("knn")
+neighbors <- function(node.idxs, graph, k=1L, use.edge.weights=F, ...) UseMethod("neighbors")
 
 #' @noRd
 #' @export
@@ -33,6 +33,7 @@ neighbors.integer <- function(node.idxs, graph, k=1L, use.edge.weights=F, ...)
   }
   if (k < 1) stop("k must be greater than 0!")
   if (!is.logical(use.edge.weights)) stop("Use edge weughts should be boolean!")
+  if (use.edge.weights) stop("Not yet implemented!")
   .neighbors(node.idxs, graph, k, use.edge.weights)
 }
 
@@ -44,5 +45,5 @@ neighbors.integer <- function(node.idxs, graph, k=1L, use.edge.weights=F, ...)
   mat <- .as.matrix(graph)
   if (any(mat < 0)) stop("graph has to be non-negative")
   if (dim(mat)[1] != dim(mat)[2]) stop("graph has to be of dimension (n x n)!")
-  invisible(do_neighbors(as.integer(node.idxs), graph, as.integer(k), use.edge.weights))
+  invisible(.neighbors_cpp(as.integer(node.idxs), graph, as.integer(k), use.edge.weights))
 }

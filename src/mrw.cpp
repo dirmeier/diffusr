@@ -14,8 +14,8 @@
 //' @param W  the column normalized adjacency matrix
 //' @param r  restart probability
 //' @return  returns the stationary distribution p_inf
-// [[Rcpp::export]]
-Eigen::VectorXd do_mrwr(const Eigen::VectorXd& p0,
+// [[Rcpp::export(name=".mrwr_cpp")]]
+Eigen::VectorXd mrwr_(const Eigen::VectorXd& p0,
                         const Eigen::MatrixXd& W,
                         double r)
 {

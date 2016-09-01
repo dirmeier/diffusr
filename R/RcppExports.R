@@ -6,8 +6,8 @@
 #' @noRd
 #' @param W  the adjacency matrix to be normalized
 #' @return  returns the normalized matrix
-do_stoch_col_norm <- function(W) {
-    .Call('diffusr_do_stoch_col_norm', PACKAGE = 'diffusr', W)
+.stoch_col_norm_cpp <- function(W) {
+    .Call('diffusr_stoch_col_norm_', PACKAGE = 'diffusr', W)
 }
 
 #' Do a Markon random walk (with restart) on an column-normalized adjacency matrix.
@@ -17,8 +17,8 @@ do_stoch_col_norm <- function(W) {
 #' @param W  the column normalized adjacency matrix
 #' @param r  restart probability
 #' @return  returns the stationary distribution p_inf
-do_mrwr <- function(p0, W, r) {
-    .Call('diffusr_do_mrwr', PACKAGE = 'diffusr', p0, W, r)
+.mrwr_cpp <- function(p0, W, r) {
+    .Call('diffusr_mrwr_', PACKAGE = 'diffusr', p0, W, r)
 }
 
 #' Find the closest neighbors of a group of nodes in a graph.
@@ -29,7 +29,7 @@ do_mrwr <- function(p0, W, r) {
 #' @param k  the depth of the nearest neighbor search
 #' @param use_edge_weights  boolean flags if the edge weights should be considered when doing nearest neighbor lookup
 #' @return  returns a list of nearest neighbors for every node idxs given in <emph>node_idxs</emph>
-do_neighbors <- function(node_idxs, W, k, use_edge_weights) {
-    .Call('diffusr_do_neighbors', PACKAGE = 'diffusr', node_idxs, W, k, use_edge_weights)
+.neighbors_cpp <- function(node_idxs, W, k, use_edge_weights) {
+    .Call('diffusr_neighbors_', PACKAGE = 'diffusr', node_idxs, W, k, use_edge_weights)
 }
 

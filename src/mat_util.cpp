@@ -11,8 +11,8 @@
 //' @noRd
 //' @param W  the adjacency matrix to be normalized
 //' @return  returns the normalized matrix
-// [[Rcpp::export]]
-Eigen::MatrixXd do_stoch_col_norm(Eigen::MatrixXd W) {
+// [[Rcpp::export(name=".stoch_col_norm_cpp")]]
+Eigen::MatrixXd stoch_col_norm_(Eigen::MatrixXd W) {
   Eigen::MatrixXd res(W.rows(), W.cols());
   Eigen::VectorXd colsums = W.colwise().sum();
   const double empt_col_val = 1.0 / W.rows();

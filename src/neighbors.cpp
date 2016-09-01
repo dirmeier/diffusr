@@ -16,19 +16,19 @@ void add_neighbors_(std::set<int>& nodes,
                     std::vector<bool>& visited,
                     const int row_idx,
                     const int curr_depth,
-                    const int k,
+                    const int DEPTH,
                     const std::vector< std::vector<int> >& adj)
 {
   visited[row_idx] = true;
-  if (curr_depth < k)
+  if (curr_depth < DEPTH)
   {
     for (uint32_t i = 0; i < adj[row_idx].size(); ++i)
     {
-      int idx = adj[row_idx][i];
+      const int idx = adj[row_idx][i];
       if (!visited[idx])
       {
-        nodes.insert(idx);
-        add_neighbors_(nodes, visited, idx, curr_depth + 1, k, adj);
+        nodes.insert(idx + 1);
+        add_neighbors_(nodes, visited, idx, curr_depth + 1, DEPTH, adj);
       }
     }
   }
@@ -37,19 +37,13 @@ void add_neighbors_(std::set<int>& nodes,
 std::vector< std::vector<int> > init_adj_list_(const Rcpp::NumericMatrix& W)
 {
   std::vector< std::vector<int> > adj(W.nrow());
+  # pragma omp parallel for
   for (int i = 0; i < W.nrow(); ++i)
   {
     std::vector<int> neighs;
     for (int j = 0; j < W.ncol(); ++j)
-        if (W(i, j)) neighs.push_back(j);
+        if (i != j && W(i, j)) neighs.push_back(j);
     adj[i] = neighs;
-  }
-  for (int i = 0; i < adj.size(); ++i)
-  {
-    Rcpp::Rcout <<  "Idx " << i << " -> ";
-    for (int j = 0; j < adj[i].size(); ++j)
-      Rcpp::Rcout << adj[i][j] << " ";
-    Rcpp::Rcout <<  "\n";
   }
   return adj;
 }
@@ -62,8 +56,8 @@ std::vector< std::vector<int> > init_adj_list_(const Rcpp::NumericMatrix& W)
 //' @param k  the depth of the nearest neighbor search
 //' @param use_edge_weights  boolean flags if the edge weights should be considered when doing nearest neighbor lookup
 //' @return  returns a list of nearest neighbors for every node idxs given in <emph>node_idxs</emph>
-// [[Rcpp::export]]
-Rcpp::List do_neighbors(std::vector<int>& node_idxs,
+// [[Rcpp::export(name=".neighbors_cpp")]]
+Rcpp::List neighbors_(const Rcpp::IntegerVector& node_idxs,
                         const Rcpp::NumericMatrix& W,
                         const int k,
                         const bool use_edge_weights)
@@ -81,13 +75,11 @@ Rcpp::List do_neighbors(std::vector<int>& node_idxs,
     // substract one, cause R was one-based
     const int node_idx = node_idxs[i] - 1;
     // neighbors of current node
-    std::set<int> node_neighbors;
-    node_neighbors.insert(100);
-    neighbors[i] =  node_neighbors;
+    neighbors[i] = std::set<int>();
     // set visited matrix
     std::vector<bool> visited(W.nrow(), false);
     // recursively add neighbors
-    add_neighbors_(node_neighbors, visited, node_idx, 0, k, adj);
+    add_neighbors_(neighbors[i], visited, node_idx, 0, k, adj);
   }
   return Rcpp::wrap(neighbors);
 }
