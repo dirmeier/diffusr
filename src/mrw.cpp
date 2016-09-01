@@ -15,7 +15,10 @@
 //' @param r  restart probability
 //' @return  returns the stationary distribution p_inf
 // [[Rcpp::export]]
-Eigen::VectorXd do_mrwr(Eigen::VectorXd p0, Eigen::MatrixXd W, double r) {
+Eigen::VectorXd do_mrwr(const Eigen::VectorXd& p0,
+                        const Eigen::MatrixXd& W,
+                        double r)
+{
   Eigen::VectorXd pt = p0;
   Eigen::VectorXd pold;
   do

@@ -32,7 +32,7 @@ random.walk.numeric <- function(p0, graph, r=.5, ...)
 #' @noRd
 #' @import igraph
 #' @import Matrix
-.rwr <-  function(p0, graph, r, ...)
+.rwr <-  function(p0, graph, r)
 {
   mat <- .as.matrix(graph)
   if (any(mat < 0)) stop("graph has to be non-negative")

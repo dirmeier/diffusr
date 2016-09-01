@@ -21,3 +21,15 @@ do_mrwr <- function(p0, W, r) {
     .Call('diffusr_do_mrwr', PACKAGE = 'diffusr', p0, W, r)
 }
 
+#' Do a Markon random walk (with restart) on an column-normalized adjacency matrix.
+#'
+#' @noRd
+#' @param node_idxs  the staring distribution
+#' @param W  adjacency matrix
+#' @param k  the depth of the nearest neighbor search
+#' @param use_edge_weights  boolean flags if the edge weights should be considered when doing nearest neighbor lookup
+#' @return  returns a list of nearest neighbors for every node idxs given in <emph>node_idxs</emph>
+do_neighbors <- function(node_idxs, W, k, use_edge_weights) {
+    .Call('diffusr_do_neighbors', PACKAGE = 'diffusr', node_idxs, W, k, use_edge_weights)
+}
+
