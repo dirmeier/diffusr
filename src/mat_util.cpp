@@ -11,6 +11,7 @@
 //' @noRd
 //' @param W  the adjacency matrix to be normalized
 //' @return  returns the normalized matrix
+// [[Rcpp::interfaces(r, cpp)]]
 // [[Rcpp::export(name=".stoch_col_norm_cpp")]]
 Eigen::MatrixXd stoch_col_norm_(const Eigen::MatrixXd& W)
 {

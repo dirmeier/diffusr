@@ -56,6 +56,7 @@ std::vector< std::vector<int> > init_adj_list_(const Rcpp::NumericMatrix& W)
 //' @param k  the depth of the nearest neighbor search
 //' @param use_edge_weights  boolean flags if the edge weights should be considered when doing nearest neighbor lookup
 //' @return  returns a list of nearest neighbors for every node idxs given in <emph>node_idxs</emph>
+// [[Rcpp::interfaces(r, cpp)]]
 // [[Rcpp::export(name=".neighbors_cpp")]]
 Rcpp::List neighbors_(const Rcpp::IntegerVector& node_idxs,
                       const Rcpp::NumericMatrix& W,
