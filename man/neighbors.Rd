@@ -24,9 +24,10 @@ returns the kNN graph as an an <code>igraph</code> object
 Find the closest neighbors of a group of nodes in a graph.
 }
 \examples{
-\dontrun{
- TODO
-}
+ n <- 10
+ node.idxs <- 1:2
+ graph <- rbind(cbind(0, diag(n-1)), 0)
+ neighs <- neighbors(node.idxs, graph)
 }
 \author{
 Simon Dirmeier

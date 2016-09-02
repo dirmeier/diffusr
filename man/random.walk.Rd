@@ -22,9 +22,13 @@ returns the stationary distribution of the
 Do a Markov random walk on a graph
 }
 \examples{
-\dontrun{
- TODO
-}
+ n <- 5
+ # some starting distribution
+ p0 <- rmultinom(1, 1, prob=rep(.2, n))
+ # random non-negative matrix
+ graph <- matrix(abs(rnorm(n*n)), n, n)
+ # stationary distribution
+ pt <- random.walk(p0, graph)
 }
 \author{
 Simon Dirmeier

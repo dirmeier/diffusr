@@ -22,7 +22,7 @@ Eigen::VectorXd mrwr_(const Eigen::VectorXd& p0,
 {
   Eigen::VectorXd pt = p0;
   Eigen::VectorXd pold;
-  const double thresh = .00001;
+  const double thresh = .00000001;
   do
   {
     pold = pt;

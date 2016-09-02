@@ -9,9 +9,13 @@
 #' @param ...  additional params
 #' @return  returns the stationary distribution of the
 #' @examples
-#' \dontrun{
-#'  TODO
-#' }
+#'  n <- 5
+#'  # some starting distribution
+#'  p0 <- rmultinom(1, 1, prob=rep(.2, n))
+#'  # random non-negative matrix
+#'  graph <- matrix(abs(rnorm(n*n)), n, n)
+#'  # stationary distribution
+#'  pt <- random.walk(p0, graph)
 random.walk <- function(p0, graph, r=.5, ...) UseMethod("random.walk")
 
 #' @noRd

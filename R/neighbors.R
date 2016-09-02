@@ -12,9 +12,10 @@
 #' @param ...  additional params
 #' @return  returns the kNN graph as an an <code>igraph</code> object
 #' @examples
-#' \dontrun{
-#'  TODO
-#' }
+#'  n <- 10
+#'  node.idxs <- 1:2
+#'  graph <- rbind(cbind(0, diag(n-1)), 0)
+#'  neighs <- neighbors(node.idxs, graph)
 neighbors <- function(node.idxs, graph, k=1L, use.edge.weights=F, ...) UseMethod("neighbors")
 
 #' @noRd
@@ -47,3 +48,4 @@ neighbors.integer <- function(node.idxs, graph, k=1L, use.edge.weights=F, ...)
   if (dim(mat)[1] != dim(mat)[2]) stop("graph has to be of dimension (n x n)!")
   invisible(.neighbors_cpp(as.integer(node.idxs), graph, as.integer(k), use.edge.weights))
 }
+
