@@ -79,7 +79,7 @@ Rcpp::List neighbors_(const Rcpp::IntegerVector& node_idxs,
   for (uint32_t i = 0; i < len; ++i)
   {
     // substract one, cause R was one-based
-    const uint32_t node_idx = node_idxs[i] - 1;
+    const uint32_t node_idx = static_cast<uint32_t>(node_idxs[i]) - 1;
     // neighbors of current node
     neighbors[i] = std::set<int>();
     // set visited matrix
