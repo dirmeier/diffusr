@@ -69,7 +69,7 @@ Rcpp::List neighbors_(const Rcpp::IntegerVector& node_idxs,
                       const bool use_edge_weights)
 {
   // number of idxs given
-  uint32_t len = static_cast<uint32_t>(node_idxs.size());
+  const uint32_t len = static_cast<uint32_t>(node_idxs.size());
   // neighbors for every node
   std::vector<std::set<int>> neighbors(len);
   // setup adjacency list
@@ -83,7 +83,7 @@ Rcpp::List neighbors_(const Rcpp::IntegerVector& node_idxs,
     // neighbors of current node
     neighbors[i] = std::set<int>();
     // set visited matrix
-    std::vector<bool> visited(W.nrow(), false);
+    std::vector<uint8_t> visited(W.nrow(), false);
     // recursively add neighbors
     add_neighbors_(neighbors[i], visited, node_idx, 0, k, adj);
   }

@@ -7,7 +7,7 @@
 #include <RcppEigen.h>
 #include <vector>
 
-//' Do a Markon random walk (with restart) on an column-normalized adjacency matrix.
+//' Do a Markon random walk (with restart) on an column-normalised adjacency matrix.
 //'
 //' @noRd
 //' @param p0  the staring distribution
@@ -22,7 +22,7 @@ Eigen::VectorXd mrwr_(const Eigen::VectorXd& p0,
 {
   Eigen::VectorXd pt = p0;
   Eigen::VectorXd pold;
-  const double thresh = .000001;
+  const double thresh = .00001;
   do
   {
     pold = pt;
