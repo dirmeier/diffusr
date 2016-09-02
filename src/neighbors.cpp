@@ -13,14 +13,14 @@
 #endif
 
 void add_neighbors_(std::set<int>& nodes,
-                    std::vector<bool>& visited,
-                    const int row_idx,
+                    std::vector<uint8_t>& visited,
+                    const uint32_t row_idx,
                     const int curr_depth,
-                    const int MAX_DEPTH,
-                    const std::vector< std::vector<int> >& adj)
+                    const int max_depth,
+                    const std::vector<std::vector<int>>& adj)
 {
   visited[row_idx] = true;
-  if (curr_depth < MAX_DEPTH)
+  if (curr_depth < max_depth)
   {
     for (uint32_t i = 0; i < adj[row_idx].size(); ++i)
     {
@@ -28,21 +28,26 @@ void add_neighbors_(std::set<int>& nodes,
       if (!visited[idx])
       {
         nodes.insert(idx + 1);
-        add_neighbors_(nodes, visited, idx, curr_depth + 1, MAX_DEPTH, adj);
+        add_neighbors_(nodes, visited, idx, curr_depth + 1, max_depth, adj);
       }
     }
   }
 }
 
-std::vector< std::vector<int> > init_adj_list_(const Rcpp::NumericMatrix& W)
+std::vector<std::vector<int>> init_adj_list_(const Rcpp::NumericMatrix& W)
 {
-  std::vector< std::vector<int> > adj(W.nrow());
-  # pragma omp parallel for
+  std::vector<std::vector<int>> adj(W.nrow());
+  #pragma omp parallel for
   for (int i = 0; i < W.nrow(); ++i)
   {
     std::vector<int> neighs;
     for (int j = 0; j < W.ncol(); ++j)
-        if (i != j && W(i, j)) neighs.push_back(j);
+    {
+        if (i != j && W(i, j))
+        {
+          neighs.push_back(j);
+        }
+    }
     adj[i] = neighs;
   }
   return adj;
@@ -66,15 +71,15 @@ Rcpp::List neighbors_(const Rcpp::IntegerVector& node_idxs,
   // number of idxs given
   uint32_t len = static_cast<uint32_t>(node_idxs.size());
   // neighbors for every node
-  std::vector< std::set<int> > neighbors(len);
+  std::vector<std::set<int>> neighbors(len);
   // setup adjacency list
-  std::vector<std::vector<int> > adj = init_adj_list_(W);
+  std::vector<std::vector<int>> adj = init_adj_list_(W);
   // parallelize node search
-  # pragma omp parallel for
+  #pragma omp parallel for
   for (uint32_t i = 0; i < len; ++i)
   {
     // substract one, cause R was one-based
-    const int node_idx = node_idxs[i] - 1;
+    const uint32_t node_idx = node_idxs[i] - 1;
     // neighbors of current node
     neighbors[i] = std::set<int>();
     // set visited matrix
