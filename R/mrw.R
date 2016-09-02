@@ -1,21 +1,25 @@
-#' Do a Markov random walk on a graph
+#' Do a Markov random walk on a graph.
 #'
 #' @export
-#' @author Simon Dirmeier
+#' @author Simon Dirmeier, email{simon.dirmeier@@bsse.ethz.ch}
 #'
-#' @param p0  the staring distribution for the Markov chain
-#' @param graph  a weighted <code>igraph</code> object
+#' @import igraph
+#' @import Matrix
+#'
+#' @param p0  the starting distribution of the Markov chain
+#' @param graph  a weighted \code{igraph} object
 #' @param r  the restart probability if a Markov random walk with restart is desired
 #' @param ...  additional params
-#' @return  returns the stationary distribution of the
+#' @return  returns the stationary distribution of the Markov random walk
 #' @examples
-#'  n <- 5
-#'  # some starting distribution
-#'  p0 <- rmultinom(1, 1, prob=rep(.2, n))
-#'  # random non-negative matrix
-#'  graph <- matrix(abs(rnorm(n*n)), n, n)
-#'  # stationary distribution
-#'  pt <- random.walk(p0, graph)
+#' # count of nodes
+#' n <- 5
+#' # starting distribution (has to sum to one)
+#' p0    <- rmultinom(1, 1, prob=rep(.2, n))
+#' # adjacency matrix (either normalized or not)
+#' graph <- matrix(abs(rnorm(n*n)), n, n)
+#' # computation of stationary distribution
+#' pt    <- random.walk(p0, graph)
 random.walk <- function(p0, graph, r=.5, ...) UseMethod("random.walk")
 
 #' @noRd

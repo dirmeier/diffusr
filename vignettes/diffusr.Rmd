@@ -1,58 +1,74 @@
 ---
-title: "Vignette Title"
-author: "Vignette Author"
+title: "The submitr tutorial"
+author: "Simon Dirmeier"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output: rmarkdown::pdf_document
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{The diffusr tutorial}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
+## Introduction
 
-Vignettes are long form documentation commonly included in packages. Because they are part of the distribution of the package, they need to be as compact as possible. The `html_vignette` output type provides a custom style sheet (and tweaks some options) to ensure that the resulting html is as small as possible. The `html_vignette` format:
+`diffusr` implements algorithms for network diffusion such as *Markov random walks with restarts* and *weighted neighbor classification*. Network diffusion has been studied extensively in bioinformatics, e.g. in the field of cancer gene prioritization.
+To my knowledge only few packages implement all of the diffusion algorithms. In the first version of `diffusr` I implemented the two methods above, several others will follow in future patches.
 
-- Never uses retina figures
-- Has a smaller default figure size
-- Uses a custom CSS stylesheet instead of the default Twitter Bootstrap style
+## Tutorial
 
-## Vignette Info
+First load the package:
 
-Note the various macros within the `vignette` section of the metadata block above. These are required in order to instruct R how to build the vignette. Note that you should change the `title` field and the `\VignetteIndexEntry` to match the title of your vignette.
-
-## Styles
-
-The `html_vignette` template includes a basic CSS theme. To override this theme you can specify your own CSS in the document metadata as follows:
-
-    output: 
-      rmarkdown::html_vignette:
-        css: mystyles.css
-
-## Figures
-
-The figure sizes have been customised so that you can easily put two images side-by-side. 
-
-```{r, fig.show='hold'}
-plot(1:10)
-plot(10:1)
+```{r}
+library(diffusr)
 ```
 
-You can enable figure captions by `fig_caption: yes` in YAML:
+### Markov random walks
 
-    output:
-      rmarkdown::html_vignette:
-        fig_caption: yes
+A *Markov random walk with restarts* calculates the stationary distribution:
+\begin{equation}
+\mathbf{p}_{t+1} = (1 - r) \mathbf{W}  \mathbf{p}_t + r \mathbf{p}_0,
+\end{equation}
+where $r \in \{0,1 \}$ is a *restart probability* of the Markov chain, $\mathbf{W}$ is a column-normalized stochastic matrix (we do the normalization for you) an $\mathbf{p}_0$ is the starting distribution of the Markov chain. We calculate the iterative updates, it is also possible to do the math using the nullspace of the matrix (comes later).
 
-Then you can use the chunk option `fig.cap = "Your figure caption."` in **knitr**.
+If you want to use Markov random walks just try something like this:
 
-## More Examples
+```{r}
+ # count of nodes
+ n <- 5
+ # starting distribution (has to sum to one)
+ p0    <- rmultinom(1, 1, prob=rep(.2, n))
+ # adjacency matrix (either normalized or not)
+ graph <- matrix(abs(rnorm(n*n)), n, n)
+ # computation of stationary distribution
+ pt    <- random.walk(p0, graph)
+```
+ 
+The stationary distribution should have changed quite a bit from the starting distribution:
 
-You can write math expressions, e.g. $Y = X\beta + \epsilon$, footnotes^[A footnote here.], and tables, e.g. using `knitr::kable()`.
-
-```{r, echo=FALSE, results='asis'}
-knitr::kable(head(mtcars, 10))
+```{r}
+ print(t(p0)) 
+ print(t(pt))
 ```
 
-Also a quote using `>`:
+### Nearest neighbor search
 
-> "He who gives up [code] safety for [code] speed deserves neither."
-([via](https://twitter.com/hadleywickham/status/504368538874703872))
+*Nearest neighbor search* is straight-forward. We just traverse through the graph and take all the neighbors of a node until a certain depths in the graph is reached:
+
+```{r}
+ # count of nodes
+ n <- 10
+ # indexes(integer) of nodes for which neighbors should be searched 
+ node.idxs <- c(1L, 5L)
+ # the adjaceny matrix (does not need to be symmetric)
+ graph <- rbind(cbind(0, diag(n-1)), 0)
+ # compte the neighbors until depth 3
+ neighs <- neighbors(node.idxs, graph, 3)
+```
+
+Let's see what we got:
+
+```{r}
+ print(neighs) 
+```
+
+
+That's all so far.

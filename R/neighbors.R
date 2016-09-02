@@ -1,21 +1,26 @@
 #' Find the closest neighbors of a group of nodes in a graph.
 #'
 #' @export
-#' @author Simon Dirmeier
+#' @author Simon Dirmeier, email{simon.dirmeier@@bsse.ethz.ch}
+#'
 #' @import igraph
 #' @import Matrix
 #'
 #' @param node.idxs  vector of node indexes (1-based) for which the algorithm is applied iteratively
-#' @param graph  an <code>igraph</code> object
+#' @param graph  an \code{igraph} object
 #' @param k  the depth of the nearest neighbor search
 #' @param use.edge.weights  boolean flags if the edge weights should be considered when doing nearest neighbor lookup
 #' @param ...  additional params
-#' @return  returns the kNN graph as an an <code>igraph</code> object
+#' @return  returns the kNN graph as an an \code{igraph} object
 #' @examples
+#'  # count of nodes
 #'  n <- 10
-#'  node.idxs <- 1:2
+#'  # indexes (integer) of nodes for which neighbors should be searched
+#'  node.idxs <- c(1L, 5L)
+#'  # the adjaceny matrix (does not need to be symmetric)
 #'  graph <- rbind(cbind(0, diag(n-1)), 0)
-#'  neighs <- neighbors(node.idxs, graph)
+#'  # compte the neighbors until depth 3
+#'  neighs <- neighbors(node.idxs, graph, 3)
 neighbors <- function(node.idxs, graph, k=1L, use.edge.weights=F, ...) UseMethod("neighbors")
 
 #' @noRd
@@ -33,7 +38,7 @@ neighbors.integer <- function(node.idxs, graph, k=1L, use.edge.weights=F, ...)
     message("Casting k to int!")
   }
   if (k < 1) stop("k must be greater than 0!")
-  if (!is.logical(use.edge.weights)) stop("Use edge weughts should be boolean!")
+  if (!is.logical(use.edge.weights)) stop("use.edge.weights should be boolean!")
   if (use.edge.weights) stop("Not yet implemented!")
   .neighbors(node.idxs, graph, k, use.edge.weights)
 }

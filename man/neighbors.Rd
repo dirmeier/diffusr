@@ -9,7 +9,7 @@ neighbors(node.idxs, graph, k = 1L, use.edge.weights = F, ...)
 \arguments{
 \item{node.idxs}{vector of node indexes (1-based) for which the algorithm is applied iteratively}
 
-\item{graph}{an <code>igraph</code> object}
+\item{graph}{an \code{igraph} object}
 
 \item{k}{the depth of the nearest neighbor search}
 
@@ -18,18 +18,22 @@ neighbors(node.idxs, graph, k = 1L, use.edge.weights = F, ...)
 \item{...}{additional params}
 }
 \value{
-returns the kNN graph as an an <code>igraph</code> object
+returns the kNN graph as an an \code{igraph} object
 }
 \description{
 Find the closest neighbors of a group of nodes in a graph.
 }
 \examples{
+ # count of nodes
  n <- 10
- node.idxs <- 1:2
+ # indexes (integer) of nodes for which neighbors should be searched
+ node.idxs <- c(1L, 5L)
+ # the adjaceny matrix (does not need to be symmetric)
  graph <- rbind(cbind(0, diag(n-1)), 0)
- neighs <- neighbors(node.idxs, graph)
+ # compte the neighbors until depth 3
+ neighs <- neighbors(node.idxs, graph, 3)
 }
 \author{
-Simon Dirmeier
+Simon Dirmeier, email{simon.dirmeier@bsse.ethz.ch}
 }
 

@@ -7,7 +7,8 @@ Network diffusion algorithms in R.
 
 ## Introduction
 
-Implementation of algorithms such a k-NN or Markov random walks for network diffusion.
+`diffusr` implements several algorithms for network diffusion such as *Markov random walks with restarts* and *weighted neighbor classification*. Network diffusion has been studied extensively in bioinformatics, e.g. in the field of cancer gene prioritization.
+To my knowledge only few packages implement all of the diffusion algorithms. In the first version of `diffusr` I implemented the two methods above, several others will follow in future patches.
 
 ## Installation
  

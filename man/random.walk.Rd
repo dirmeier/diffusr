@@ -2,35 +2,36 @@
 % Please edit documentation in R/mrw.R
 \name{random.walk}
 \alias{random.walk}
-\title{Do a Markov random walk on a graph}
+\title{Do a Markov random walk on a graph.}
 \usage{
 random.walk(p0, graph, r = 0.5, ...)
 }
 \arguments{
-\item{p0}{the staring distribution for the Markov chain}
+\item{p0}{the starting distribution of the Markov chain}
 
-\item{graph}{a weighted <code>igraph</code> object}
+\item{graph}{a weighted \code{igraph} object}
 
 \item{r}{the restart probability if a Markov random walk with restart is desired}
 
 \item{...}{additional params}
 }
 \value{
-returns the stationary distribution of the
+returns the stationary distribution of the Markov random walk
 }
 \description{
-Do a Markov random walk on a graph
+Do a Markov random walk on a graph.
 }
 \examples{
- n <- 5
- # some starting distribution
- p0 <- rmultinom(1, 1, prob=rep(.2, n))
- # random non-negative matrix
- graph <- matrix(abs(rnorm(n*n)), n, n)
- # stationary distribution
- pt <- random.walk(p0, graph)
+# count of nodes
+n <- 5
+# starting distribution (has to sum to one)
+p0    <- rmultinom(1, 1, prob=rep(.2, n))
+# adjacency matrix (either normalized or not)
+graph <- matrix(abs(rnorm(n*n)), n, n)
+# computation of stationary distribution
+pt    <- random.walk(p0, graph)
 }
 \author{
-Simon Dirmeier
+Simon Dirmeier, email{simon.dirmeier@bsse.ethz.ch}
 }
 
