@@ -6,4 +6,13 @@ linters: list(linelen=line_length_linter(80),
               snakelinter=snake_case_linter,
               closedcurly=closed_curly_linter,
               trailingwhites=trailing_whitespace_linter)
+exclusions: list("R/RcppExports.R", 
+                 "tests/testthat.R", 
+                 "tests/testthat/test_knn.R",
+                 "tests/testthat/test_mrw.R",
+                 "tests/testthat/test_util.R",
+                 "tests/testthat/test_lint.R")
+exclude: "# Exclude Linting"
+exclude_start: "# Begin Exclude Linting"
+exclude_end: "# End Exclude Linting"
 

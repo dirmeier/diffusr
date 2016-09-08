@@ -109,18 +109,18 @@ RcppExport SEXP diffusr_neighbors_(SEXP node_idxsSEXP, SEXP WSEXP, SEXP kSEXP, S
 static int diffusr_RcppExport_validate(const char* sig) { 
     static std::set<std::string> signatures;
     if (signatures.empty()) {
-        signatures.insert("Eigen::MatrixXd(*.stoch_col_norm_cpp)(const Eigen::MatrixXd&)");
-        signatures.insert("Eigen::VectorXd(*.mrwr_cpp)(const Eigen::VectorXd&,const Eigen::MatrixXd&,const double)");
-        signatures.insert("Rcpp::List(*.neighbors_cpp)(const Rcpp::IntegerVector&,const Rcpp::NumericMatrix&,const int,const bool)");
+        signatures.insert("Eigen::MatrixXd(*.stoch.col.norm.cpp)(const Eigen::MatrixXd&)");
+        signatures.insert("Eigen::VectorXd(*.mrwr.cpp)(const Eigen::VectorXd&,const Eigen::MatrixXd&,const double)");
+        signatures.insert("Rcpp::List(*.neighbors.cpp)(const Rcpp::IntegerVector&,const Rcpp::NumericMatrix&,const int,const bool)");
     }
     return signatures.find(sig) != signatures.end();
 }
 
 // registerCCallable (register entry points for exported C++ functions)
 RcppExport SEXP diffusr_RcppExport_registerCCallable() { 
-    R_RegisterCCallable("diffusr", "diffusr_.stoch_col_norm_cpp", (DL_FUNC)diffusr_stoch_col_norm__try);
-    R_RegisterCCallable("diffusr", "diffusr_.mrwr_cpp", (DL_FUNC)diffusr_mrwr__try);
-    R_RegisterCCallable("diffusr", "diffusr_.neighbors_cpp", (DL_FUNC)diffusr_neighbors__try);
+    R_RegisterCCallable("diffusr", "diffusr_.stoch.col.norm.cpp", (DL_FUNC)diffusr_stoch_col_norm__try);
+    R_RegisterCCallable("diffusr", "diffusr_.mrwr.cpp", (DL_FUNC)diffusr_mrwr__try);
+    R_RegisterCCallable("diffusr", "diffusr_.neighbors.cpp", (DL_FUNC)diffusr_neighbors__try);
     R_RegisterCCallable("diffusr", "diffusr_RcppExport_validate", (DL_FUNC)diffusr_RcppExport_validate);
     return R_NilValue;
 }

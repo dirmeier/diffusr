@@ -11,4 +11,5 @@
 }
 
 #' @noRd
-.stoch.col.norm <- function(mat) Matrix::as.matrix(.stoch_col_norm_cpp(as.matrix(mat)))
+.stoch.col.norm <- function(mat)
+  Matrix::as.matrix(.stoch.col.norm.cpp(as.matrix(mat)))

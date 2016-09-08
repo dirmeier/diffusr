@@ -15,7 +15,8 @@ Imports:
 Suggests:
     knitr,
     rmarkdown,
-    testthat
+    testthat,
+    lintr
 VignetteBuilder: knitr
 RoxygenNote: 5.0.1
 SystemRequirements: C++11
