@@ -8,7 +8,7 @@ linters: list(linelen=line_length_linter(80),
               trailingwhites=trailing_whitespace_linter)
 exclusions: list("R/RcppExports.R", 
                  "tests/testthat.R", 
-                 "tests/testthat/.*",
+                 "tests/testthat/test_knn.R",
                  "tests/testthat/test_mrw.R",
                  "tests/testthat/test_util.R",
                  "tests/testthat/test_lint.R")
