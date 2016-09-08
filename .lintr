@@ -1,0 +1,2 @@
+linters: line_length_linter(80)
+
