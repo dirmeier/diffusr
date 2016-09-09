@@ -1,5 +1,5 @@
 ---
-title: "The submitr tutorial"
+title: "The diffusr tutorial"
 author: "Simon Dirmeier"
 date: "`r Sys.Date()`"
 output: rmarkdown::pdf_document
