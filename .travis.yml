@@ -17,4 +17,4 @@ env:
     - R_CHECK_ARGS="--no-build-vignettes --no-manual --as-cran"
 
 after_success:
-  - Rscript -e 'library(covr); covr::codecov(line_exclusions = list("inst/include/.*h", "tests/.*R"))'
+  - Rscript -e 'library(covr); codecov()'
