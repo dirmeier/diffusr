@@ -31,4 +31,6 @@
 
 #' @noRd
 .stoch.col.norm <- function(mat)
+{
   Matrix::as.matrix(.stoch.col.norm.cpp(as.matrix(mat)))
+}
