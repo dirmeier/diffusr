@@ -32,5 +32,15 @@
 #' @noRd
 .stoch.col.norm <- function(mat)
 {
-  Matrix::as.matrix(.stoch.col.norm.cpp(as.matrix(mat)))
+  mat <- as.matrix(mat)
+  if (all(.equals.double(colSums(mat), 1, .001)))
+  {
+    message("not normalizing columns!")
+    return(Matrix::as.matrix(mat))
+  }
+  else
+  {
+    message("normalizing columns!")
+    return(Matrix::as.matrix(.stoch.col.norm.cpp(as.matrix(mat))))
+  }
 }
