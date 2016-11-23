@@ -44,3 +44,31 @@
     return(Matrix::as.matrix(.stoch.col.norm.cpp(as.matrix(mat))))
   }
 }
+
+#' Calculate the Laplacian matrix for a matrix
+#'
+#' @export
+#' @author Simon Dirmeier, email{simon.dirmeier@@bsse.ethz.ch}
+#'
+#' @param obj  matrix for which the Laplacian is calculated
+#' @param ...  additional params
+#' @return  returns the Laplacian
+#' @examples
+#' W <- matrix(abs(rnorm(10000)), 100, 100)
+#' lapl.W <- laplacian(W)
+laplacian <- function(obj, ...)
+{
+  UseMethod("laplacian")
+}
+
+#' @export
+#' @method laplacian numeric
+laplacian.numeric <- function(obj, ...)
+{
+  if (!is.matrix(obj)) stop('please provide a matrix object!')
+  if (nrow(obj) != ncol(obj)) stop('please provide a square matrix!')
+  if (any(obj < 0.0))
+    stop('please provide a matrix with only non-negative alues!')
+  lapl <- .laplacian.cpp(obj)
+  return(lapl)
+}
