@@ -44,6 +44,25 @@ namespace diffusr {
         return Rcpp::as<Eigen::MatrixXd >(rcpp_result_gen);
     }
 
+    inline Eigen::MatrixXd _laplacian_cpp(const Eigen::MatrixXd& W) {
+        typedef SEXP(*Ptr__laplacian_cpp)(SEXP);
+        static Ptr__laplacian_cpp p__laplacian_cpp = NULL;
+        if (p__laplacian_cpp == NULL) {
+            validateSignature("Eigen::MatrixXd(*_laplacian_cpp)(const Eigen::MatrixXd&)");
+            p__laplacian_cpp = (Ptr__laplacian_cpp)R_GetCCallable("diffusr", "diffusr__laplacian_cpp");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p__laplacian_cpp(Rcpp::wrap(W));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<Eigen::MatrixXd >(rcpp_result_gen);
+    }
+
     inline Eigen::VectorXd _mrwr_cpp(const Eigen::VectorXd& p0, const Eigen::MatrixXd& W, const double r) {
         typedef SEXP(*Ptr__mrwr_cpp)(SEXP,SEXP,SEXP);
         static Ptr__mrwr_cpp p__mrwr_cpp = NULL;

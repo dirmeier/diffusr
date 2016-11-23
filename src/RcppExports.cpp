@@ -39,6 +39,36 @@ RcppExport SEXP diffusr_stoch_col_norm_(SEXP WSEXP) {
     UNPROTECT(1);
     return rcpp_result_gen;
 }
+// laplacian_
+Eigen::MatrixXd laplacian_(const Eigen::MatrixXd& W);
+static SEXP diffusr_laplacian__try(SEXP WSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type W(WSEXP);
+    rcpp_result_gen = Rcpp::wrap(laplacian_(W));
+    return rcpp_result_gen;
+END_RCPP_RETURN_ERROR
+}
+RcppExport SEXP diffusr_laplacian_(SEXP WSEXP) {
+    SEXP rcpp_result_gen;
+    {
+        Rcpp::RNGScope rcpp_rngScope_gen;
+        rcpp_result_gen = PROTECT(diffusr_laplacian__try(WSEXP));
+    }
+    Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
+    if (rcpp_isInterrupt_gen) {
+        UNPROTECT(1);
+        Rf_onintr();
+    }
+    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, "try-error");
+    if (rcpp_isError_gen) {
+        SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
+        UNPROTECT(1);
+        Rf_error(CHAR(rcpp_msgSEXP_gen));
+    }
+    UNPROTECT(1);
+    return rcpp_result_gen;
+}
 // mrwr_
 Eigen::VectorXd mrwr_(const Eigen::VectorXd& p0, const Eigen::MatrixXd& W, const double r);
 static SEXP diffusr_mrwr__try(SEXP p0SEXP, SEXP WSEXP, SEXP rSEXP) {
@@ -110,6 +140,7 @@ static int diffusr_RcppExport_validate(const char* sig) {
     static std::set<std::string> signatures;
     if (signatures.empty()) {
         signatures.insert("Eigen::MatrixXd(*.stoch.col.norm.cpp)(const Eigen::MatrixXd&)");
+        signatures.insert("Eigen::MatrixXd(*.laplacian.cpp)(const Eigen::MatrixXd&)");
         signatures.insert("Eigen::VectorXd(*.mrwr.cpp)(const Eigen::VectorXd&,const Eigen::MatrixXd&,const double)");
         signatures.insert("Rcpp::List(*.neighbors.cpp)(const Rcpp::IntegerVector&,const Rcpp::NumericMatrix&,const int,const bool)");
     }
@@ -119,6 +150,7 @@ static int diffusr_RcppExport_validate(const char* sig) {
 // registerCCallable (register entry points for exported C++ functions)
 RcppExport SEXP diffusr_RcppExport_registerCCallable() { 
     R_RegisterCCallable("diffusr", "diffusr_.stoch.col.norm.cpp", (DL_FUNC)diffusr_stoch_col_norm__try);
+    R_RegisterCCallable("diffusr", "diffusr_.laplacian.cpp", (DL_FUNC)diffusr_laplacian__try);
     R_RegisterCCallable("diffusr", "diffusr_.mrwr.cpp", (DL_FUNC)diffusr_mrwr__try);
     R_RegisterCCallable("diffusr", "diffusr_.neighbors.cpp", (DL_FUNC)diffusr_neighbors__try);
     R_RegisterCCallable("diffusr", "diffusr_RcppExport_validate", (DL_FUNC)diffusr_RcppExport_validate);

@@ -1,6 +1,8 @@
 /** diffusr: network diffusion algorithms in R
  *
  * Copyright (C) 2016 Simon Dirmeier
+ * @author Simon Dirmeier
+ * @email simon.dirmeier@bsse.ethz.ch
  *
  * This file is part of diffusr.
  *
@@ -18,13 +20,9 @@
  * along with diffusr. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * @author Simon Dirmeier
- * @email simon.dirmeier@bsse.ethz.ch
- */
-
 // [[Rcpp::depends(RcppEigen)]]
 #include <RcppEigen.h>
+#include <cmath>
 
 //' Column normalize a matrix, so that it is stochastic.
 //'
@@ -47,3 +45,29 @@ Eigen::MatrixXd stoch_col_norm_(const Eigen::MatrixXd& W)
   return res;
 }
 
+//' Calculate the Laplacian of a weighted matrix.
+//'
+//' @noRd
+//' @param W  the adjacency matrix for which the Laplacian is calculated
+//' @return  returns the Laplacian of a matrix
+// [[Rcpp::interfaces(r, cpp)]]
+// [[Rcpp::export(name=".laplacian.cpp")]]
+Eigen::MatrixXd laplacian_(const Eigen::MatrixXd& W)
+{
+  const int P = W.rows();
+  Eigen::MatrixXd res(W.rows(), W.cols());
+  Eigen::VectorXd rowsums = W.rowwise().sum();
+  for (int i = 0; i < P; ++i)
+  {
+    for (int j = 0; j < P; ++j)
+    {
+      if (i == j && rowsums[i] != 0)
+        res(i,j)  = 1 - (W(i,j) / rowsums(i));
+      else if (i != j && W(i,j) != 0)
+        res(i,j) = -W(i,j) / sqrt(rowsums(i) * rowsums(j));
+      else
+        res(i,j) = 0;
+    }
+  }
+  return res;
+}

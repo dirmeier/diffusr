@@ -26,7 +26,7 @@
 #' @import Matrix
 #'
 #' @param p0  the starting distribution of the Markov chain
-#' @param graph  a weighted \code{igraph} object
+#' @param graph  a non-negative valued matrix
 #' @param r  the restart probability if a Markov random walk with restart is desired
 #' @param ...  additional params
 #' @return  returns the stationary distribution of the Markov random walk
@@ -68,6 +68,3 @@ random.walk.numeric <- function(p0, graph, r=.5, ...)
   mat <- .stoch.col.norm(mat)
   invisible(.mrwr.cpp(p0, mat, r))
 }
-
-
-

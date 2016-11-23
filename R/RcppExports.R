@@ -5,6 +5,10 @@
     .Call('diffusr_stoch_col_norm_', PACKAGE = 'diffusr', W)
 }
 
+.laplacian.cpp <- function(W) {
+    .Call('diffusr_laplacian_', PACKAGE = 'diffusr', W)
+}
+
 .mrwr.cpp <- function(p0, W, r) {
     .Call('diffusr_mrwr_', PACKAGE = 'diffusr', p0, W, r)
 }

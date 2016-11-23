@@ -1,6 +1,8 @@
 /** diffusr: network diffusion algorithms in R
  *
  * Copyright (C) 2016 Simon Dirmeier
+ * @author Simon Dirmeier
+ * @email simon.dirmeier@bsse.ethz.ch
  *
  * This file is part of diffusr.
  *
@@ -16,11 +18,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with diffusr. If not, see <http://www.gnu.org/licenses/>.
- */
-
-/**
- * @author Simon Dirmeier
- * @email simon.dirmeier@bsse.ethz.ch
  */
 
 // [[Rcpp::plugins(cpp11)]]
@@ -109,4 +106,3 @@ Rcpp::List neighbors_(const Rcpp::IntegerVector& node_idxs,
   }
   return Rcpp::wrap(neighbors);
 }
-

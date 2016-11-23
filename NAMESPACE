@@ -2,6 +2,7 @@
 
 S3method(neighbors,integer)
 S3method(random.walk,numeric)
+export(heat.diffusion)
 export(neighbors)
 export(random.walk)
 import(Matrix)
