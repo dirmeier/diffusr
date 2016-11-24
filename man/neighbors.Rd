@@ -4,12 +4,12 @@
 \alias{neighbors}
 \title{Find the closest neighbors of a group of nodes in a graph.}
 \usage{
-neighbors(node.idxs, graph, k = 1L, use.edge.weights = F, ...)
+neighbors(nodes, graph, k = 1L, use.edge.weights = F, ...)
 }
 \arguments{
-\item{node.idxs}{vector of node indexes (1-based) for which the algorithm is applied iteratively}
+\item{nodes}{vector of node indexes (1-based) for which the algorithm is applied iteratively}
 
-\item{graph}{an \code{igraph} object}
+\item{graph}{a non-negative matrix}
 
 \item{k}{the depth of the nearest neighbor search}
 
@@ -18,7 +18,7 @@ neighbors(node.idxs, graph, k = 1L, use.edge.weights = F, ...)
 \item{...}{additional params}
 }
 \value{
-returns the kNN graph as an an \code{igraph} object
+returns the kNN nodes as integer vector of node indexes
 }
 \description{
 Find the closest neighbors of a group of nodes in a graph.

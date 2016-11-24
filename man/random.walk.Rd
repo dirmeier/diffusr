@@ -9,14 +9,14 @@ random.walk(p0, graph, r = 0.5, ...)
 \arguments{
 \item{p0}{the starting distribution of the Markov chain}
 
-\item{graph}{a non-negative valued matrix}
+\item{graph}{a non-negative matrix}
 
 \item{r}{the restart probability if a Markov random walk with restart is desired}
 
 \item{...}{additional params}
 }
 \value{
-returns the stationary distribution of the Markov random walk
+returns the stationary distribution as vector
 }
 \description{
 Do a Markov random walk on a graph.

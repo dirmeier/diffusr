@@ -9,14 +9,14 @@ heat.diffusion(v, graph, t = 100, ...)
 \arguments{
 \item{v}{the starting distribution of the Markov chain}
 
-\item{graph}{a weighted \code{igraph} object}
+\item{graph}{a non-negative matrix}
 
 \item{t}{the restart probability if a Markov random walk with restart is desired}
 
 \item{...}{additional params}
 }
 \value{
-returns the heat on every node of the graph
+returns the heat on every node as an
 }
 \description{
 Do graph diffusion using an insulated heat kernel.

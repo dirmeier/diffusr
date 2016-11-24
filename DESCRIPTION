@@ -10,7 +10,6 @@ LazyData: TRUE
 LinkingTo: Rcpp, RcppEigen
 Imports:
     Rcpp,
-    Matrix,
     igraph
 Suggests:
     knitr,

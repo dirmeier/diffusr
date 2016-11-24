@@ -17,35 +17,39 @@
 # You should have received a copy of the GNU General Public License
 # along with diffusr. If not, see <http://www.gnu.org/licenses/>.
 
-#' @noRd
-.is.Matrix <- function(g) "dgCMatrix" %in% class(g) | "dgeMatrix" %in% class(g)
-
-#' @noRd
-#' @import igraph
-#' @import Matrix
-.as.matrix <- function(g)
+#' Calculate a stochastic column normalized matrix
+#'
+#' @export
+#' @author Simon Dirmeier, email{simon.dirmeier@@bsse.ethz.ch}
+#'
+#' @param obj  matrix for which the normalized stochastic matrix is created
+#' @param ...  additional params
+#' @return  returns the normalized matrix
+#' @examples
+#' W <- matrix(abs(rnorm(10000)), 100, 100)
+#' stoch.W <- normalize(W)
+normalize <- function(obj, ...)
 {
-  if (igraph::is_igraph(g)) g <- igraph::get.adjacency(g)
-  invisible(as.matrix(g))
+  UseMethod("normalize")
 }
 
-#' @noRd
-.stoch.col.norm <- function(mat)
+#' @export
+#' @method normalize numeric
+normalize.numeric <- function(obj, ...)
 {
-  mat <- as.matrix(mat)
-  if (all(.equals.double(colSums(mat), 1, .001)))
-  {
-    message("not normalizing columns!")
-    return(Matrix::as.matrix(mat))
-  }
-  else
+  if (!is.matrix(obj)) stop('please provide a matrix object!')
+  if (nrow(obj) != ncol(obj)) stop('please provide a square matrix!')
+  if (any(obj < 0.0))
+    stop('please provide a matrix with only non-negative alues!')
+  if (!all(.equals.double(colSums(obj), 1, .001)))
   {
     message("normalizing columns!")
-    return(Matrix::as.matrix(.stoch.col.norm.cpp(as.matrix(mat))))
+    obj <- .stoch.col.norm.cpp(obj)
   }
+  return(obj)
 }
 
-#' Calculate the Laplacian matrix for a matrix
+#' Calculate the Laplacian of a matrix
 #'
 #' @export
 #' @author Simon Dirmeier, email{simon.dirmeier@@bsse.ethz.ch}

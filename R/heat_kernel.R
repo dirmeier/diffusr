@@ -23,15 +23,22 @@
 #' @author Simon Dirmeier, email{simon.dirmeier@@bsse.ethz.ch}
 #'
 #' @import igraph
-#' @import Matrix
 #'
 #' @param v  the starting distribution of the Markov chain
-#' @param graph  a weighted \code{igraph} object
+#' @param graph  a non-negative matrix
 #' @param t  the restart probability if a Markov random walk with restart is desired
 #' @param ...  additional params
-#' @return  returns the heat on every node of the graph
-heat.diffusion <- function(v, graph, t=100, ...) UseMethod("heat.diffusion")
+#' @return  returns the heat on every node as an
+heat.diffusion <- function(v, graph, t=100, ...)
+{
+  UseMethod("heat.diffusion")
+}
 
+#' @export
+#' @method heat.diffusion numeric
+heat.diffusion.numeric <- function(v, graph, t=100, ...)
+{
 
+}
 
 
