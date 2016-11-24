@@ -32,21 +32,21 @@ where $r \in \{0,1 \}$ is a *restart probability* of the Markov chain, $\mathbf{
 If you want to use Markov random walks just try something like this:
 
 ```{r}
- # count of nodes
- n <- 5
- # starting distribution (has to sum to one)
- p0    <- rmultinom(1, 1, prob=rep(.2, n))
- # adjacency matrix (either normalized or not)
- graph <- matrix(abs(rnorm(n*n)), n, n)
- # computation of stationary distribution
- pt    <- random.walk(p0, graph)
+  # count of nodes
+  n <- 5
+  # starting distribution (has to sum to one)
+  p0    <- rmultinom(1, 1, prob=rep(.2, n))
+  # adjacency matrix (either normalized or not)
+  graph <- matrix(abs(rnorm(n*n)), n, n)
+  # computation of stationary distribution
+  pt    <- random.walk(p0, graph)
 ```
  
 The stationary distribution should have changed quite a bit from the starting distribution:
 
 ```{r}
- print(t(p0)) 
- print(t(pt))
+  print(t(p0))
+  print(t(pt))
 ```
 
 ### Nearest neighbor search
@@ -54,20 +54,20 @@ The stationary distribution should have changed quite a bit from the starting di
 *Nearest neighbor search* is straight-forward. We just traverse through the graph and take all the neighbors of a node until a certain depths in the graph is reached:
 
 ```{r}
- # count of nodes
- n <- 10
- # indexes(integer) of nodes for which neighbors should be searched 
- node.idxs <- c(1L, 5L)
- # the adjaceny matrix (does not need to be symmetric)
- graph <- rbind(cbind(0, diag(n-1)), 0)
- # compte the neighbors until depth 3
- neighs <- neighbors(node.idxs, graph, 3)
+  # count of nodes
+  n <- 10
+  # indexes(integer) of nodes for which neighbors should be searched 
+  node.idxs <- c(1L, 5L)
+  # the adjaceny matrix (does not need to be symmetric)
+  graph <- rbind(cbind(0, diag(n-1)), 0)
+  # compte the neighbors until depth 3
+  neighs <- neighbors(node.idxs, graph, 3)
 ```
 
 Let's see what we got:
 
 ```{r}
- print(neighs) 
+  print(neighs)
 ```
 
 

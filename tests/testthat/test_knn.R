@@ -65,25 +65,3 @@ test_that("knn neighbors true edge weights",{
   expect_error(neighbors(as.integer(0), adj, 2, T))
 })
 
-test_that("knn .neighbors neg elems",{
-  n <- 10
-  adj <- rbind(cbind(0, diag(n-1)), 0)
-  adj[1,1] <- -1
-  expect_error(.neighbors(1, adj, i, F))
-})
-
-test_that("knn .neighbors wrong dim",{
-  n <- 10
-  adj <- cbind(0, diag(n-1))
-  expect_error(.neighbors(1, adj, i, F))
-})
-
-test_that("knn .neighbors path",{
-  n <- 10
-  adj <- rbind(cbind(0, diag(n-1)), 0)
-  for (i in 1:(n-1))
-  {
-    nei <- unlist(.neighbors(1, adj, i, F))
-    expect_equal(nei, 2:(i + 1))
-  }
-})

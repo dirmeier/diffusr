@@ -31,7 +31,7 @@
 //' @param b  restart probability
 //' @return  returns the stationary distribution p_inf
 // [[Rcpp::interfaces(r, cpp)]]
-// [[Rcpp::export(name=".heat_diffusion.cpp")]]
+// [[Rcpp::export(name=".heat.diffusion.cpp")]]
 Eigen::VectorXd heat_diffusion_(const Eigen::VectorXd& v0,
                                 const Eigen::MatrixXd& W,
                                 const double b)
