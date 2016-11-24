@@ -24,21 +24,46 @@
 #'
 #' @import igraph
 #'
-#' @param v  the starting distribution of the Markov chain
+#' @param h  the starting heat distribution
 #' @param graph  a non-negative matrix
-#' @param t  the restart probability if a Markov random walk with restart is desired
+#' @param r  the restart probability of the heat kernel
 #' @param ...  additional params
-#' @return  returns the heat on every node as an
-heat.diffusion <- function(v, graph, t=100, ...)
+#' @return  returns the heat on every node as a vector
+#' @examples
+#' # count of nodes
+#' n <- 5
+#' # starting distribution (has to sum to one)
+#' p0    <- rmultinom(1, 1, prob=rep(.2, n))
+#' # adjacency matrix (either normalized or not)
+#' graph <- matrix(abs(rnorm(n*n)), n, n)
+#' # computation of stationary distribution
+#' pt    <- random.walk(p0, graph)
+heat.diffusion <- function(h, graph, r=.5, ...)
 {
   UseMethod("heat.diffusion")
 }
 
 #' @export
 #' @method heat.diffusion numeric
-heat.diffusion.numeric <- function(v, graph, t=100, ...)
+heat.diffusion.numeric <- function(h, graph, r=.5, ...)
 {
-
+  if (any(h < 0))
+    stop("h can only contain non-negative values!")
+  if (!.equals.double(sum(h), 1, .0001))
+    stop("h does not sum to 1!")
+  if (!is.numeric(r))
+    stop("r has to be numeric!")
+  if (!.in(r, 0, 1))
+    stop("r must be in [0, 1]!")
+  if (!is.matrix(graph))
+    stop('please provide a matrix object!')
+  if (any(graph < 0))
+    stop("graph has to be non-negative")
+  if (dim(graph)[1] != dim(graph)[2])
+    stop("graph has to be of dimension (n x n)!")
+  if (dim(graph)[1] != length(p0))
+    stop("p0 has to have same dim as your graph!")
+  invisible(.heat_diffusion.cpp(p0, normalize(graph), r))
 }
 
 

@@ -4,14 +4,14 @@
 \alias{heat.diffusion}
 \title{Do graph diffusion using an insulated heat kernel.}
 \usage{
-heat.diffusion(v, graph, t = 100, ...)
+heat.diffusion(h, graph, r = 0.5, ...)
 }
 \arguments{
-\item{v}{the starting distribution of the Markov chain}
+\item{h}{the starting heat distribution}
 
 \item{graph}{a non-negative matrix}
 
-\item{t}{the restart probability if a Markov random walk with restart is desired}
+\item{r}{the restart probability of the heat kernel}
 
 \item{...}{additional params}
 }
