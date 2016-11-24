@@ -16,10 +16,20 @@ heat.diffusion(h, graph, r = 0.5, ...)
 \item{...}{additional params}
 }
 \value{
-returns the heat on every node as an
+returns the heat on every node as a vector
 }
 \description{
 Do graph diffusion using an insulated heat kernel.
+}
+\examples{
+# count of nodes
+n <- 5
+# starting distribution (has to sum to one)
+h    <- rmultinom(1, 1, prob=rep(.2, n))
+# adjacency matrix (either normalized or not)
+graph <- matrix(abs(rnorm(n*n)), n, n)
+# computation of stationary distribution
+pt    <- heat.diffusion(h, graph)
 }
 \author{
 Simon Dirmeier, email{simon.dirmeier@bsse.ethz.ch}

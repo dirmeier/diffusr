@@ -33,11 +33,11 @@
 #' # count of nodes
 #' n <- 5
 #' # starting distribution (has to sum to one)
-#' p0    <- rmultinom(1, 1, prob=rep(.2, n))
+#' h    <- rmultinom(1, 1, prob=rep(.2, n))
 #' # adjacency matrix (either normalized or not)
 #' graph <- matrix(abs(rnorm(n*n)), n, n)
 #' # computation of stationary distribution
-#' pt    <- random.walk(p0, graph)
+#' pt    <- heat.diffusion(h, graph)
 heat.diffusion <- function(h, graph, r=.5, ...)
 {
   UseMethod("heat.diffusion")
@@ -61,9 +61,9 @@ heat.diffusion.numeric <- function(h, graph, r=.5, ...)
     stop("graph has to be non-negative")
   if (dim(graph)[1] != dim(graph)[2])
     stop("graph has to be of dimension (n x n)!")
-  if (dim(graph)[1] != length(p0))
+  if (dim(graph)[1] != length(h))
     stop("p0 has to have same dim as your graph!")
-  invisible(.heat_diffusion.cpp(p0, normalize(graph), r))
+  invisible(.heat_diffusion.cpp(h, normalize(graph), r))
 }
 
 
