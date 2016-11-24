@@ -9,6 +9,7 @@ linters: list(linelen=line_length_linter(80),
 exclusions: list("tests/testthat.R",                 
                  "tests/testthat/test_knn.R",
                  "tests/testthat/test_mrw.R",
+                 "tests/testthat/test_heat.R",
                  "tests/testthat/test_util.R",
                  "tests/testthat/test_lint.R")
 exclude: "# Exclude Linting"
