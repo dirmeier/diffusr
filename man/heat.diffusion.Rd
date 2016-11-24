@@ -2,7 +2,7 @@
 % Please edit documentation in R/heat_kernel.R
 \name{heat.diffusion}
 \alias{heat.diffusion}
-\title{Do graph diffusion using heat diffusion}
+\title{Do graph diffusion using an insulated heat kernel.}
 \usage{
 heat.diffusion(v, graph, t = 100, ...)
 }
@@ -19,7 +19,7 @@ heat.diffusion(v, graph, t = 100, ...)
 returns the heat on every node of the graph
 }
 \description{
-Do graph diffusion using heat diffusion
+Do graph diffusion using an insulated heat kernel.
 }
 \author{
 Simon Dirmeier, email{simon.dirmeier@bsse.ethz.ch}

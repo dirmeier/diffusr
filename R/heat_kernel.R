@@ -17,7 +17,7 @@
 # You should have received a copy of the GNU General Public License
 # along with diffusr. If not, see <http://www.gnu.org/licenses/>.
 
-#' Do graph diffusion using heat diffusion
+#' Do graph diffusion using an insulated heat kernel.
 #'
 #' @export
 #' @author Simon Dirmeier, email{simon.dirmeier@@bsse.ethz.ch}

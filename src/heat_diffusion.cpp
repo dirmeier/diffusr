@@ -22,31 +22,33 @@
 
 // [[Rcpp::depends(RcppEigen)]]
 #include <RcppEigen.h>
-#include <vector>
 
-//' Do a Markon random walk (with restart) on an column-normalised adjacency matrix.
+//' Do graph diffusion using an insulated heat kernel.
 //'
 //' @noRd
-//' @param p0  the staring distribution
+//' @param v0  the starting heat
 //' @param W  the column normalized adjacency matrix
-//' @param r  restart probability
+//' @param b  restart probability
 //' @return  returns the stationary distribution p_inf
 // [[Rcpp::interfaces(r, cpp)]]
-// [[Rcpp::export(name=".mrwr.cpp")]]
-Eigen::VectorXd mrwr_(const Eigen::VectorXd& p0,
-                      const Eigen::MatrixXd& W,
-                      const double r)
+// [[Rcpp::export(name=".heat_diffusion.cpp")]]
+Eigen::VectorXd heat_diffusion_(const Eigen::VectorXd& v0,
+                                const Eigen::MatrixXd& W,
+                                const double b)
 {
-  Eigen::VectorXd pt = p0;
-  Eigen::VectorXd pold;
+  const int m = W.rows();
+  Eigen::VectorXd vt = v0;
+  Eigen::VectorXd vold;
+  Eigen::MatrixXd I = Eigen::MatrixXd::Identity(m, m);
+  Eigen::MatrixXd F = b * (I  - (1 - b) * W).inverse();
   const double thresh = .00000001;
   const int niter = 100000;
   int iter = 0;
   do
   {
-    pold = pt;
-    pt = (1  - r) * W * pold + r * p0;
+    vold = vt;
+    vt = F * vold;
   }
-  while ((pt - pold).norm() > thresh && iter++ < niter);
-  return pt;
+  while ((vt - vold).norm() > thresh && iter++ < niter);
+  return vt;
 }
