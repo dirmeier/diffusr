@@ -22,6 +22,6 @@ W <- matrix(abs(rnorm(10000)), 100, 100)
 lapl.W <- laplacian(W)
 }
 \author{
-Simon Dirmeier, email{simon.dirmeier@bsse.ethz.ch}
+Simon Dirmeier, \email{simon.dirmeier@gmx.de}
 }
 

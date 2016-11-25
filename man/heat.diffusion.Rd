@@ -11,7 +11,7 @@ heat.diffusion(h, graph, r = 0.5, ...)
 
 \item{graph}{a non-negative matrix}
 
-\item{r}{the restart probability of the heat kernel}
+\item{r}{'rate' of heat diffusion, where 1 is the maximum diffusion and 0 no diffusion at al}
 
 \item{...}{additional params}
 }
@@ -32,6 +32,6 @@ graph <- matrix(abs(rnorm(n*n)), n, n)
 pt    <- heat.diffusion(h, graph)
 }
 \author{
-Simon Dirmeier, \email{simon.dirmeier@bsse.ethz.ch}
+Simon Dirmeier, \email{simon.dirmeier@gmx.de}
 }
 

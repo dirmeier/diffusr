@@ -45,23 +45,10 @@ heat.diffusion <- function(h, graph, r=.5, ...)
 #' @method heat.diffusion numeric
 heat.diffusion.numeric <- function(h, graph, r=.5, ...)
 {
-  if (any(h < 0))
-    stop("h can only contain non-negative values!")
-  if (!is.vector(h))
-    stop('vectorial h required')
-  if (!is.numeric(r))
-    stop("r has to be numeric!")
-  if (!.in(r, 0, 1))
-    stop("r must be in [0, 1]!")
-  if (!is.matrix(graph))
-    stop('please provide a matrix object!')
-  if (any(graph < 0))
-    stop("graph has to be non-negative")
-  if (dim(graph)[1] != dim(graph)[2])
-    stop("graph has to be of dimension (n x n)!")
-  if (dim(graph)[1] != length(h))
-    stop("h has to have same dimension as your graph!")
-  invisible(.heat.diffusion.cpp(h, normalize(graph), 1 - r))
+  .check.restart(r)
+  .check.vector(h)
+  .check.graph(graph, h)
+  invisible(.heat.diffusion.cpp(normalize(h), normalize(graph), 1 - r))
 }
 
 

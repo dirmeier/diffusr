@@ -82,8 +82,7 @@ std::vector<std::vector<int>> init_adj_list_(const Rcpp::NumericMatrix& W)
 // [[Rcpp::export(name=".neighbors.cpp")]]
 Rcpp::List neighbors_(const Rcpp::IntegerVector& node_idxs,
                       const Rcpp::NumericMatrix& W,
-                      const int k,
-                      const bool use_edge_weights)
+                      const int k)
 {
   // number of idxs given
   const uint32_t len = static_cast<uint32_t>(node_idxs.size());

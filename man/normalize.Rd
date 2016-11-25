@@ -2,26 +2,26 @@
 % Please edit documentation in R/mat_util.R
 \name{normalize}
 \alias{normalize}
-\title{Calculate a stochastic column normalized matrix}
+\title{Create a stochastically normalized matrix/vector}
 \usage{
 normalize(obj, ...)
 }
 \arguments{
-\item{obj}{matrix for which the normalized stochastic matrix is created}
+\item{obj}{matrix/vector that is stochstically normalized}
 
 \item{...}{additional params}
 }
 \value{
-returns the normalized matrix
+returns the normalized matrix/vector
 }
 \description{
-Calculate a stochastic column normalized matrix
+Create a stochastically normalized matrix/vector
 }
 \examples{
 W <- matrix(abs(rnorm(10000)), 100, 100)
 stoch.W <- normalize(W)
 }
 \author{
-Simon Dirmeier, email{simon.dirmeier@bsse.ethz.ch}
+Simon Dirmeier, \email{simon.dirmeier@gmx.de}
 }
 

@@ -28,3 +28,38 @@
 {
   val >= lower & val <= upper
 }
+
+#' @noRd
+.check.restart <- function(s)
+{
+  name <- deparse(substitute(s))
+  if (!is.numeric(s))
+    stop(paste(name, "has to be numeric!"))
+  if (!.in(s, 0, 1))
+    stop(paste(name, "must be in [0, 1]!"))
+}
+
+#' @noRd
+.check.graph <- function(m, v=NULL)
+{
+  name.graph <- deparse(substitute(m))
+  name.vector <- deparse(substitute(v))
+  if (!is.matrix(m))
+    stop('please provide a matrix object!')
+  if (any(m < 0))
+    stop(paste0("'", name.graph, "' has to be non-negative"))
+  if (dim(m)[1] != dim(m)[2])
+    stop(paste(name.graph, "has to be of dimension (n x n)!"))
+  if (!is.null(v) && dim(m)[1] != length(v))
+    stop(paste(name.vector, "has to have same dimension as", name.graph))
+}
+
+#' @noRd
+.check.vector <- function(v)
+{
+  name <- deparse(substitute(v))
+  if (any(v < 0))
+    stop(paste(name, "can only contain non-negative values!"))
+  if (!is.vector(v))
+    stop(paste("vectorial", name, "required"))
+}

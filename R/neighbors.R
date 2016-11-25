@@ -18,10 +18,14 @@
 # along with diffusr. If not, see <http://www.gnu.org/licenses/>.
 
 
-#' Find the closest neighbors of a group of nodes in a graph.
+#' Find the closest neighbors of a set nodes in a graph.
+#'
+#' @description Runs Disjktra's algorithm to find the closest neighbors (shortest paths) for a set of nodes.
+#' For every node in the set Disjktra's algorithm is run against all other nodes in the graph. Then the \code{k} nearest neighbors are chosen.
+#' For settings where there are more than \code{k} neighbors having the same distance, all neighbors are returned.
 #'
 #' @export
-#' @author Simon Dirmeier, email{simon.dirmeier@@bsse.ethz.ch}
+#' @author  Simon Dirmeier, \email{simon.dirmeier@@gmx.de}
 #'
 #' @import igraph
 #'
@@ -29,7 +33,9 @@
 #' @param graph  a non-negative matrix
 #' @param k  the depth of the nearest neighbor search
 #' @param ...  additional params
-#' @return  returns the kNN nodes as integer vector of node indexes
+#' @return  returns the kNN nodes as list of integer vectors of node indexes
+#'
+#'
 #' @examples
 #'  # count of nodes
 #'  n <- 10
@@ -50,18 +56,14 @@ neighbors.numeric <- function(nodes, graph, k=1L, ...)
 {
   if (!is.numeric(nodes) && !is.integer(nodes))
     stop('nodes has to be a vector of integer')
-  nodes <- unique(as.integer(nodes))
-  if (any(nodes <= 0))
+  int.nodes <- unique(as.integer(nodes))
+  if (length(int.nodes) != length(nodes))
+    warning("casting nodes to int removed some of the indexes continueing with int vector")
+  if (any(int.nodes < 1))
     stop("node idxs have to be 1-indexed!")
-  if (!is.matrix(graph))
-    stop('please provide a matrix object!')
-  if (any(graph < 0))
-    stop("graph has to be non-negative")
-  if (dim(graph)[1] != dim(graph)[2])
-    stop("graph has to be of dimension (n x n)!")
-  if ((!is.numeric(k) && !is.integer(k)) || length(k) != 1)
-    stop('k has to be a scalar int')
+  if ((!is.numeric(k) && !is.integer(k)) || length(k) != 1 || k < 1)
+    stop('k has to be a positive scalar int')
   k <- as.integer(k)
-  if (k < 1) stop("k must be greater than 0!")
-  invisible(.neighbors.cpp(nodes, graph, k))
+  .check.graph(graph)
+  invisible(.neighbors.cpp(int.nodes, graph, k))
 }

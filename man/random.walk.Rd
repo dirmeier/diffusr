@@ -32,6 +32,6 @@ graph <- matrix(abs(rnorm(n*n)), n, n)
 pt    <- random.walk(p0, graph)
 }
 \author{
-Simon Dirmeier, email{simon.dirmeier@bsse.ethz.ch}
+Simon Dirmeier, \email{simon.dirmeier@gmx.de}
 }
 

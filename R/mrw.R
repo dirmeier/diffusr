@@ -20,7 +20,7 @@
 #' Do a Markov random walk on a graph.
 #'
 #' @export
-#' @author Simon Dirmeier, email{simon.dirmeier@@bsse.ethz.ch}
+#' @author Simon Dirmeier, \email{simon.dirmeier@@gmx.de}
 #'
 #' @import igraph
 #'
@@ -47,21 +47,8 @@ random.walk <- function(p0, graph, r=.5, ...)
 #' @method random.walk numeric
 random.walk.numeric <- function(p0, graph, r=.5, ...)
 {
-  if (any(p0 < 0))
-    stop("p0 can only contain non-negative values!")
-  if (!.equals.double(sum(p0), 1, .0001))
-    stop("p0 does not sum to 1!")
-  if (!is.numeric(r))
-    stop("r has to be numeric!")
-  if (!.in(r, 0, 1))
-    stop("r must be in [0, 1]!")
-  if (!is.matrix(graph))
-    stop('please provide a matrix object!')
-  if (any(graph < 0))
-    stop("graph has to be non-negative")
-  if (dim(graph)[1] != dim(graph)[2])
-    stop("graph has to be of dimension (n x n)!")
-  if (dim(graph)[1] != length(p0))
-    stop("p0 has to have same dim as your graph!")
-  invisible(.mrwr.cpp(p0, normalize(graph), r))
+  .check.restart(r)
+  .check.vector(p0)
+  .check.graph(graph, p0)
+  invisible(.mrwr.cpp(normalize(p0), normalize(graph), r))
 }

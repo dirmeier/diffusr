@@ -21,7 +21,7 @@
 #'
 #' Network diffusion algorithms in R.
 #'
-#' @author Simon Dirmeier | Computational Biology Group, ETH ZURICH | \email{simon.dirmeier@@bsse.ethz.ch}
+#' @author Simon Dirmeier \email{simon.dirmeier@@gmx.de}
 #' @name diffusr-package
 #'
 #' @docType package

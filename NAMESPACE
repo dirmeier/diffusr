@@ -2,7 +2,7 @@
 
 S3method(heat.diffusion,numeric)
 S3method(laplacian,numeric)
-S3method(neighbors,integer)
+S3method(neighbors,numeric)
 S3method(normalize,numeric)
 S3method(random.walk,numeric)
 export(heat.diffusion)

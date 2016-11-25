@@ -87,16 +87,3 @@ laplacian.numeric <- function(obj, ...)
   lapl <- .laplacian.cpp(obj)
   return(lapl)
 }
-
-#' @noRd
-.check.graph <- function(m, v)
-{
-  if (!is.matrix(m))
-    stop('please provide a matrix object!')
-  if (any(m < 0))
-    stop("m has to be non-negative")
-  if (dim(m)[1] != dim(m)[2])
-    stop("graph has to be of dimension (n x n)!")
-  if (dim(m)[1] != length(v))
-    stop("starting vector has to have same dimension as your graph!")
-}

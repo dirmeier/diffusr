@@ -2,9 +2,9 @@
 % Please edit documentation in R/neighbors.R
 \name{neighbors}
 \alias{neighbors}
-\title{Find the closest neighbors of a group of nodes in a graph.}
+\title{Find the closest neighbors of a set nodes in a graph.}
 \usage{
-neighbors(nodes, graph, k = 1L, use.edge.weights = F, ...)
+neighbors(nodes, graph, k = 1L, ...)
 }
 \arguments{
 \item{nodes}{vector of node indexes (1-based) for which the algorithm is applied iteratively}
@@ -13,15 +13,15 @@ neighbors(nodes, graph, k = 1L, use.edge.weights = F, ...)
 
 \item{k}{the depth of the nearest neighbor search}
 
-\item{use.edge.weights}{boolean flags if the edge weights should be considered when doing nearest neighbor lookup}
-
 \item{...}{additional params}
 }
 \value{
-returns the kNN nodes as integer vector of node indexes
+returns the kNN nodes as list of integer vectors of node indexes
 }
 \description{
-Find the closest neighbors of a group of nodes in a graph.
+Runs Disjktra's algorithm to find the closest neighbors (shortest paths) for a set of nodes.
+For every node in the set Disjktra's algorithm is run against all other nodes in the graph. Then the \code{k} nearest neighbors or chosen.
+For settings where there are more than \code{k} neighbors having the same distance, all neighbors are returned.
 }
 \examples{
  # count of nodes
@@ -34,6 +34,6 @@ Find the closest neighbors of a group of nodes in a graph.
  neighs <- neighbors(node.idxs, graph, 3)
 }
 \author{
-Simon Dirmeier, email{simon.dirmeier@bsse.ethz.ch}
+Simon Dirmeier, \email{simon.dirmeier@gmx.de}
 }
 
