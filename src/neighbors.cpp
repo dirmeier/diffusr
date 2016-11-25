@@ -29,15 +29,12 @@
 #include <omp.h>
 #endif
 #include <queue>
-#include <limits>
-
-static const double MAX_DOUBLE = std::numeric_limits<double>::max();
 
 struct distance_comparator
 {
   bool operator()(std::pair<int, double>& lhs, std::pair<int, double>& rhs)
   {
-    return lhs.second > rhs.second;
+    return lhs.second < rhs.second;
   }
 };
 
@@ -70,7 +67,6 @@ void nearest_neighbor_dijkstra_(std::set<int>& nei,
     while (equals(queue.top().second, cn.second, .001) && queue.size())
     {
       std::pair<int, double> nn = queue.top();
-      Rcpp::Rcout << nn.first << std::endl;
       if (!visited[nn.first]) curr_nei.push_back(nn);
       queue.pop();
     }
@@ -78,9 +74,9 @@ void nearest_neighbor_dijkstra_(std::set<int>& nei,
          i < curr_nei.size(); ++i)
     {
       cn = curr_nei[i];
-      if (visited[cn.first]) continue;
+      if (visited[cn.first] && cn.first == source) continue;
       else visited[cn.first] = true;
-      nei.insert(cn.first);
+      nei.insert(cn.first + 1);
       for (int i = 0; i < W.cols(); ++i)
         if (i != cn.first && W(cn.first, i) > 0)
           queue.push(std::make_pair(i, W(cn.first, i)));
