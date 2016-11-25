@@ -13,7 +13,7 @@ coverage:
     changes: no
   
   ignore:
-    - "inst/include/*"
+    - inst/include/*
 
 parsers:
   gcov:
