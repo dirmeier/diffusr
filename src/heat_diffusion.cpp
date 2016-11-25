@@ -34,9 +34,15 @@
 // [[Rcpp::export(name=".heat.diffusion.cpp")]]
 Eigen::VectorXd heat_diffusion_(const Eigen::VectorXd& v0,
                                 const Eigen::MatrixXd& W,
-                                const double b)
+                                double b)
 {
   const int m = W.rows();
+  if (b == 0)
+  {
+    b += 0.00001;
+    Rcpp::Function msg("message");
+    msg(std::string("putting pseudo count on r to avoid NaNs"));
+  }
   Eigen::VectorXd vt = v0;
   Eigen::VectorXd vold;
   Eigen::MatrixXd I = Eigen::MatrixXd::Identity(m, m);

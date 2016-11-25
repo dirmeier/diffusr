@@ -17,8 +17,8 @@
 # You should have received a copy of the GNU General Public License
 # along with diffusr. If not, see <http://www.gnu.org/licenses/>.
 
-.onAttach <- function(libname, pkgname)
-{
-  packageStartupMessage(paste("Have fun diffusing with Rcpp and RcppEigen!",
-                              "Consider forking 'diffusr' on GitHub."))
-}
+# .onAttach <- function(libname, pkgname)
+# {
+#   packageStartupMessage(paste("Have fun diffusing with Rcpp and RcppEigen!",
+#                               "Consider forking 'diffusr' on GitHub."))
+# }

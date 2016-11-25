@@ -25,11 +25,11 @@ namespace diffusr {
         }
     }
 
-    inline Eigen::VectorXd _heat_diffusion_cpp(const Eigen::VectorXd& v0, const Eigen::MatrixXd& W, const double b) {
+    inline Eigen::VectorXd _heat_diffusion_cpp(const Eigen::VectorXd& v0, const Eigen::MatrixXd& W, double b) {
         typedef SEXP(*Ptr__heat_diffusion_cpp)(SEXP,SEXP,SEXP);
         static Ptr__heat_diffusion_cpp p__heat_diffusion_cpp = NULL;
         if (p__heat_diffusion_cpp == NULL) {
-            validateSignature("Eigen::VectorXd(*_heat_diffusion_cpp)(const Eigen::VectorXd&,const Eigen::MatrixXd&,const double)");
+            validateSignature("Eigen::VectorXd(*_heat_diffusion_cpp)(const Eigen::VectorXd&,const Eigen::MatrixXd&,double)");
             p__heat_diffusion_cpp = (Ptr__heat_diffusion_cpp)R_GetCCallable("diffusr", "diffusr__heat_diffusion_cpp");
         }
         RObject rcpp_result_gen;

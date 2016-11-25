@@ -10,13 +10,13 @@
 using namespace Rcpp;
 
 // heat_diffusion_
-Eigen::VectorXd heat_diffusion_(const Eigen::VectorXd& v0, const Eigen::MatrixXd& W, const double b);
+Eigen::VectorXd heat_diffusion_(const Eigen::VectorXd& v0, const Eigen::MatrixXd& W, double b);
 static SEXP diffusr_heat_diffusion__try(SEXP v0SEXP, SEXP WSEXP, SEXP bSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::traits::input_parameter< const Eigen::VectorXd& >::type v0(v0SEXP);
     Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type W(WSEXP);
-    Rcpp::traits::input_parameter< const double >::type b(bSEXP);
+    Rcpp::traits::input_parameter< double >::type b(bSEXP);
     rcpp_result_gen = Rcpp::wrap(heat_diffusion_(v0, W, b));
     return rcpp_result_gen;
 END_RCPP_RETURN_ERROR
@@ -171,7 +171,7 @@ RcppExport SEXP diffusr_neighbors_(SEXP node_idxsSEXP, SEXP WSEXP, SEXP kSEXP, S
 static int diffusr_RcppExport_validate(const char* sig) { 
     static std::set<std::string> signatures;
     if (signatures.empty()) {
-        signatures.insert("Eigen::VectorXd(*.heat.diffusion.cpp)(const Eigen::VectorXd&,const Eigen::MatrixXd&,const double)");
+        signatures.insert("Eigen::VectorXd(*.heat.diffusion.cpp)(const Eigen::VectorXd&,const Eigen::MatrixXd&,double)");
         signatures.insert("Eigen::MatrixXd(*.stoch.col.norm.cpp)(const Eigen::MatrixXd&)");
         signatures.insert("Eigen::MatrixXd(*.laplacian.cpp)(const Eigen::MatrixXd&)");
         signatures.insert("Eigen::VectorXd(*.mrwr.cpp)(const Eigen::VectorXd&,const Eigen::MatrixXd&,const double)");

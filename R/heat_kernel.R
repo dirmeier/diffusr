@@ -62,8 +62,8 @@ heat.diffusion.numeric <- function(h, graph, r=.5, ...)
   if (dim(graph)[1] != dim(graph)[2])
     stop("graph has to be of dimension (n x n)!")
   if (dim(graph)[1] != length(h))
-    stop("p0 has to have same dim as your graph!")
-  invisible(.heat.diffusion.cpp(h, normalize(graph), r))
+    stop("h has to have same dim as your graph!")
+  invisible(.heat.diffusion.cpp(h, normalize(graph), 1 - r))
 }
 
 
