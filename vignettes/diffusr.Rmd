@@ -10,7 +10,7 @@ vignette: >
 ---
 ## Introduction
 
-`diffusr` implements algorithms for network diffusion such as *Markov random walks with restarts* and *nearest neighbors*, (i.e. implementation of Dijkstra's algorithm) and *insulated heat diffusion*. Network diffusion has been studied extensively in bioinformatics, e.g. in the field of cancer gene prioritization. In the first versions of `diffusr` the three methods above are implemented, several others will follow in future patches.
+`diffusr` implements algorithms for network diffusion such as *Markov random walks with restarts*, *nearest neighbors*, (i.e. implementation of Dijkstra's algorithm) and *insulated heat diffusion*. Network diffusion has been studied extensively in bioinformatics, e.g. in the field of cancer gene prioritization. In the first versions of `diffusr` the three methods above are implemented, several others will follow in future patches.
 
 ## Tutorial
 
@@ -26,11 +26,11 @@ A *Markov random walk with restarts* calculates the stationary distribution:
 \begin{equation}
 \mathbf{p}_{t+1} = (1 - r) \mathbf{W}  \mathbf{p}_t + r \mathbf{p}_0,
 \end{equation}
-where $r \in \{0,1 \}$ is a *restart probability* of the Markov chain, $\mathbf{W}$ is a column-normalized stochastic matrix (we do the normalization for you) an $\mathbf{p}_0$ is the starting distribution of the Markov chain. We calculate the iterative updates, it is also possible to do the math using the nullspace of the matrix (comes later).
+where $r \in (0,1)$ is a *restart probability* of the Markov chain, $\mathbf{W}$ is a column-normalized stochastic matrix (we do the normalization for you) and $\mathbf{p}_0$ is the starting distribution of the Markov chain. We calculate the iterative updates, it is also possible to do the math using the nullspace of the matrix (comes later).
 
 If you want to use Markov random walks just try something like this:
 
-```{r}
+```{r, message=F}
   # count of nodes
   n <- 5
   # starting distribution (has to sum to one)
@@ -50,9 +50,9 @@ The stationary distribution should have changed quite a bit from the starting di
 
 ### Nearest neighbors
 
-Diffusion using *nearest neighbors* is straight-forward. We just traverse through the graph and take all the neighbors of a node until a certain depths in the graph is reached:
+Diffusion using *nearest neighbors* is done by traversing through a (weighted) graph and take all the neighbors of a node until a certain depths in the graph is reached. We find shortest paths between nodes using Dijkstra's algorithm:
 
-```{r}
+```{r, message=F}
   # count of nodes
   n <- 10
   # indexes(integer) of nodes for which neighbors should be searched 
@@ -63,7 +63,7 @@ Diffusion using *nearest neighbors* is straight-forward. We just traverse throug
   neighs <- neighbors(node.idxs, graph, 3)
 ```
 
-Let's see what we got:
+Let's see what which nodes we got:
 
 ```{r}
   print(neighs)
@@ -71,29 +71,30 @@ Let's see what we got:
 
 ### Heat diffusion
 
-A *Markov random walk with restarts* calculates the stationary distribution:
+An *insulated heat diffusion process* calculates the stationary distribution:
 \begin{equation}
-\mathbf{p}_{t+1} = (1 - r) \mathbf{W}  \mathbf{p}_t + r \mathbf{p}_0,
+\mathbf{h}_{t+1} = (r(\mathbf{I} - (1 - r)\mathbf{W})^{-1}) \mathbf{h}_t
 \end{equation}
-where $r \in \{0,1 \}$ is a *restart probability* of the Markov chain, $\mathbf{W}$ is a column-normalized stochastic matrix (we do the normalization for you) an $\mathbf{p}_0$ is the starting distribution of the Markov chain. We calculate the iterative updates, it is also possible to do the math using the nullspace of the matrix (comes later).
+where $r \in (0,1)$ is a rate controlling the diffusion process, $\mathbf{W}$ is a column-normalized stochastic matrix (we do the normalization for you) and $\mathbf{h}_t$ is the current heat distribution.
 
-If you want to use Markov random walks just try something like this:
+If you want to use the heat diffusion use:
 
-```{r}
+```{r, message=F}
   # count of nodes
   n <- 5
   # starting distribution (has to sum to one)
-  p0    <- rmultinom(1, 1, prob=rep(.2, n))
+  h0    <- rmultinom(1, 1, prob=rep(.2, n))
   # adjacency matrix (either normalized or not)
   graph <- matrix(abs(rnorm(n*n)), n, n)
   # computation of stationary distribution
-  pt    <- random.walk(p0, graph)
+  ht    <- heat.diffusion(h0, graph)
 ```
  
-The stationary distribution should have changed quite a bit from the starting distribution:
+The result of the heat diffusion looks like this:
 
 ```{r}
-  print(t(p0))
-  print(t(pt))
+  print(t(h0))
+  print(t(ht))
 ```
 
+Heat diffusions and Markov random walks are related to each other and should yield similar results.
