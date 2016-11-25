@@ -17,14 +17,14 @@
 # You should have received a copy of the GNU General Public License
 # along with diffusr. If not, see <http://www.gnu.org/licenses/>.
 
-#' Calculate a stochastic column normalized matrix
+#' Create a stochastically normalized matrix/vector
 #'
 #' @export
-#' @author Simon Dirmeier, email{simon.dirmeier@@bsse.ethz.ch}
+#' @author Simon Dirmeier, \email{simon.dirmeier@@gmx.de}
 #'
-#' @param obj  matrix for which the normalized stochastic matrix is created
+#' @param obj  matrix/vector that is stochstically normalized
 #' @param ...  additional params
-#' @return  returns the normalized matrix
+#' @return  returns the normalized matrix/vector
 #' @examples
 #' W <- matrix(abs(rnorm(10000)), 100, 100)
 #' stoch.W <- normalize(W)
@@ -37,14 +37,25 @@ normalize <- function(obj, ...)
 #' @method normalize numeric
 normalize.numeric <- function(obj, ...)
 {
-  if (!is.matrix(obj)) stop('please provide a matrix object!')
-  if (nrow(obj) != ncol(obj)) stop('please provide a square matrix!')
   if (any(obj < 0.0))
-    stop('please provide a matrix with only non-negative alues!')
-  if (!all(.equals.double(colSums(obj), 1, .001)))
+    stop('please provide an object with only non-negative values!')
+  if (is.matrix(obj))
   {
-    message("normalizing columns!")
-    obj <- .stoch.col.norm.cpp(obj)
+    if (nrow(obj) != ncol(obj))
+      stop('please provide a square matrix!')
+    if (!all(.equals.double(colSums(obj), 1, .001)))
+    {
+      message("normalizing column vectors!")
+      obj <- .stoch.col.norm.cpp(obj)
+    }
+  }
+  else if (is.vector(obj))
+  {
+    if (!.equals.double(sum(obj), 1, .001))
+    {
+      message("normalizing vector!")
+      obj <- obj/sum(obj)
+    }
   }
   return(obj)
 }
@@ -52,7 +63,7 @@ normalize.numeric <- function(obj, ...)
 #' Calculate the Laplacian of a matrix
 #'
 #' @export
-#' @author Simon Dirmeier, email{simon.dirmeier@@bsse.ethz.ch}
+#' @author Simon Dirmeier, \email{simon.dirmeier@@gmx.de}
 #'
 #' @param obj  matrix for which the Laplacian is calculated
 #' @param ...  additional params
@@ -75,4 +86,17 @@ laplacian.numeric <- function(obj, ...)
     stop('please provide a matrix with only non-negative alues!')
   lapl <- .laplacian.cpp(obj)
   return(lapl)
+}
+
+#' @noRd
+.check.graph <- function(m, v)
+{
+  if (!is.matrix(m))
+    stop('please provide a matrix object!')
+  if (any(m < 0))
+    stop("m has to be non-negative")
+  if (dim(m)[1] != dim(m)[2])
+    stop("graph has to be of dimension (n x n)!")
+  if (dim(m)[1] != length(v))
+    stop("starting vector has to have same dimension as your graph!")
 }

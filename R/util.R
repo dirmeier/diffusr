@@ -24,4 +24,7 @@
 }
 
 #' @noRd
-.in <- function(val, lower, upper) val >= lower & val <= upper
+.in <- function(val, lower, upper)
+{
+  val >= lower & val <= upper
+}

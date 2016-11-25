@@ -20,11 +20,11 @@
 #' Do graph diffusion using an insulated heat kernel.
 #'
 #' @export
-#' @author Simon Dirmeier, \email{simon.dirmeier@@bsse.ethz.ch}
+#' @author Simon Dirmeier, \email{simon.dirmeier@@gmx.de}
 #'
 #' @param h  the starting heat distribution
 #' @param graph  a non-negative matrix
-#' @param r  the restart probability of the heat kernel
+#' @param r 'rate' of heat diffusion, where 1 is the maximum diffusion and 0 no diffusion at al
 #' @param ...  additional params
 #' @return  returns the heat on every node as a vector
 #' @examples
@@ -47,8 +47,8 @@ heat.diffusion.numeric <- function(h, graph, r=.5, ...)
 {
   if (any(h < 0))
     stop("h can only contain non-negative values!")
-  if (!.equals.double(sum(h), 1, .0001))
-    stop("h does not sum to 1!")
+  if (!is.vector(h))
+    stop('vectorial h required')
   if (!is.numeric(r))
     stop("r has to be numeric!")
   if (!.in(r, 0, 1))
@@ -60,7 +60,7 @@ heat.diffusion.numeric <- function(h, graph, r=.5, ...)
   if (dim(graph)[1] != dim(graph)[2])
     stop("graph has to be of dimension (n x n)!")
   if (dim(graph)[1] != length(h))
-    stop("h has to have same dim as your graph!")
+    stop("h has to have same dimension as your graph!")
   invisible(.heat.diffusion.cpp(h, normalize(graph), 1 - r))
 }
 

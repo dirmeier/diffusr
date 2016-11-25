@@ -32,6 +32,6 @@ graph <- matrix(abs(rnorm(n*n)), n, n)
 pt    <- heat.diffusion(h, graph)
 }
 \author{
-Simon Dirmeier, email{simon.dirmeier@bsse.ethz.ch}
+Simon Dirmeier, \email{simon.dirmeier@bsse.ethz.ch}
 }
 

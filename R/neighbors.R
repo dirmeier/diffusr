@@ -28,7 +28,6 @@
 #' @param nodes  vector of node indexes (1-based) for which the algorithm is applied iteratively
 #' @param graph  a non-negative matrix
 #' @param k  the depth of the nearest neighbor search
-#' @param use.edge.weights  boolean flags if the edge weights should be considered when doing nearest neighbor lookup
 #' @param ...  additional params
 #' @return  returns the kNN nodes as integer vector of node indexes
 #' @examples
@@ -40,14 +39,14 @@
 #'  graph <- rbind(cbind(0, diag(n-1)), 0)
 #'  # compte the neighbors until depth 3
 #'  neighs <- neighbors(node.idxs, graph, 3)
-neighbors <- function(nodes, graph, k=1L, use.edge.weights=F, ...)
+neighbors <- function(nodes, graph, k=1L, ...)
 {
   UseMethod("neighbors")
 }
 
 #' @export
-#' @method neighbors integer
-neighbors.integer <- function(nodes, graph, k=1L, use.edge.weights=F, ...)
+#' @method neighbors numeric
+neighbors.numeric <- function(nodes, graph, k=1L, ...)
 {
   if (!is.numeric(nodes) && !is.integer(nodes))
     stop('nodes has to be a vector of integer')
@@ -64,9 +63,5 @@ neighbors.integer <- function(nodes, graph, k=1L, use.edge.weights=F, ...)
     stop('k has to be a scalar int')
   k <- as.integer(k)
   if (k < 1) stop("k must be greater than 0!")
-  if (!is.logical(use.edge.weights))
-    stop("use.edge.weights should be boolean!")
-  if (use.edge.weights) stop("Not yet implemented!")
-  graph[graph > 0] <- 1
-  invisible(.neighbors.cpp(nodes, graph, k, use.edge.weights))
+  invisible(.neighbors.cpp(nodes, graph, k))
 }
