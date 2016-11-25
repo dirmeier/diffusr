@@ -10,8 +10,7 @@ vignette: >
 ---
 ## Introduction
 
-`diffusr` implements algorithms for network diffusion such as *Markov random walks with restarts* and *weighted neighbor classification*. Network diffusion has been studied extensively in bioinformatics, e.g. in the field of cancer gene prioritization.
-To my knowledge only few packages implement all of the diffusion algorithms. In the first version of `diffusr` I implemented the two methods above, several others will follow in future patches.
+`diffusr` implements algorithms for network diffusion such as *Markov random walks with restarts* and *nearest neighbors*, (i.e. implementation of Dijkstra's algorithm) and *insulated heat diffusion*. Network diffusion has been studied extensively in bioinformatics, e.g. in the field of cancer gene prioritization. In the first versions of `diffusr` the three methods above are implemented, several others will follow in future patches.
 
 ## Tutorial
 
@@ -49,9 +48,9 @@ The stationary distribution should have changed quite a bit from the starting di
   print(t(pt))
 ```
 
-### Nearest neighbor search
+### Nearest neighbors
 
-*Nearest neighbor search* is straight-forward. We just traverse through the graph and take all the neighbors of a node until a certain depths in the graph is reached:
+Diffusion using *nearest neighbors* is straight-forward. We just traverse through the graph and take all the neighbors of a node until a certain depths in the graph is reached:
 
 ```{r}
   # count of nodes
@@ -70,5 +69,31 @@ Let's see what we got:
   print(neighs)
 ```
 
+### Heat diffusion
 
-That's all so far.
+A *Markov random walk with restarts* calculates the stationary distribution:
+\begin{equation}
+\mathbf{p}_{t+1} = (1 - r) \mathbf{W}  \mathbf{p}_t + r \mathbf{p}_0,
+\end{equation}
+where $r \in \{0,1 \}$ is a *restart probability* of the Markov chain, $\mathbf{W}$ is a column-normalized stochastic matrix (we do the normalization for you) an $\mathbf{p}_0$ is the starting distribution of the Markov chain. We calculate the iterative updates, it is also possible to do the math using the nullspace of the matrix (comes later).
+
+If you want to use Markov random walks just try something like this:
+
+```{r}
+  # count of nodes
+  n <- 5
+  # starting distribution (has to sum to one)
+  p0    <- rmultinom(1, 1, prob=rep(.2, n))
+  # adjacency matrix (either normalized or not)
+  graph <- matrix(abs(rnorm(n*n)), n, n)
+  # computation of stationary distribution
+  pt    <- random.walk(p0, graph)
+```
+ 
+The stationary distribution should have changed quite a bit from the starting distribution:
+
+```{r}
+  print(t(p0))
+  print(t(pt))
+```
+

@@ -20,9 +20,7 @@
 #' Do graph diffusion using an insulated heat kernel.
 #'
 #' @export
-#' @author Simon Dirmeier, email{simon.dirmeier@@bsse.ethz.ch}
-#'
-#' @import igraph
+#' @author Simon Dirmeier, \email{simon.dirmeier@@bsse.ethz.ch}
 #'
 #' @param h  the starting heat distribution
 #' @param graph  a non-negative matrix
