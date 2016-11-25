@@ -33,3 +33,31 @@ test_that("heat diffusion if maximum diffusion",{
   expect_equal(s, expect)
 })
 
+test_that("wrong h0 vector nont summing to one",{
+  expect_error(heat.diffusion(rep(1, 5), adja, 1))
+})
+
+test_that("wrong h0 vector negative values",{
+  expect_error(heat.diffusion(rep(-1, 5), adja, 1))
+})
+
+test_that("wrong adja matrix as integer",{
+  expect_error(heat.diffusion(h, as.integer(adja), 1))
+})
+
+test_that("wrong adja matrix wrong dimensions",{
+  expect_error(heat.diffusion(h, cbind(adja, 1), 1))
+})
+
+test_that("wrong adja matrix negative values",{
+  expect_error(heat.diffusion(h, adja * -1, 1))
+})
+
+test_that("wrong restart probability",{
+  expect_error(heat.diffusion(h, adja, 1.1))
+})
+
+test_that("wrong vector matrix dims",{
+  expect_error(heat.diffusion(c(1, rep(0, 5)),  adja, .5))
+})
+
