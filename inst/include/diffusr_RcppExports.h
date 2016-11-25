@@ -101,17 +101,17 @@ namespace diffusr {
         return Rcpp::as<Eigen::VectorXd >(rcpp_result_gen);
     }
 
-    inline Rcpp::List _neighbors_cpp(const Rcpp::IntegerVector& node_idxs, const Rcpp::NumericMatrix& W, const int k, const bool use_edge_weights) {
-        typedef SEXP(*Ptr__neighbors_cpp)(SEXP,SEXP,SEXP,SEXP);
+    inline Rcpp::List _neighbors_cpp(const Rcpp::IntegerVector& node_idxs, const Rcpp::NumericMatrix& W, const int k) {
+        typedef SEXP(*Ptr__neighbors_cpp)(SEXP,SEXP,SEXP);
         static Ptr__neighbors_cpp p__neighbors_cpp = NULL;
         if (p__neighbors_cpp == NULL) {
-            validateSignature("Rcpp::List(*_neighbors_cpp)(const Rcpp::IntegerVector&,const Rcpp::NumericMatrix&,const int,const bool)");
+            validateSignature("Rcpp::List(*_neighbors_cpp)(const Rcpp::IntegerVector&,const Rcpp::NumericMatrix&,const int)");
             p__neighbors_cpp = (Ptr__neighbors_cpp)R_GetCCallable("diffusr", "diffusr__neighbors_cpp");
         }
         RObject rcpp_result_gen;
         {
             RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p__neighbors_cpp(Rcpp::wrap(node_idxs), Rcpp::wrap(W), Rcpp::wrap(k), Rcpp::wrap(use_edge_weights));
+            rcpp_result_gen = p__neighbors_cpp(Rcpp::wrap(node_idxs), Rcpp::wrap(W), Rcpp::wrap(k));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();

@@ -20,9 +20,8 @@
 
 #' Find the closest neighbors of a set nodes in a graph.
 #'
-#' @description Runs Disjktra's algorithm to find the closest neighbors (shortest paths) for a set of nodes.
-#' For every node in the set Disjktra's algorithm is run against all other nodes in the graph. Then the \code{k} nearest neighbors are chosen.
-#' For settings where there are more than \code{k} neighbors having the same distance, all neighbors are returned.
+#' @description For every node in a set of nodes the graph gets traversed along the node's shortest paths to its neighbors.
+#' Nearest neighbors are added until a maximum depth of \code{k} is reached. For settings where there are more than \code{k} neighbors having the same distance, all neighbors are returned.
 #'
 #' @export
 #' @author  Simon Dirmeier, \email{simon.dirmeier@@gmx.de}
@@ -58,7 +57,7 @@ neighbors.numeric <- function(nodes, graph, k=1L, ...)
     stop('nodes has to be a vector of integer')
   int.nodes <- unique(as.integer(nodes))
   if (length(int.nodes) != length(nodes))
-    warning("casting nodes to int removed some of the indexes continueing with int vector")
+    warning("casting nodes to int removed some of the indexes.")
   if (any(int.nodes < 1))
     stop("node idxs have to be 1-indexed!")
   if ((!is.numeric(k) && !is.integer(k)) || length(k) != 1 || k < 1)

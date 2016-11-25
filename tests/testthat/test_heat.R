@@ -33,10 +33,6 @@ test_that("heat diffusion if maximum diffusion",{
   expect_equal(s, expect)
 })
 
-test_that("wrong h0 vector nont summing to one",{
-  expect_error(heat.diffusion(rep(1, 5), adja, 1))
-})
-
 test_that("wrong h0 vector negative values",{
   expect_error(heat.diffusion(rep(-1, 5), adja, 1))
 })

@@ -17,8 +17,8 @@
     .Call('diffusr_mrwr_', PACKAGE = 'diffusr', p0, W, r)
 }
 
-.neighbors.cpp <- function(node_idxs, W, k, use_edge_weights) {
-    .Call('diffusr_neighbors_', PACKAGE = 'diffusr', node_idxs, W, k, use_edge_weights)
+.neighbors.cpp <- function(node_idxs, W, k) {
+    .Call('diffusr_neighbors_', PACKAGE = 'diffusr', node_idxs, W, k)
 }
 
 # Register entry points for exported C++ functions
