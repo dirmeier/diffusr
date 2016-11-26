@@ -1,6 +1,6 @@
 Package: diffusr
 Type: Package
-Title: Network diffusion algorithms in R
+Title: Network Diffusion Algorithms in R
 Version: 0.1.0
 Authors@R: person("Simon", "Dirmeier", email = "simon.dirmeier@gmx.de", role = c("aut", "cre"))
 Maintainer: Simon Dirmeier <simon.dirmeier@gmx.de>
