@@ -26,7 +26,7 @@
 #' @export
 #' @author Simon Dirmeier, \email{simon.dirmeier@@gmx.de}
 #'
-#' @param p0  the starting distribution of the Markov chain
+#' @param p0  the starting distribution of the Markov chain (does not need to sum to one)
 #' @param graph  a non-negative matrix
 #' @param r  the restart probability if a Markov random walk with restart is desired
 #' @param ...  additional params

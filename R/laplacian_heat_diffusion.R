@@ -25,7 +25,7 @@
 #' @export
 #' @author Simon Dirmeier, \email{simon.dirmeier@@gmx.de}
 #'
-#' @param h0  the starting heat distribution
+#' @param h0  a vector with starting temperature
 #' @param graph  a non-negative matrix
 #' @param t  time point when heat is measuted
 #' @param ...  additional params
@@ -53,8 +53,9 @@ laplacian.heat.diffusion <- function(h0, graph, t=.5, ...)
 #' @method laplacian.heat.diffusion numeric
 laplacian.heat.diffusion.numeric <- function(h0, graph, t=.5, ...)
 {
-  .check.restart(r)
+  if (!is.numeric(t)) stop("numeric t needed")
+  if (t < 0) stop("pls provide positive t")
   .check.vector(h0)
   .check.graph(graph, h0)
-  invisible(.insulated.heat.diffusion.cpp(normalize(h0), normalize(graph), 1 - r))
+  invisible(.laplacian.heat.diffusion.cpp(h0, laplacian(graph), t))
 }

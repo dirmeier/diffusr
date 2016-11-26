@@ -25,7 +25,7 @@
 #' @export
 #' @author Simon Dirmeier, \email{simon.dirmeier@@gmx.de}
 #'
-#' @param h0  the starting heat distribution
+#' @param h0  a vector with starting temperature
 #' @param graph  a non-negative matrix
 #' @param r 'rate' of heat diffusion, where 1 is the maximum diffusion and 0 no diffusion at all
 #' @param ...  additional params
