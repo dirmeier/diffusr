@@ -18,22 +18,21 @@
 # along with diffusr. If not, see <http://www.gnu.org/licenses/>.
 
 
-#' Find the closest neighbors of a set nodes in a graph.
+#' Graph diffusion using nearest neighbors.
 #'
-#' @description For every node in a set of nodes the graph gets traversed along the node's shortest paths to its neighbors.
-#' Nearest neighbors are added until a maximum depth of \code{k} is reached. For settings where there are more than \code{k} neighbors having the same distance, all neighbors are returned.
+#' @description For every node in a set of nodes the graph gets traversed along
+#' the node's shortest paths to its neighbors. Nearest neighbors are added
+#' until a maximum depth of \code{k} is reached. For settings where there are more
+#' than \code{k} neighbors having the same distance, all neighbors are returned.
 #'
 #' @export
 #' @author  Simon Dirmeier, \email{simon.dirmeier@@gmx.de}
-#'
-#' @import igraph
 #'
 #' @param nodes  vector of node indexes (1-based) for which the algorithm is applied iteratively
 #' @param graph  a non-negative matrix
 #' @param k  the depth of the nearest neighbor search
 #' @param ...  additional params
 #' @return  returns the kNN nodes as list of integer vectors of node indexes
-#'
 #'
 #' @examples
 #'  # count of nodes
@@ -43,15 +42,15 @@
 #'  # the adjaceny matrix (does not need to be symmetric)
 #'  graph <- rbind(cbind(0, diag(n-1)), 0)
 #'  # compte the neighbors until depth 3
-#'  neighs <- neighbors(node.idxs, graph, 3)
-neighbors <- function(nodes, graph, k=1L, ...)
+#'  neighs <- nearest.neighbors(node.idxs, graph, 3)
+nearest.neighbors <- function(nodes, graph, k=1L, ...)
 {
-  UseMethod("neighbors")
+  UseMethod("nearest.neighbors")
 }
 
 #' @export
-#' @method neighbors numeric
-neighbors.numeric <- function(nodes, graph, k=1L, ...)
+#' @method nearest.neighbors numeric
+nearest.neighbors.numeric <- function(nodes, graph, k=1L, ...)
 {
   if (!is.numeric(nodes) && !is.integer(nodes))
     stop('nodes has to be a vector of integer')

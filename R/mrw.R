@@ -17,12 +17,15 @@
 # You should have received a copy of the GNU General Public License
 # along with diffusr. If not, see <http://www.gnu.org/licenses/>.
 
-#' Do a Markov random walk on a graph.
+#' Graph diffusion using a Markov random walk.
+#'
+#' @description Do a Markov random walk with restarts on a graph.
+#' The MRW takes an inital distribution \code{p0} and calculates the stationary distribution of that.
+#' The diffusion process is regulated by a restart probability \code{r}.
+#' It basically controls how often the MRW jumps back to the initial values.
 #'
 #' @export
 #' @author Simon Dirmeier, \email{simon.dirmeier@@gmx.de}
-#'
-#' @import igraph
 #'
 #' @param p0  the starting distribution of the Markov chain
 #' @param graph  a non-negative matrix
@@ -33,7 +36,7 @@
 #' # count of nodes
 #' n <- 5
 #' # starting distribution (has to sum to one)
-#' p0    <- rmultinom(1, 1, prob=rep(.2, n))
+#' p0    <- as.vector(rmultinom(1, 1, prob=rep(.2, n)))
 #' # adjacency matrix (either normalized or not)
 #' graph <- matrix(abs(rnorm(n*n)), n, n)
 #' # computation of stationary distribution

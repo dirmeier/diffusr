@@ -17,12 +17,17 @@
 # You should have received a copy of the GNU General Public License
 # along with diffusr. If not, see <http://www.gnu.org/licenses/>.
 
-#' Do graph diffusion using an insulated heat kernel.
+#' Graph diffusion using an insulated heat kernel.
+#'
+#' @description Do graph diffusion using an insulated heat kernel.
+#' The kernel describes how heat is distributed across a grid. Starting with a
+#' initial heat distribution \code{h0}, the heat diffusion calculates the stationary
+#' distribution of heat.
 #'
 #' @export
 #' @author Simon Dirmeier, \email{simon.dirmeier@@gmx.de}
 #'
-#' @param h  the starting heat distribution
+#' @param h0  the starting heat distribution
 #' @param graph  a non-negative matrix
 #' @param r 'rate' of heat diffusion, where 1 is the maximum diffusion and 0 no diffusion at al
 #' @param ...  additional params
@@ -31,24 +36,22 @@
 #' # count of nodes
 #' n <- 5
 #' # starting distribution (has to sum to one)
-#' h    <- rmultinom(1, 1, prob=rep(.2, n))
+#' h0    <- as.vector(rmultinom(1, 1, prob=rep(.2, n)))
 #' # adjacency matrix (either normalized or not)
 #' graph <- matrix(abs(rnorm(n*n)), n, n)
 #' # computation of stationary distribution
-#' pt    <- heat.diffusion(h, graph)
-heat.diffusion <- function(h, graph, r=.5, ...)
+#' ht    <- heat.diffusion(h0, graph)
+heat.diffusion <- function(h0, graph, r=.5, ...)
 {
   UseMethod("heat.diffusion")
 }
 
 #' @export
 #' @method heat.diffusion numeric
-heat.diffusion.numeric <- function(h, graph, r=.5, ...)
+heat.diffusion.numeric <- function(h0, graph, r=.5, ...)
 {
   .check.restart(r)
-  .check.vector(h)
-  .check.graph(graph, h)
-  invisible(.heat.diffusion.cpp(normalize(h), normalize(graph), 1 - r))
+  .check.vector(h0)
+  .check.graph(graph, h0)
+  invisible(.heat.diffusion.cpp(normalize(h0), normalize(graph), 1 - r))
 }
-
-

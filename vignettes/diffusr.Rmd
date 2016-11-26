@@ -34,7 +34,7 @@ If you want to use Markov random walks just try something like this:
   # count of nodes
   n <- 5
   # starting distribution (has to sum to one)
-  p0    <- rmultinom(1, 1, prob=rep(.2, n))
+  p0    <- as.vector(rmultinom(1, 1, prob=rep(.2, n)))
   # adjacency matrix (either normalized or not)
   graph <- matrix(abs(rnorm(n*n)), n, n)
   # computation of stationary distribution
@@ -60,7 +60,7 @@ Diffusion using *nearest neighbors* is done by traversing through a (weighted) g
   # the adjaceny matrix (does not need to be symmetric)
   graph <- rbind(cbind(0, diag(n-1)), 0)
   # compte the neighbors until depth 3
-  neighs <- neighbors(node.idxs, graph, 3)
+  neighs <- nearest.neighbors(node.idxs, graph, 3)
 ```
 
 Let's see what which nodes we got:
@@ -83,7 +83,7 @@ If you want to use the heat diffusion use:
   # count of nodes
   n <- 5
   # starting distribution (has to sum to one)
-  h0    <- rmultinom(1, 1, prob=rep(.2, n))
+  h0    <- as.vector(rmultinom(1, 1, prob=rep(.2, n)))
   # adjacency matrix (either normalized or not)
   graph <- matrix(abs(rnorm(n*n)), n, n)
   # computation of stationary distribution

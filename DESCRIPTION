@@ -2,9 +2,9 @@ Package: diffusr
 Type: Package
 Title: Network diffusion algorithms in R
 Version: 0.1.0
-Authors@R: person("Simon", "Dirmeier", email = "simon.dirmeier@bsse.ethz.ch", role = c("aut", "cre"))
-Maintainer: Simon Dirmeier <simon.dirmeier@bsse.ethz.ch>
-Description: Implementation of algorithms such a k-NN or Markov random walks for network diffusion.
+Authors@R: person("Simon", "Dirmeier", email = "simon.dirmeier@gmx.de", role = c("aut", "cre"))
+Maintainer: Simon Dirmeier <simon.dirmeier@gmx.de>
+Description: Implementation of algorithms such a insulated heat diffusion process or Markov random walks for network propagation.
 License: GPL (>=3)
 LazyData: TRUE
 LinkingTo: Rcpp, RcppEigen

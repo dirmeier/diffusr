@@ -2,7 +2,7 @@
 % Please edit documentation in R/mrw.R
 \name{random.walk}
 \alias{random.walk}
-\title{Do a Markov random walk on a graph.}
+\title{Graph diffusion using a Markov random walk.}
 \usage{
 random.walk(p0, graph, r = 0.5, ...)
 }
@@ -19,13 +19,16 @@ random.walk(p0, graph, r = 0.5, ...)
 returns the stationary distribution as vector
 }
 \description{
-Do a Markov random walk on a graph.
+Do a Markov random walk with restarts on a graph.
+The MRW takes an inital distribution \code{p0} and calculates the stationary distribution of that.
+The diffusion process is regulated by a restart probability \code{r}.
+It basically controls how often the MRW jumps back to the initial values.
 }
 \examples{
 # count of nodes
 n <- 5
 # starting distribution (has to sum to one)
-p0    <- rmultinom(1, 1, prob=rep(.2, n))
+p0    <- as.vector(rmultinom(1, 1, prob=rep(.2, n)))
 # adjacency matrix (either normalized or not)
 graph <- matrix(abs(rnorm(n*n)), n, n)
 # computation of stationary distribution

@@ -2,12 +2,12 @@
 % Please edit documentation in R/heat_kernel.R
 \name{heat.diffusion}
 \alias{heat.diffusion}
-\title{Do graph diffusion using an insulated heat kernel.}
+\title{Graph diffusion using an insulated heat kernel.}
 \usage{
-heat.diffusion(h, graph, r = 0.5, ...)
+heat.diffusion(h0, graph, r = 0.5, ...)
 }
 \arguments{
-\item{h}{the starting heat distribution}
+\item{h0}{the starting heat distribution}
 
 \item{graph}{a non-negative matrix}
 
@@ -20,16 +20,19 @@ returns the heat on every node as a vector
 }
 \description{
 Do graph diffusion using an insulated heat kernel.
+The kernel describes how heat is distributed across a grid. Starting with a
+initial heat distribution \code{h0}, the heat diffusion calculates the stationary
+distribution of heat.
 }
 \examples{
 # count of nodes
 n <- 5
 # starting distribution (has to sum to one)
-h    <- rmultinom(1, 1, prob=rep(.2, n))
+h0    <- as.vector(rmultinom(1, 1, prob=rep(.2, n)))
 # adjacency matrix (either normalized or not)
 graph <- matrix(abs(rnorm(n*n)), n, n)
 # computation of stationary distribution
-pt    <- heat.diffusion(h, graph)
+ht    <- heat.diffusion(h0, graph)
 }
 \author{
 Simon Dirmeier, \email{simon.dirmeier@gmx.de}
