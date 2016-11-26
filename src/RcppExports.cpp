@@ -170,7 +170,7 @@ RcppExport SEXP diffusr_neighbors_(SEXP node_idxsSEXP, SEXP WSEXP, SEXP kSEXP) {
 static int diffusr_RcppExport_validate(const char* sig) { 
     static std::set<std::string> signatures;
     if (signatures.empty()) {
-        signatures.insert("Eigen::VectorXd(*.heat.diffusion.cpp)(const Eigen::VectorXd&,const Eigen::MatrixXd&,double)");
+        signatures.insert("Eigen::VectorXd(*.insulated.heat.diffusion.cpp)(const Eigen::VectorXd&,const Eigen::MatrixXd&,double)");
         signatures.insert("Eigen::MatrixXd(*.stoch.col.norm.cpp)(const Eigen::MatrixXd&)");
         signatures.insert("Eigen::MatrixXd(*.laplacian.cpp)(const Eigen::MatrixXd&)");
         signatures.insert("Eigen::VectorXd(*.mrwr.cpp)(const Eigen::VectorXd&,const Eigen::MatrixXd&,const double)");
@@ -181,7 +181,7 @@ static int diffusr_RcppExport_validate(const char* sig) {
 
 // registerCCallable (register entry points for exported C++ functions)
 RcppExport SEXP diffusr_RcppExport_registerCCallable() { 
-    R_RegisterCCallable("diffusr", "diffusr_.heat.diffusion.cpp", (DL_FUNC)diffusr_heat_diffusion__try);
+    R_RegisterCCallable("diffusr", "diffusr_.insulated.heat.diffusion.cpp", (DL_FUNC)diffusr_heat_diffusion__try);
     R_RegisterCCallable("diffusr", "diffusr_.stoch.col.norm.cpp", (DL_FUNC)diffusr_stoch_col_norm__try);
     R_RegisterCCallable("diffusr", "diffusr_.laplacian.cpp", (DL_FUNC)diffusr_laplacian__try);
     R_RegisterCCallable("diffusr", "diffusr_.mrwr.cpp", (DL_FUNC)diffusr_mrwr__try);

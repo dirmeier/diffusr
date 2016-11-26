@@ -25,17 +25,17 @@ namespace diffusr {
         }
     }
 
-    inline Eigen::VectorXd _heat_diffusion_cpp(const Eigen::VectorXd& v0, const Eigen::MatrixXd& W, double b) {
-        typedef SEXP(*Ptr__heat_diffusion_cpp)(SEXP,SEXP,SEXP);
-        static Ptr__heat_diffusion_cpp p__heat_diffusion_cpp = NULL;
-        if (p__heat_diffusion_cpp == NULL) {
-            validateSignature("Eigen::VectorXd(*_heat_diffusion_cpp)(const Eigen::VectorXd&,const Eigen::MatrixXd&,double)");
-            p__heat_diffusion_cpp = (Ptr__heat_diffusion_cpp)R_GetCCallable("diffusr", "diffusr__heat_diffusion_cpp");
+    inline Eigen::VectorXd _insulated_heat_diffusion_cpp(const Eigen::VectorXd& v0, const Eigen::MatrixXd& W, double b) {
+        typedef SEXP(*Ptr__insulated_heat_diffusion_cpp)(SEXP,SEXP,SEXP);
+        static Ptr__insulated_heat_diffusion_cpp p__insulated_heat_diffusion_cpp = NULL;
+        if (p__insulated_heat_diffusion_cpp == NULL) {
+            validateSignature("Eigen::VectorXd(*_insulated_heat_diffusion_cpp)(const Eigen::VectorXd&,const Eigen::MatrixXd&,double)");
+            p__insulated_heat_diffusion_cpp = (Ptr__insulated_heat_diffusion_cpp)R_GetCCallable("diffusr", "diffusr__insulated_heat_diffusion_cpp");
         }
         RObject rcpp_result_gen;
         {
             RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p__heat_diffusion_cpp(Rcpp::wrap(v0), Rcpp::wrap(W), Rcpp::wrap(b));
+            rcpp_result_gen = p__insulated_heat_diffusion_cpp(Rcpp::wrap(v0), Rcpp::wrap(W), Rcpp::wrap(b));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
