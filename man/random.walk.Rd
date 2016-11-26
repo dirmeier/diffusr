@@ -37,4 +37,11 @@ pt    <- random.walk(p0, graph)
 \author{
 Simon Dirmeier, \email{simon.dirmeier@gmx.de}
 }
+\references{
+Tong, H., Faloutsos, C., & Pan, J. Y. (2006),
+Fast random walk with restart and its applications.\cr \cr
+Köhler, S., Bauer, S., Horn, D., & Robinson, P. N. (2008),
+Walking the interactome for prioritization of candidate disease genes.
+\emph{The American Journal of Human Genetics}\cr \cr
+}
 

@@ -17,26 +17,23 @@
 # You should have received a copy of the GNU General Public License
 # along with diffusr. If not, see <http://www.gnu.org/licenses/>.
 
-#' Graph diffusion using an insulated heat diffusion process
+#' Graph diffusion using a heat diffusion process on a Laplacian matrix.
 #'
-#' @description An amount of starting heat \code{h0} is distributed across a grid.
-#' The insulated heat diffusion calculates the stationary distribution of heat.
+#' @description An amount of starting heat gets distribution using the Laplacian matrix of a graph.
+#' Every iteration (or time interval) \code{t} heat streams from the starting nodes into surrounding nodes.
 #'
 #' @export
 #' @author Simon Dirmeier, \email{simon.dirmeier@@gmx.de}
 #'
 #' @param h0  the starting heat distribution
 #' @param graph  a non-negative matrix
-#' @param r 'rate' of heat diffusion, where 1 is the maximum diffusion and 0 no diffusion at all
+#' @param t  time point when heat is measuted
 #' @param ...  additional params
 #' @return  returns the heat on every node as a vector
 #'
 #' @references
-#' Power and centrality: A family of measures.
-#' \emph{American journal of sociology}\cr \cr
-#' Leiserson, M. D., Vandin, F., Wu, H. T., Dobson, J. R., Eldridge, J. V., Thomas, J. L., ... & Lawrence, M. S. (2015),
-#' Pan-cancer network analysis identifies combinations of rare somatic mutations across pathways and protein complexes.
-#' \emph{Nature genetics}\cr \cr
+#' \url{https://en.wikipedia.org/wiki/Laplacian_matrix} \cr
+#' \url{https://en.wikipedia.org/wiki/Heat_equation}
 #'
 #' @examples
 #' # count of nodes
@@ -46,15 +43,15 @@
 #' # adjacency matrix (either normalized or not)
 #' graph <- matrix(abs(rnorm(n*n)), n, n)
 #' # computation of stationary distribution
-#' ht <- insulated.heat.diffusion(h0, graph)
-insulated.heat.diffusion <- function(h0, graph, r=.5, ...)
+#' ht <- laplacian.heat.diffusion(h0, graph)
+laplacian.heat.diffusion <- function(h0, graph, t=.5, ...)
 {
-  UseMethod("insulated.heat.diffusion")
+  UseMethod("laplacian.heat.diffusion")
 }
 
 #' @export
-#' @method insulated.heat.diffusion numeric
-insulated.heat.diffusion.numeric <- function(h0, graph, r=.5, ...)
+#' @method laplacian.heat.diffusion numeric
+laplacian.heat.diffusion.numeric <- function(h0, graph, t=.5, ...)
 {
   .check.restart(r)
   .check.vector(h0)

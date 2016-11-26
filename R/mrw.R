@@ -19,8 +19,7 @@
 
 #' Graph diffusion using a Markov random walk
 #'
-#' @description Do a Markov random walk with restarts on a graph.
-#' The MRW takes an inital distribution \code{p0} and calculates the stationary distribution of that.
+#' @description A Markov Random Walk takes an inital distribution \code{p0} and calculates the stationary distribution of that.
 #' The diffusion process is regulated by a restart probability \code{r}.
 #' It basically controls how often the MRW jumps back to the initial values.
 #'
@@ -32,6 +31,14 @@
 #' @param r  the restart probability if a Markov random walk with restart is desired
 #' @param ...  additional params
 #' @return  returns the stationary distribution as vector
+#'
+#' @references
+#' Tong, H., Faloutsos, C., & Pan, J. Y. (2006),
+#' Fast random walk with restart and its applications.\cr \cr
+#' Köhler, S., Bauer, S., Horn, D., & Robinson, P. N. (2008),
+#' Walking the interactome for prioritization of candidate disease genes.
+#' \emph{The American Journal of Human Genetics}\cr \cr
+#'
 #' @examples
 #' # count of nodes
 #' n <- 5
