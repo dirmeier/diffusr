@@ -59,5 +59,6 @@ insulated.heat.diffusion.numeric <- function(h0, graph, r=.5, ...)
   .check.restart(r)
   .check.vector(h0)
   .check.graph(graph, h0)
-  invisible(.insulated.heat.diffusion.cpp(normalize(h0), normalize(graph), 1 - r))
+  invisible(.insulated.heat.diffusion.cpp(normalize(h0),
+                                          normalize(graph), 1 - r))
 }
