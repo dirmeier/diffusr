@@ -17,7 +17,7 @@
 # You should have received a copy of the GNU General Public License
 # along with diffusr. If not, see <http://www.gnu.org/licenses/>.
 
-#' Graph diffusion using a Markov random walk.
+#' Graph diffusion using a Markov random walk
 #'
 #' @description Do a Markov random walk with restarts on a graph.
 #' The MRW takes an inital distribution \code{p0} and calculates the stationary distribution of that.

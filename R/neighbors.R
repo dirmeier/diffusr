@@ -18,7 +18,7 @@
 # along with diffusr. If not, see <http://www.gnu.org/licenses/>.
 
 
-#' Graph diffusion using nearest neighbors.
+#' Graph diffusion using nearest neighbors
 #'
 #' @description For every node in a set of nodes the graph gets traversed along
 #' the node's shortest paths to its neighbors. Nearest neighbors are added
@@ -63,5 +63,7 @@ nearest.neighbors.numeric <- function(nodes, graph, k=1L, ...)
     stop('k has to be a positive scalar int')
   k <- as.integer(k)
   .check.graph(graph)
-  invisible(.neighbors.cpp(int.nodes, graph, k))
+  l <- .neighbors.cpp(int.nodes, graph, k)
+  names(l) <- int.nodes
+  invisible(l)
 }

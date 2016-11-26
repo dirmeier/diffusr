@@ -2,7 +2,7 @@
 % Please edit documentation in R/heat_kernel.R
 \name{heat.diffusion}
 \alias{heat.diffusion}
-\title{Graph diffusion using an insulated heat kernel.}
+\title{Graph diffusion using an insulated heat kernel}
 \usage{
 heat.diffusion(h0, graph, r = 0.5, ...)
 }
@@ -11,7 +11,7 @@ heat.diffusion(h0, graph, r = 0.5, ...)
 
 \item{graph}{a non-negative matrix}
 
-\item{r}{'rate' of heat diffusion, where 1 is the maximum diffusion and 0 no diffusion at al}
+\item{r}{'rate' of heat diffusion, where 1 is the maximum diffusion and 0 no diffusion at all}
 
 \item{...}{additional params}
 }

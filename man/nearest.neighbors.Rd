@@ -2,7 +2,7 @@
 % Please edit documentation in R/neighbors.R
 \name{nearest.neighbors}
 \alias{nearest.neighbors}
-\title{Graph diffusion using nearest neighbors.}
+\title{Graph diffusion using nearest neighbors}
 \usage{
 nearest.neighbors(nodes, graph, k = 1L, ...)
 }

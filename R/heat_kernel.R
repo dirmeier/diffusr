@@ -17,7 +17,7 @@
 # You should have received a copy of the GNU General Public License
 # along with diffusr. If not, see <http://www.gnu.org/licenses/>.
 
-#' Graph diffusion using an insulated heat kernel.
+#' Graph diffusion using an insulated heat kernel
 #'
 #' @description Do graph diffusion using an insulated heat kernel.
 #' The kernel describes how heat is distributed across a grid. Starting with a
@@ -29,7 +29,7 @@
 #'
 #' @param h0  the starting heat distribution
 #' @param graph  a non-negative matrix
-#' @param r 'rate' of heat diffusion, where 1 is the maximum diffusion and 0 no diffusion at al
+#' @param r 'rate' of heat diffusion, where 1 is the maximum diffusion and 0 no diffusion at all
 #' @param ...  additional params
 #' @return  returns the heat on every node as a vector
 #' @examples

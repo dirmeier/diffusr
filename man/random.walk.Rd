@@ -2,7 +2,7 @@
 % Please edit documentation in R/mrw.R
 \name{random.walk}
 \alias{random.walk}
-\title{Graph diffusion using a Markov random walk.}
+\title{Graph diffusion using a Markov random walk}
 \usage{
 random.walk(p0, graph, r = 0.5, ...)
 }
