@@ -26,15 +26,15 @@ A *Markov random walk with restarts* calculates the stationary distribution:
 \begin{equation}
 \mathbf{p}_{t+1} = (1 - r) \mathbf{W}  \mathbf{p}_t + r \mathbf{p}_0,
 \end{equation}
-where $r \in \{0,1 \}$ is a *restart probability* of the Markov chain, $\mathbf{W}$ is a column-normalized stochastic matrix (we do the normalization for you) an $\mathbf{p}_0$ is the starting distribution of the Markov chain. We calculate the iterative updates, it is also possible to do the math using the nullspace of the matrix (comes later).
+where $r \in (0,1)$ is a *restart probability* of the Markov chain, $\mathbf{W}$ is a column-normalized stochastic matrix (we do the normalization for you) and $\mathbf{p}_0$ is the starting distribution of the Markov chain. We calculate the iterative updates, it is also possible to do the math using the nullspace of the matrix (comes later).
 
 If you want to use Markov random walks just try something like this:
 
-```{r}
+```{r, message=F, warning=F}
   # count of nodes
   n <- 5
   # starting distribution (has to sum to one)
-  p0    <- rmultinom(1, 1, prob=rep(.2, n))
+  p0    <- as.vector(rmultinom(1, 1, prob=rep(.2, n)))
   # adjacency matrix (either normalized or not)
   graph <- matrix(abs(rnorm(n*n)), n, n)
   # computation of stationary distribution
@@ -48,26 +48,81 @@ The stationary distribution should have changed quite a bit from the starting di
   print(t(pt))
 ```
 
-### Nearest neighbor search
+### Nearest neighbors
 
-*Nearest neighbor search* is straight-forward. We just traverse through the graph and take all the neighbors of a node until a certain depths in the graph is reached:
+Diffusion using *nearest neighbors* is done by traversing through a (weighted) graph and take all the neighbors of a node until a certain depths in the graph is reached. We find shortest paths using priority queues:
 
-```{r}
+```{r, message=F, warning=F}
   # count of nodes
   n <- 10
   # indexes(integer) of nodes for which neighbors should be searched 
   node.idxs <- c(1L, 5L)
   # the adjaceny matrix (does not need to be symmetric)
   graph <- rbind(cbind(0, diag(n-1)), 0)
-  # compte the neighbors until depth 3
-  neighs <- neighbors(node.idxs, graph, 3)
+  # compute the neighbors until depth 3
+  neighs <- nearest.neighbors(node.idxs, graph, 3)
 ```
 
-Let's see what we got:
+Let's see what which nodes we got:
 
 ```{r}
   print(neighs)
 ```
 
+### Insulated heat diffusion
 
-That's all so far.
+An *insulated heat diffusion process* calculates the stationary distribution:
+\begin{equation}
+\mathbf{h}_{t+1} = (r(\mathbf{I} - (1 - r)\mathbf{W})^{-1}) \mathbf{h}_t
+\end{equation}
+where $r \in (0,1)$ is a rate controlling the diffusion process, $\mathbf{W}$ is a column-normalized stochastic matrix (we do the normalization for you) and $\mathbf{h}_t$ is the current heat distribution.
+
+If you want to use the heat diffusion use:
+
+```{r, message=F, warning=F}
+  # count of nodes
+  n <- 5
+  # starting distribution (has to sum to one)
+  h0    <- as.vector(rmultinom(1, 1, prob=rep(.2, n)))
+  # adjacency matrix (either normalized or not)
+  graph <- matrix(abs(rnorm(n*n)), n, n)
+  # computation of stationary distribution
+  ht    <- insulated.heat.diffusion(h0, graph)
+```
+ 
+The result of the heat diffusion looks like this:
+
+```{r}
+  print(t(h0))
+  print(t(ht))
+```
+
+Heat diffusions and Markov random walks are related to each other and should yield similar results.
+
+### Laplacian heat diffusion
+
+A *Laplacian heat diffusion process* calculates the heat distribution over a graph after at a specific time $t$:
+\begin{equation}
+h_i(t) = h_i(0)\exp(-\lambda_i t)
+\end{equation}
+where $\mathbf{h}_0$ is the initial heat distribution, $\mathbf{h}_t$ is the heat distribution at time $t$ and $\boldsymbol \lambda$ are the eigenvalues of the \textit{Laplacian} of your graph.
+
+You can use the *Laplacian heat diffusion process* like this:
+
+```{r, message=F, warning=F}
+  # count of nodes
+  n <- 5
+  # starting distribution (has to sum to one)
+  h0    <- as.vector(rmultinom(1, 1, prob=rep(.2, n)))
+  # adjacency matrix (either normalized or not)
+  graph <- matrix(abs(rnorm(n*n)), n, n)
+  # computation of stationary distribution
+  ht    <- laplacian.heat.diffusion(h0, graph)
+```
+ 
+Here are the results:
+
+```{r}
+  print(t(h0))
+  print(t(ht))
+```

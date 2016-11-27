@@ -25,11 +25,25 @@ r <- .5
 
 test_that("stochastic col norm", {
   ad <- igraph::get.adjacency(graph)
-  stoch.norm <- diffusr::normalize(as.matrix(ad))
+  stoch.norm <- normalize.stochastic(as.matrix(ad))
   cor.mat <- scale(ad, center=F, scale=Matrix::colSums(ad))
   expect_equivalent(stoch.norm, cor.mat)
 })
 
+test_that("laplacian", {
+  expected <- matrix(-.1, 10, 10)
+  diag(expected) <- .9
+  lapl <- normalize.laplacian(matrix(1, 10, 10))
+  expect_equivalent(lapl, expected)
+})
+
+test_that("laplacian two random elements", {
+  m <- matrix(abs(rnorm(100)), 10, 10)
+  lapl <- normalize.laplacian(m)
+  rs <- rowSums(m)
+  expect_equal(lapl[1,1], 1 - (m[1,1]/rs[1]), .001)
+  expect_equal(lapl[5,3], - m[5,3]/sqrt(rs[3] * rs[5]), .001)
+})
 
 test_that("equals double is true", {
   expect_true(.equals.double(0.9, 1, .1))
@@ -45,4 +59,8 @@ test_that(".is is true", {
 
 test_that(".in is false", {
   expect_false(.in(0.9, 0, .5))
+})
+
+test_that("normalize vector", {
+  expect_equal(sum(normalize.stochastic(1:10)), 1)
 })

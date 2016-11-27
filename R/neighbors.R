@@ -18,19 +18,22 @@
 # along with diffusr. If not, see <http://www.gnu.org/licenses/>.
 
 
-#' Find the closest neighbors of a group of nodes in a graph.
+#' Graph diffusion using nearest neighbors
+#'
+#' @description For every node in a set of nodes the graph gets traversed along
+#' the node's shortest paths to its neighbors. Nearest neighbors are added
+#' until a maximum depth of \code{k} is reached. For settings where there are more
+#' than \code{k} neighbors having the same distance, all neighbors are returned.
 #'
 #' @export
-#' @author Simon Dirmeier, email{simon.dirmeier@@bsse.ethz.ch}
+#' @author  Simon Dirmeier, \email{simon.dirmeier@@gmx.de}
 #'
-#' @import igraph
+#' @param nodes  a \code{n}-dimensional integer vector of node indexes (1-based) for which the algorithm is applied iteratively
+#' @param graph  an (\code{n x n})-dimensional numeric non-negative adjacence matrix representing the graph
+#' @param k  the depth of the nearest neighbor search, e.g. the depth of the graph traversal
+#' @param ...  additional parameters
+#' @return  returns the kNN nodes as list of integer vectors of node indexes
 #'
-#' @param nodes  vector of node indexes (1-based) for which the algorithm is applied iteratively
-#' @param graph  a non-negative matrix
-#' @param k  the depth of the nearest neighbor search
-#' @param use.edge.weights  boolean flags if the edge weights should be considered when doing nearest neighbor lookup
-#' @param ...  additional params
-#' @return  returns the kNN nodes as integer vector of node indexes
 #' @examples
 #'  # count of nodes
 #'  n <- 10
@@ -38,35 +41,34 @@
 #'  node.idxs <- c(1L, 5L)
 #'  # the adjaceny matrix (does not need to be symmetric)
 #'  graph <- rbind(cbind(0, diag(n-1)), 0)
-#'  # compte the neighbors until depth 3
-#'  neighs <- neighbors(node.idxs, graph, 3)
-neighbors <- function(nodes, graph, k=1L, use.edge.weights=F, ...)
+#'  # compute the neighbors until depth 3
+#'  neighs <- nearest.neighbors(node.idxs, graph, 3)
+nearest.neighbors <- function(nodes, graph, k=1L, ...)
 {
-  UseMethod("neighbors")
+  UseMethod("nearest.neighbors")
 }
 
 #' @export
-#' @method neighbors integer
-neighbors.integer <- function(nodes, graph, k=1L, use.edge.weights=F, ...)
+#' @method nearest.neighbors numeric
+nearest.neighbors.numeric <- function(nodes, graph, k=1L, ...)
 {
   if (!is.numeric(nodes) && !is.integer(nodes))
     stop('nodes has to be a vector of integer')
-  nodes <- unique(as.integer(nodes))
-  if (any(nodes <= 0))
+  int.nodes <- unique(as.integer(nodes))
+  if (length(int.nodes) != length(nodes))
+    warning("casting nodes to int removed some of the indexes.")
+  if (any(int.nodes < 1))
     stop("node idxs have to be 1-indexed!")
-  if (!is.matrix(graph))
-    stop('please provide a matrix object!')
-  if (any(graph < 0))
-    stop("graph has to be non-negative")
-  if (dim(graph)[1] != dim(graph)[2])
-    stop("graph has to be of dimension (n x n)!")
-  if ((!is.numeric(k) && !is.integer(k)) || length(k) != 1)
-    stop('k has to be a scalar int')
+  if ((!is.numeric(k) && !is.integer(k)) || length(k) != 1 || k < 1)
+    stop('k has to be a positive scalar int')
   k <- as.integer(k)
-  if (k < 1) stop("k must be greater than 0!")
-  if (!is.logical(use.edge.weights))
-    stop("use.edge.weights should be boolean!")
-  if (use.edge.weights) stop("Not yet implemented!")
-  graph[graph > 0] <- 1
-  invisible(.neighbors.cpp(nodes, graph, k, use.edge.weights))
+  .check.graph(graph)
+  if (any(diag(graph) != 0))
+  {
+    warning("setting diag of graph to zero")
+    diag(graph) <- 0
+  }
+  l <- .neighbors.cpp(int.nodes, graph, k)
+  names(l) <- int.nodes
+  invisible(l)
 }

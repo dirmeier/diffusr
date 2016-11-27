@@ -17,34 +17,45 @@
 # You should have received a copy of the GNU General Public License
 # along with diffusr. If not, see <http://www.gnu.org/licenses/>.
 
-#' Calculate a stochastic column normalized matrix
+#' Create a stochastically normalized matrix/vector
 #'
 #' @export
-#' @author Simon Dirmeier, email{simon.dirmeier@@bsse.ethz.ch}
+#' @author Simon Dirmeier, \email{simon.dirmeier@@gmx.de}
 #'
-#' @param obj  matrix for which the normalized stochastic matrix is created
+#' @param obj  matrix/vector that is stochstically normalized
 #' @param ...  additional params
-#' @return  returns the normalized matrix
+#' @return  returns the normalized matrix/vector
 #' @examples
 #' W <- matrix(abs(rnorm(10000)), 100, 100)
-#' stoch.W <- normalize(W)
-normalize <- function(obj, ...)
+#' stoch.W <- normalize.stochastic(W)
+normalize.stochastic <- function(obj, ...)
 {
-  UseMethod("normalize")
+  UseMethod("normalize.stochastic")
 }
 
 #' @export
-#' @method normalize numeric
-normalize.numeric <- function(obj, ...)
+#' @method normalize.stochastic numeric
+normalize.stochastic.numeric <- function(obj, ...)
 {
-  if (!is.matrix(obj)) stop('please provide a matrix object!')
-  if (nrow(obj) != ncol(obj)) stop('please provide a square matrix!')
   if (any(obj < 0.0))
-    stop('please provide a matrix with only non-negative alues!')
-  if (!all(.equals.double(colSums(obj), 1, .001)))
+    stop('please provide an object with only non-negative values!')
+  if (is.matrix(obj))
   {
-    message("normalizing columns!")
-    obj <- .stoch.col.norm.cpp(obj)
+    if (nrow(obj) != ncol(obj))
+      stop('please provide a square matrix!')
+    if (!all(.equals.double(colSums(obj), 1, .001)))
+    {
+      message("normalizing column vectors!")
+      obj <- .stoch.col.norm.cpp(obj)
+    }
+  }
+  else if (is.vector(obj))
+  {
+    if (!.equals.double(sum(obj), 1, .001))
+    {
+      message("normalizing vector!")
+      obj <- obj/sum(obj)
+    }
   }
   return(obj)
 }
@@ -52,22 +63,22 @@ normalize.numeric <- function(obj, ...)
 #' Calculate the Laplacian of a matrix
 #'
 #' @export
-#' @author Simon Dirmeier, email{simon.dirmeier@@bsse.ethz.ch}
+#' @author Simon Dirmeier, \email{simon.dirmeier@@gmx.de}
 #'
 #' @param obj  matrix for which the Laplacian is calculated
 #' @param ...  additional params
 #' @return  returns the Laplacian
 #' @examples
 #' W <- matrix(abs(rnorm(10000)), 100, 100)
-#' lapl.W <- laplacian(W)
-laplacian <- function(obj, ...)
+#' lapl.W <- normalize.laplacian(W)
+normalize.laplacian <- function(obj, ...)
 {
-  UseMethod("laplacian")
+  UseMethod("normalize.laplacian")
 }
 
 #' @export
-#' @method laplacian numeric
-laplacian.numeric <- function(obj, ...)
+#' @method normalize.laplacian numeric
+normalize.laplacian.numeric <- function(obj, ...)
 {
   if (!is.matrix(obj)) stop('please provide a matrix object!')
   if (nrow(obj) != ncol(obj)) stop('please provide a square matrix!')

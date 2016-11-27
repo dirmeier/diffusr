@@ -8,6 +8,7 @@
 .git
 .lintr
 .idea
+.codecov.yml
 test
 diffusr.Rcheck
 diffusr.Rproj

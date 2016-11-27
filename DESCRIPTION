@@ -1,9 +1,9 @@
 Package: diffusr
 Type: Package
-Title: Network diffusion algorithms
+Title: Network Diffusion Algorithms
 Version: 0.1.0
-Authors@R: person("Simon", "Dirmeier", email = "simon.dirmeier@bsse.ethz.ch", role = c("aut", "cre"))
-Maintainer: Simon Dirmeier <simon.dirmeier@bsse.ethz.ch>
+Authors@R: person("Simon", "Dirmeier", email = "simon.dirmeier@gmx.de", role = c("aut", "cre"))
+Maintainer: Simon Dirmeier <simon.dirmeier@gmx.de>
 Description: Implementation of network diffusion algorithms such as insulated
   heat propagation or Markov random walks. Network diffusion algorithms generally
   spread information in the form of node weights along the edges of a graph to other nodes.

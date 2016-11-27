@@ -17,23 +17,32 @@
 # You should have received a copy of the GNU General Public License
 # along with diffusr. If not, see <http://www.gnu.org/licenses/>.
 
-#' Do a Markov random walk on a graph.
+#' Graph diffusion using a Markov random walk
+#'
+#' @description A Markov Random Walk takes an inital distribution \code{p0} and calculates the stationary distribution of that.
+#' The diffusion process is regulated by a restart probability \code{r} which controls how often the MRW jumps back to the initial values.
 #'
 #' @export
-#' @author Simon Dirmeier, email{simon.dirmeier@@bsse.ethz.ch}
+#' @author Simon Dirmeier, \email{simon.dirmeier@@gmx.de}
 #'
-#' @import igraph
+#' @param p0  an \code{n}-dimensional numeric non-negative vector representing the starting distribution of the Markov chain (does not need to sum to one)
+#' @param graph  an (\code{n x n})-dimensional numeric non-negative adjacence matrix representing the graph
+#' @param r  a scalar between (0, 1). restart probability if a Markov random walk with restart is desired
+#' @param ...  additional parameters
+#' @return  returns the stationary distribution as numeric vector
 #'
-#' @param p0  the starting distribution of the Markov chain
-#' @param graph  a non-negative matrix
-#' @param r  the restart probability if a Markov random walk with restart is desired
-#' @param ...  additional params
-#' @return  returns the stationary distribution as vector
+#' @references
+#' Tong, H., Faloutsos, C., & Pan, J. Y. (2006),
+#' Fast random walk with restart and its applications.\cr \cr
+#' Koehler, S., Bauer, S., Horn, D., & Robinson, P. N. (2008),
+#' Walking the interactome for prioritization of candidate disease genes.
+#' \emph{The American Journal of Human Genetics}\cr \cr
+#'
 #' @examples
 #' # count of nodes
 #' n <- 5
 #' # starting distribution (has to sum to one)
-#' p0    <- rmultinom(1, 1, prob=rep(.2, n))
+#' p0    <- as.vector(rmultinom(1, 1, prob=rep(.2, n)))
 #' # adjacency matrix (either normalized or not)
 #' graph <- matrix(abs(rnorm(n*n)), n, n)
 #' # computation of stationary distribution
@@ -47,21 +56,15 @@ random.walk <- function(p0, graph, r=.5, ...)
 #' @method random.walk numeric
 random.walk.numeric <- function(p0, graph, r=.5, ...)
 {
-  if (any(p0 < 0))
-    stop("p0 can only contain non-negative values!")
-  if (!.equals.double(sum(p0), 1, .0001))
-    stop("p0 does not sum to 1!")
-  if (!is.numeric(r))
-    stop("r has to be numeric!")
-  if (!.in(r, 0, 1))
-    stop("r must be in [0, 1]!")
-  if (!is.matrix(graph))
-    stop('please provide a matrix object!')
-  if (any(graph < 0))
-    stop("graph has to be non-negative")
-  if (dim(graph)[1] != dim(graph)[2])
-    stop("graph has to be of dimension (n x n)!")
-  if (dim(graph)[1] != length(p0))
-    stop("p0 has to have same dim as your graph!")
-  invisible(.mrwr.cpp(p0, normalize(graph), r))
+  .check.restart(r)
+  .check.vector(p0)
+  .check.graph(graph, p0)
+  if (any(diag(graph) != 0))
+  {
+    warning("setting diag of graph to zero")
+    diag(graph) <- 0
+  }
+  invisible(.mrwr.cpp(normalize.stochastic(p0),
+                      normalize.stochastic(graph),
+                      r))
 }
