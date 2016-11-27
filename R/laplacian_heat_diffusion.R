@@ -25,11 +25,11 @@
 #' @export
 #' @author Simon Dirmeier, \email{simon.dirmeier@@gmx.de}
 #'
-#' @param h0  a vector with starting temperature
-#' @param graph  a non-negative matrix
-#' @param t  time point when heat is measuted
-#' @param ...  additional params
-#' @return  returns the heat on every node as a vector
+#' @param h0   an \code{n}-dimensional numeric non-negative vector of starting temperatures
+#' @param graph  an (\code{n x n})-dimensional numeric non-negative adjacence matrix representing the graph
+#' @param t  time point when heat is measured
+#' @param ...  additional parameters
+#' @return  returns the heat on every node as numeric vector
 #'
 #' @references
 #' \url{https://en.wikipedia.org/wiki/Laplacian_matrix} \cr
@@ -57,6 +57,11 @@ laplacian.heat.diffusion.numeric <- function(h0, graph, t=.5, ...)
   if (t < 0) stop("pls provide positive t")
   .check.vector(h0)
   .check.graph(graph, h0)
+  if (any(diag(graph) != 0))
+  {
+    warning("setting diag of graph to zero")
+    diag(graph) <- 0
+  }
   invisible(.laplacian.heat.diffusion.cpp(h0,
                                           normalize.laplacian(graph),
                                           t))

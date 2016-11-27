@@ -7,16 +7,16 @@
 laplacian.heat.diffusion(h0, graph, t = 0.5, ...)
 }
 \arguments{
-\item{h0}{a vector with starting temperature}
+\item{h0}{an \code{n}-dimensional numeric non-negative vector of starting temperatures}
 
-\item{graph}{a non-negative matrix}
+\item{graph}{an (\code{n x n})-dimensional numeric non-negative adjacence matrix representing the graph}
 
-\item{t}{time point when heat is measuted}
+\item{t}{time point when heat is measured}
 
-\item{...}{additional params}
+\item{...}{additional parameters}
 }
 \value{
-returns the heat on every node as a vector
+returns the heat on every node as numeric vector
 }
 \description{
 An amount of starting heat gets distribution using the Laplacian matrix of a graph.

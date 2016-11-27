@@ -7,20 +7,20 @@
 insulated.heat.diffusion(h0, graph, r = 0.5, ...)
 }
 \arguments{
-\item{h0}{a vector with starting temperature}
+\item{h0}{an \code{n}-dimensional numeric non-negative vector of starting temperatures}
 
-\item{graph}{a non-negative matrix}
+\item{graph}{an (\code{n x n})-dimensional numeric non-negative adjacence matrix representing the graph}
 
-\item{r}{'rate' of heat diffusion, where 1 is the maximum diffusion and 0 no diffusion at all}
+\item{r}{rate of heat diffusion, where 1 is the maximum diffusion and 0 no diffusion at all}
 
-\item{...}{additional params}
+\item{...}{additional parameters}
 }
 \value{
-returns the heat on every node as a vector
+returns the heat on every node as numeric vector
 }
 \description{
-An amount of starting heat \code{h0} is distributed across a grid.
-The insulated heat diffusion calculates the stationary distribution of heat.
+An amount of starting heat \code{h0} of nodes on a graph is distributed across its edges.
+The insulated heat diffusion calculates the stationary distribution of the different temperatures on the nodes.
 }
 \examples{
 # count of nodes
@@ -37,7 +37,7 @@ Simon Dirmeier, \email{simon.dirmeier@gmx.de}
 }
 \references{
 Power and centrality: A family of measures.
-\emph{American journal of sociology}\cr \cr
+\emph{American Journal of Sociology}\cr \cr
 Leiserson, M. D., Vandin, F., Wu, H. T., Dobson, J. R., Eldridge, J. V., Thomas, J. L., ... & Lawrence, M. S. (2015),
 Pan-cancer network analysis identifies combinations of rare somatic mutations across pathways and protein complexes.
 \emph{Nature genetics}\cr \cr

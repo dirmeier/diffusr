@@ -7,13 +7,13 @@
 nearest.neighbors(nodes, graph, k = 1L, ...)
 }
 \arguments{
-\item{nodes}{vector of node indexes (1-based) for which the algorithm is applied iteratively}
+\item{nodes}{a \code{n}-dimensional integer vector of node indexes (1-based) for which the algorithm is applied iteratively}
 
-\item{graph}{a non-negative matrix}
+\item{graph}{an (\code{n x n})-dimensional numeric non-negative adjacence matrix representing the graph}
 
-\item{k}{the depth of the nearest neighbor search}
+\item{k}{the depth of the nearest neighbor search, e.g. the depth of the graph traversal}
 
-\item{...}{additional params}
+\item{...}{additional parameters}
 }
 \value{
 returns the kNN nodes as list of integer vectors of node indexes
@@ -31,7 +31,7 @@ than \code{k} neighbors having the same distance, all neighbors are returned.
  node.idxs <- c(1L, 5L)
  # the adjaceny matrix (does not need to be symmetric)
  graph <- rbind(cbind(0, diag(n-1)), 0)
- # compte the neighbors until depth 3
+ # compute the neighbors until depth 3
  neighs <- nearest.neighbors(node.idxs, graph, 3)
 }
 \author{

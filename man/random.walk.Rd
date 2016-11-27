@@ -7,21 +7,20 @@
 random.walk(p0, graph, r = 0.5, ...)
 }
 \arguments{
-\item{p0}{the starting distribution of the Markov chain (does not need to sum to one)}
+\item{p0}{an \code{n}-dimensional numeric non-negative vector representing the starting distribution of the Markov chain (does not need to sum to one)}
 
-\item{graph}{a non-negative matrix}
+\item{graph}{an (\code{n x n})-dimensional numeric non-negative adjacence matrix representing the graph}
 
-\item{r}{the restart probability if a Markov random walk with restart is desired}
+\item{r}{a scalar between (0, 1). restart probability if a Markov random walk with restart is desired}
 
-\item{...}{additional params}
+\item{...}{additional parameters}
 }
 \value{
-returns the stationary distribution as vector
+returns the stationary distribution as numeric vector
 }
 \description{
 A Markov Random Walk takes an inital distribution \code{p0} and calculates the stationary distribution of that.
-The diffusion process is regulated by a restart probability \code{r}.
-It basically controls how often the MRW jumps back to the initial values.
+The diffusion process is regulated by a restart probability \code{r} which controls how often the MRW jumps back to the initial values.
 }
 \examples{
 # count of nodes

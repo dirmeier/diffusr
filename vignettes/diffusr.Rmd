@@ -10,7 +10,7 @@ vignette: >
 ---
 ## Introduction
 
-`diffusr` implements algorithms for network diffusion such as *Markov random walks with restarts*, *nearest neighbors*, (i.e. implementation of Dijkstra's algorithm) and *insulated heat diffusion*. Network diffusion has been studied extensively in bioinformatics, e.g. in the field of cancer gene prioritization. In the first versions of `diffusr` the three methods above are implemented, several others will follow in future patches.
+`diffusr` implements algorithms for network diffusion such as *Markov random walks with restarts*, *nearest neighbors*, *insulated heat diffusion* and *Laplacian heat diffusion*. Network diffusion has been studied extensively in bioinformatics, e.g. in the field of cancer gene prioritization. In the first versions of `diffusr` the four methods above are implemented, several others will follow in future patches.
 
 ## Tutorial
 
@@ -30,7 +30,7 @@ where $r \in (0,1)$ is a *restart probability* of the Markov chain, $\mathbf{W}$
 
 If you want to use Markov random walks just try something like this:
 
-```{r, message=F}
+```{r, message=F, warning=F}
   # count of nodes
   n <- 5
   # starting distribution (has to sum to one)
@@ -50,16 +50,16 @@ The stationary distribution should have changed quite a bit from the starting di
 
 ### Nearest neighbors
 
-Diffusion using *nearest neighbors* is done by traversing through a (weighted) graph and take all the neighbors of a node until a certain depths in the graph is reached. We find shortest paths between nodes using Dijkstra's algorithm:
+Diffusion using *nearest neighbors* is done by traversing through a (weighted) graph and take all the neighbors of a node until a certain depths in the graph is reached. We find shortest paths using priority queues:
 
-```{r, message=F}
+```{r, message=F, warning=F}
   # count of nodes
   n <- 10
   # indexes(integer) of nodes for which neighbors should be searched 
   node.idxs <- c(1L, 5L)
   # the adjaceny matrix (does not need to be symmetric)
   graph <- rbind(cbind(0, diag(n-1)), 0)
-  # compte the neighbors until depth 3
+  # compute the neighbors until depth 3
   neighs <- nearest.neighbors(node.idxs, graph, 3)
 ```
 
@@ -79,7 +79,7 @@ where $r \in (0,1)$ is a rate controlling the diffusion process, $\mathbf{W}$ is
 
 If you want to use the heat diffusion use:
 
-```{r, message=F}
+```{r, message=F, warning=F}
   # count of nodes
   n <- 5
   # starting distribution (has to sum to one)
@@ -101,7 +101,7 @@ Heat diffusions and Markov random walks are related to each other and should yie
 
 ### Laplacian heat diffusion
 
-An *Laplacian heat diffusion process* calculates the heat distribution over a graph after at a specific time $t$:
+A *Laplacian heat diffusion process* calculates the heat distribution over a graph after at a specific time $t$:
 \begin{equation}
 h_i(t) = h_i(0)\exp(-\lambda_i t)
 \end{equation}
@@ -109,7 +109,7 @@ where $\mathbf{h}_0$ is the initial heat distribution, $\mathbf{h}_t$ is the hea
 
 You can use the *Laplacian heat diffusion process* like this:
 
-```{r, message=F}
+```{r, message=F, warning=F}
   # count of nodes
   n <- 5
   # starting distribution (has to sum to one)

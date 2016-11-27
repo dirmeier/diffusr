@@ -20,17 +20,16 @@
 #' Graph diffusion using a Markov random walk
 #'
 #' @description A Markov Random Walk takes an inital distribution \code{p0} and calculates the stationary distribution of that.
-#' The diffusion process is regulated by a restart probability \code{r}.
-#' It basically controls how often the MRW jumps back to the initial values.
+#' The diffusion process is regulated by a restart probability \code{r} which controls how often the MRW jumps back to the initial values.
 #'
 #' @export
 #' @author Simon Dirmeier, \email{simon.dirmeier@@gmx.de}
 #'
-#' @param p0  the starting distribution of the Markov chain (does not need to sum to one)
-#' @param graph  a non-negative matrix
-#' @param r  the restart probability if a Markov random walk with restart is desired
-#' @param ...  additional params
-#' @return  returns the stationary distribution as vector
+#' @param p0  an \code{n}-dimensional numeric non-negative vector representing the starting distribution of the Markov chain (does not need to sum to one)
+#' @param graph  an (\code{n x n})-dimensional numeric non-negative adjacence matrix representing the graph
+#' @param r  a scalar between (0, 1). restart probability if a Markov random walk with restart is desired
+#' @param ...  additional parameters
+#' @return  returns the stationary distribution as numeric vector
 #'
 #' @references
 #' Tong, H., Faloutsos, C., & Pan, J. Y. (2006),
@@ -60,6 +59,11 @@ random.walk.numeric <- function(p0, graph, r=.5, ...)
   .check.restart(r)
   .check.vector(p0)
   .check.graph(graph, p0)
+  if (any(diag(graph) != 0))
+  {
+    warning("setting diag of graph to zero")
+    diag(graph) <- 0
+  }
   invisible(.mrwr.cpp(normalize.stochastic(p0),
                       normalize.stochastic(graph),
                       r))

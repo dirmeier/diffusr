@@ -28,4 +28,16 @@ test_that("heat diffusion with zero diffusion",{
   expect_equal(s, h)
 })
 
+test_that("heat diffusion if maximum diffusion",{
+  expect <- rep(0.2,  5)
+  s <- laplacian.heat.diffusion(h, adja, 10000000)
+  expect_equal(s, expect)
+})
 
+test_that("wrong t negative values", {
+  expect_error(laplacian.heat.diffusion(rep(-1, 5), adja, -1))
+})
+
+test_that("wrong t class", {
+  expect_error(laplacian.heat.diffusion(rep(-1, 5), adja, "s"))
+})

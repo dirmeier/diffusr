@@ -28,10 +28,10 @@
 #' @export
 #' @author  Simon Dirmeier, \email{simon.dirmeier@@gmx.de}
 #'
-#' @param nodes  vector of node indexes (1-based) for which the algorithm is applied iteratively
-#' @param graph  a non-negative matrix
-#' @param k  the depth of the nearest neighbor search
-#' @param ...  additional params
+#' @param nodes  a \code{n}-dimensional integer vector of node indexes (1-based) for which the algorithm is applied iteratively
+#' @param graph  an (\code{n x n})-dimensional numeric non-negative adjacence matrix representing the graph
+#' @param k  the depth of the nearest neighbor search, e.g. the depth of the graph traversal
+#' @param ...  additional parameters
 #' @return  returns the kNN nodes as list of integer vectors of node indexes
 #'
 #' @examples
@@ -41,7 +41,7 @@
 #'  node.idxs <- c(1L, 5L)
 #'  # the adjaceny matrix (does not need to be symmetric)
 #'  graph <- rbind(cbind(0, diag(n-1)), 0)
-#'  # compte the neighbors until depth 3
+#'  # compute the neighbors until depth 3
 #'  neighs <- nearest.neighbors(node.idxs, graph, 3)
 nearest.neighbors <- function(nodes, graph, k=1L, ...)
 {
@@ -63,6 +63,11 @@ nearest.neighbors.numeric <- function(nodes, graph, k=1L, ...)
     stop('k has to be a positive scalar int')
   k <- as.integer(k)
   .check.graph(graph)
+  if (any(diag(graph) != 0))
+  {
+    warning("setting diag of graph to zero")
+    diag(graph) <- 0
+  }
   l <- .neighbors.cpp(int.nodes, graph, k)
   names(l) <- int.nodes
   invisible(l)

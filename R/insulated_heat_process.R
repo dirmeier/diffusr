@@ -19,21 +19,21 @@
 
 #' Graph diffusion using an insulated heat diffusion process
 #'
-#' @description An amount of starting heat \code{h0} is distributed across a grid.
-#' The insulated heat diffusion calculates the stationary distribution of heat.
+#' @description An amount of starting heat \code{h0} of nodes on a graph is distributed across its edges.
+#' The insulated heat diffusion calculates the stationary distribution of the different temperatures on the nodes.
 #'
 #' @export
 #' @author Simon Dirmeier, \email{simon.dirmeier@@gmx.de}
 #'
-#' @param h0  a vector with starting temperature
-#' @param graph  a non-negative matrix
-#' @param r 'rate' of heat diffusion, where 1 is the maximum diffusion and 0 no diffusion at all
-#' @param ...  additional params
-#' @return  returns the heat on every node as a vector
+#' @param h0   an \code{n}-dimensional numeric non-negative vector of starting temperatures
+#' @param graph  an (\code{n x n})-dimensional numeric non-negative adjacence matrix representing the graph
+#' @param r rate of heat diffusion, where 1 is the maximum diffusion and 0 no diffusion at all
+#' @param ...  additional parameters
+#' @return  returns the heat on every node as numeric vector
 #'
 #' @references
 #' Power and centrality: A family of measures.
-#' \emph{American journal of sociology}\cr \cr
+#' \emph{American Journal of Sociology}\cr \cr
 #' Leiserson, M. D., Vandin, F., Wu, H. T., Dobson, J. R., Eldridge, J. V., Thomas, J. L., ... & Lawrence, M. S. (2015),
 #' Pan-cancer network analysis identifies combinations of rare somatic mutations across pathways and protein complexes.
 #' \emph{Nature genetics}\cr \cr
@@ -59,6 +59,11 @@ insulated.heat.diffusion.numeric <- function(h0, graph, r=.5, ...)
   .check.restart(r)
   .check.vector(h0)
   .check.graph(graph, h0)
+  if (any(diag(graph) != 0))
+  {
+    warning("setting diag of graph to zero")
+    diag(graph) <- 0
+  }
   invisible(.insulated.heat.diffusion.cpp(normalize.stochastic(h0),
                                           normalize.stochastic(graph), 1 - r))
 }

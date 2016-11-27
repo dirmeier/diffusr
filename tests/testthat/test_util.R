@@ -60,3 +60,7 @@ test_that(".is is true", {
 test_that(".in is false", {
   expect_false(.in(0.9, 0, .5))
 })
+
+test_that("normalize vector", {
+  expect_equal(sum(normalize.stochastic(1:10)), 1)
+})

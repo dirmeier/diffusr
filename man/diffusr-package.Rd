@@ -18,7 +18,7 @@ Walking the interactome for prioritization of candidate disease genes.
 \emph{The American Journal of Human Genetics}\cr \cr
 Bonacich, P. (1987),
 Power and centrality: A family of measures.
-\emph{American journal of sociology}\cr \cr
+\emph{American Journal of Sociology}\cr \cr
 Leiserson, M. D., Vandin, F., Wu, H. T., Dobson, J. R., Eldridge, J. V., Thomas, J. L., ... & Lawrence, M. S. (2015),
 Pan-cancer network analysis identifies combinations of rare somatic mutations across pathways and protein complexes.
 \emph{Nature genetics}\cr \cr
