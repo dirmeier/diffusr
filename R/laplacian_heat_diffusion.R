@@ -57,5 +57,7 @@ laplacian.heat.diffusion.numeric <- function(h0, graph, t=.5, ...)
   if (t < 0) stop("pls provide positive t")
   .check.vector(h0)
   .check.graph(graph, h0)
-  invisible(.laplacian.heat.diffusion.cpp(h0, laplacian(graph), t))
+  invisible(.laplacian.heat.diffusion.cpp(h0,
+                                          normalize.laplacian(graph),
+                                          t))
 }

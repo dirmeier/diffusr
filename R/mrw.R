@@ -35,7 +35,7 @@
 #' @references
 #' Tong, H., Faloutsos, C., & Pan, J. Y. (2006),
 #' Fast random walk with restart and its applications.\cr \cr
-#' Köhler, S., Bauer, S., Horn, D., & Robinson, P. N. (2008),
+#' Koehler, S., Bauer, S., Horn, D., & Robinson, P. N. (2008),
 #' Walking the interactome for prioritization of candidate disease genes.
 #' \emph{The American Journal of Human Genetics}\cr \cr
 #'
@@ -60,5 +60,7 @@ random.walk.numeric <- function(p0, graph, r=.5, ...)
   .check.restart(r)
   .check.vector(p0)
   .check.graph(graph, p0)
-  invisible(.mrwr.cpp(normalize(p0), normalize(graph), r))
+  invisible(.mrwr.cpp(normalize.stochastic(p0),
+                      normalize.stochastic(graph),
+                      r))
 }

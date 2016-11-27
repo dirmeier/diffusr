@@ -69,7 +69,7 @@ Let's see what which nodes we got:
   print(neighs)
 ```
 
-### Heat diffusion
+### Insulated heat diffusion
 
 An *insulated heat diffusion process* calculates the stationary distribution:
 \begin{equation}
@@ -87,7 +87,7 @@ If you want to use the heat diffusion use:
   # adjacency matrix (either normalized or not)
   graph <- matrix(abs(rnorm(n*n)), n, n)
   # computation of stationary distribution
-  ht    <- heat.diffusion(h0, graph)
+  ht    <- insulated.heat.diffusion(h0, graph)
 ```
  
 The result of the heat diffusion looks like this:
@@ -98,3 +98,31 @@ The result of the heat diffusion looks like this:
 ```
 
 Heat diffusions and Markov random walks are related to each other and should yield similar results.
+
+### Laplacian heat diffusion
+
+An *Laplacian heat diffusion process* calculates the heat distribution over a graph after at a specific time $t$:
+\begin{equation}
+h_i(t) = h_i(0)\exp(-\lambda_i t)
+\end{equation}
+where $\mathbf{h}_0$ is the initial heat distribution, $\mathbf{h}_t$ is the heat distribution at time $t$ and $\boldsymbol \lambda$ are the eigenvalues of the \textit{Laplacian} of your graph.
+
+You can use the *Laplacian heat diffusion process* like this:
+
+```{r, message=F}
+  # count of nodes
+  n <- 5
+  # starting distribution (has to sum to one)
+  h0    <- as.vector(rmultinom(1, 1, prob=rep(.2, n)))
+  # adjacency matrix (either normalized or not)
+  graph <- matrix(abs(rnorm(n*n)), n, n)
+  # computation of stationary distribution
+  ht    <- laplacian.heat.diffusion(h0, graph)
+```
+ 
+Here are the results:
+
+```{r}
+  print(t(h0))
+  print(t(ht))
+```

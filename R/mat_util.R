@@ -27,15 +27,15 @@
 #' @return  returns the normalized matrix/vector
 #' @examples
 #' W <- matrix(abs(rnorm(10000)), 100, 100)
-#' stoch.W <- normalize(W)
-normalize <- function(obj, ...)
+#' stoch.W <- normalize.stochastic(W)
+normalize.stochastic <- function(obj, ...)
 {
-  UseMethod("normalize")
+  UseMethod("normalize.stochastic")
 }
 
 #' @export
-#' @method normalize numeric
-normalize.numeric <- function(obj, ...)
+#' @method normalize.stochastic numeric
+normalize.stochastic.numeric <- function(obj, ...)
 {
   if (any(obj < 0.0))
     stop('please provide an object with only non-negative values!')
@@ -70,15 +70,15 @@ normalize.numeric <- function(obj, ...)
 #' @return  returns the Laplacian
 #' @examples
 #' W <- matrix(abs(rnorm(10000)), 100, 100)
-#' lapl.W <- laplacian(W)
-laplacian <- function(obj, ...)
+#' lapl.W <- normalize.laplacian(W)
+normalize.laplacian <- function(obj, ...)
 {
-  UseMethod("laplacian")
+  UseMethod("normalize.laplacian")
 }
 
 #' @export
-#' @method laplacian numeric
-laplacian.numeric <- function(obj, ...)
+#' @method normalize.laplacian numeric
+normalize.laplacian.numeric <- function(obj, ...)
 {
   if (!is.matrix(obj)) stop('please provide a matrix object!')
   if (nrow(obj) != ncol(obj)) stop('please provide a square matrix!')
