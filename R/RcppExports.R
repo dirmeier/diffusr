@@ -2,7 +2,11 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 .insulated.heat.diffusion.cpp <- function(v0, W, b) {
-    .Call('diffusr_heat_diffusion_', PACKAGE = 'diffusr', v0, W, b)
+    .Call('diffusr_insulated_heat_diffusion_', PACKAGE = 'diffusr', v0, W, b)
+}
+
+.laplacian.heat.diffusion.cpp <- function(v0, W, t) {
+    .Call('diffusr_laplacian_diffusion_', PACKAGE = 'diffusr', v0, W, t)
 }
 
 .stoch.col.norm.cpp <- function(W) {

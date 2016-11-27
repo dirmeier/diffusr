@@ -2,11 +2,13 @@
 
 S3method(insulated.heat.diffusion,numeric)
 S3method(laplacian,numeric)
+S3method(laplacian.heat.diffusion,numeric)
 S3method(nearest.neighbors,numeric)
 S3method(normalize,numeric)
 S3method(random.walk,numeric)
 export(insulated.heat.diffusion)
 export(laplacian)
+export(laplacian.heat.diffusion)
 export(nearest.neighbors)
 export(normalize)
 export(random.walk)

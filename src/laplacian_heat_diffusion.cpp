@@ -22,6 +22,9 @@
 
 // [[Rcpp::depends(RcppEigen)]]
 #include <RcppEigen.h>
+// [[Rcpp::plugins(cpp11)]]
+#include <cmath>
+#include <Eigen/Eigenvalues>
 
 //' Do graph diffusion using an heat diffusion on a Laplacian.
 //'
@@ -36,30 +39,12 @@ Eigen::VectorXd laplacian_diffusion_(const Eigen::VectorXd& v0,
                                      const Eigen::MatrixXd& W,
                                      const double t)
 {
-
-
-
-  sl = eigen(t(L))
-  D = rev(sl$values)
-  V = sl$vectors[,400:1]
-  C0 = matrix(0, N, N)
-  C0[2:5, 2:5] = 5;
-  C0[10:15, 10:15] = 10;
-  C0[2:5, 8:13] = 7;
-  plotrix::color2D.matplot(C0,show.legend = TRUE, axes = TRUE,
-                           xlab = "", ylab = "",
-                           extremes = c("blue", "red"))
-    C0V <-  t(V) %*%  as.vector(C0)
-    for (t in seq(0, 5, by=.05))
-    {
-      Phi = (C0V) * (exp(-D * t))
-      Phi = V %*% (Phi)
-      Phi = matrix(Phi, N, N);
-      plotrix::color2D.matplot(Phi,show.legend = TRUE, axes = F,
-                               xlab = "", ylab = "",
-                               extremes = c("blue", "red"))
-        Sys.sleep(.05)
-    }
-
-
+  Eigen::SelfAdjointEigenSolver<Eigen::MatrixXd> es(W);
+  Eigen::MatrixXd V = es.eigenvectors();
+  Eigen::VectorXd D = es.eigenvalues();
+  Eigen::VectorXd co =  V.transpose() * v0;
+  for (int i = 0; i < co.size(); ++i)
+    co(i) *= std::exp(-D(i) * t);
+  co =  V * co;
+  return co;
 }

@@ -44,6 +44,25 @@ namespace diffusr {
         return Rcpp::as<Eigen::VectorXd >(rcpp_result_gen);
     }
 
+    inline Eigen::VectorXd _laplacian_heat_diffusion_cpp(const Eigen::VectorXd& v0, const Eigen::MatrixXd& W, const double t) {
+        typedef SEXP(*Ptr__laplacian_heat_diffusion_cpp)(SEXP,SEXP,SEXP);
+        static Ptr__laplacian_heat_diffusion_cpp p__laplacian_heat_diffusion_cpp = NULL;
+        if (p__laplacian_heat_diffusion_cpp == NULL) {
+            validateSignature("Eigen::VectorXd(*_laplacian_heat_diffusion_cpp)(const Eigen::VectorXd&,const Eigen::MatrixXd&,const double)");
+            p__laplacian_heat_diffusion_cpp = (Ptr__laplacian_heat_diffusion_cpp)R_GetCCallable("diffusr", "diffusr__laplacian_heat_diffusion_cpp");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p__laplacian_heat_diffusion_cpp(Rcpp::wrap(v0), Rcpp::wrap(W), Rcpp::wrap(t));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<Eigen::VectorXd >(rcpp_result_gen);
+    }
+
     inline Eigen::MatrixXd _stoch_col_norm_cpp(const Eigen::MatrixXd& W) {
         typedef SEXP(*Ptr__stoch_col_norm_cpp)(SEXP);
         static Ptr__stoch_col_norm_cpp p__stoch_col_norm_cpp = NULL;

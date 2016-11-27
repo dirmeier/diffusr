@@ -7,7 +7,7 @@
 insulated.heat.diffusion(h0, graph, r = 0.5, ...)
 }
 \arguments{
-\item{h0}{the starting heat distribution}
+\item{h0}{a vector with starting temperature}
 
 \item{graph}{a non-negative matrix}
 
@@ -19,10 +19,8 @@ insulated.heat.diffusion(h0, graph, r = 0.5, ...)
 returns the heat on every node as a vector
 }
 \description{
-Do graph diffusion using an insulated heat diffusion process
-The kernel describes how heat is distributed across a grid. Starting with a
-initial heat distribution \code{h0}, the insulated heat diffusion calculates the stationary
-distribution of heat.
+An amount of starting heat \code{h0} is distributed across a grid.
+The insulated heat diffusion calculates the stationary distribution of heat.
 }
 \examples{
 # count of nodes
@@ -32,7 +30,7 @@ h0 <- as.vector(rmultinom(1, 1, prob=rep(.2, n)))
 # adjacency matrix (either normalized or not)
 graph <- matrix(abs(rnorm(n*n)), n, n)
 # computation of stationary distribution
-ht <- heat.diffusion(h0, graph)
+ht <- insulated.heat.diffusion(h0, graph)
 }
 \author{
 Simon Dirmeier, \email{simon.dirmeier@gmx.de}

@@ -9,23 +9,55 @@
 
 using namespace Rcpp;
 
-// heat_diffusion_
-Eigen::VectorXd heat_diffusion_(const Eigen::VectorXd& v0, const Eigen::MatrixXd& W, double b);
-static SEXP diffusr_heat_diffusion__try(SEXP v0SEXP, SEXP WSEXP, SEXP bSEXP) {
+// insulated_heat_diffusion_
+Eigen::VectorXd insulated_heat_diffusion_(const Eigen::VectorXd& v0, const Eigen::MatrixXd& W, double b);
+static SEXP diffusr_insulated_heat_diffusion__try(SEXP v0SEXP, SEXP WSEXP, SEXP bSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::traits::input_parameter< const Eigen::VectorXd& >::type v0(v0SEXP);
     Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type W(WSEXP);
     Rcpp::traits::input_parameter< double >::type b(bSEXP);
-    rcpp_result_gen = Rcpp::wrap(heat_diffusion_(v0, W, b));
+    rcpp_result_gen = Rcpp::wrap(insulated_heat_diffusion_(v0, W, b));
     return rcpp_result_gen;
 END_RCPP_RETURN_ERROR
 }
-RcppExport SEXP diffusr_heat_diffusion_(SEXP v0SEXP, SEXP WSEXP, SEXP bSEXP) {
+RcppExport SEXP diffusr_insulated_heat_diffusion_(SEXP v0SEXP, SEXP WSEXP, SEXP bSEXP) {
     SEXP rcpp_result_gen;
     {
         Rcpp::RNGScope rcpp_rngScope_gen;
-        rcpp_result_gen = PROTECT(diffusr_heat_diffusion__try(v0SEXP, WSEXP, bSEXP));
+        rcpp_result_gen = PROTECT(diffusr_insulated_heat_diffusion__try(v0SEXP, WSEXP, bSEXP));
+    }
+    Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
+    if (rcpp_isInterrupt_gen) {
+        UNPROTECT(1);
+        Rf_onintr();
+    }
+    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, "try-error");
+    if (rcpp_isError_gen) {
+        SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
+        UNPROTECT(1);
+        Rf_error(CHAR(rcpp_msgSEXP_gen));
+    }
+    UNPROTECT(1);
+    return rcpp_result_gen;
+}
+// laplacian_diffusion_
+Eigen::VectorXd laplacian_diffusion_(const Eigen::VectorXd& v0, const Eigen::MatrixXd& W, const double t);
+static SEXP diffusr_laplacian_diffusion__try(SEXP v0SEXP, SEXP WSEXP, SEXP tSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::traits::input_parameter< const Eigen::VectorXd& >::type v0(v0SEXP);
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type W(WSEXP);
+    Rcpp::traits::input_parameter< const double >::type t(tSEXP);
+    rcpp_result_gen = Rcpp::wrap(laplacian_diffusion_(v0, W, t));
+    return rcpp_result_gen;
+END_RCPP_RETURN_ERROR
+}
+RcppExport SEXP diffusr_laplacian_diffusion_(SEXP v0SEXP, SEXP WSEXP, SEXP tSEXP) {
+    SEXP rcpp_result_gen;
+    {
+        Rcpp::RNGScope rcpp_rngScope_gen;
+        rcpp_result_gen = PROTECT(diffusr_laplacian_diffusion__try(v0SEXP, WSEXP, tSEXP));
     }
     Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
     if (rcpp_isInterrupt_gen) {
@@ -171,6 +203,7 @@ static int diffusr_RcppExport_validate(const char* sig) {
     static std::set<std::string> signatures;
     if (signatures.empty()) {
         signatures.insert("Eigen::VectorXd(*.insulated.heat.diffusion.cpp)(const Eigen::VectorXd&,const Eigen::MatrixXd&,double)");
+        signatures.insert("Eigen::VectorXd(*.laplacian.heat.diffusion.cpp)(const Eigen::VectorXd&,const Eigen::MatrixXd&,const double)");
         signatures.insert("Eigen::MatrixXd(*.stoch.col.norm.cpp)(const Eigen::MatrixXd&)");
         signatures.insert("Eigen::MatrixXd(*.laplacian.cpp)(const Eigen::MatrixXd&)");
         signatures.insert("Eigen::VectorXd(*.mrwr.cpp)(const Eigen::VectorXd&,const Eigen::MatrixXd&,const double)");
@@ -181,7 +214,8 @@ static int diffusr_RcppExport_validate(const char* sig) {
 
 // registerCCallable (register entry points for exported C++ functions)
 RcppExport SEXP diffusr_RcppExport_registerCCallable() { 
-    R_RegisterCCallable("diffusr", "diffusr_.insulated.heat.diffusion.cpp", (DL_FUNC)diffusr_heat_diffusion__try);
+    R_RegisterCCallable("diffusr", "diffusr_.insulated.heat.diffusion.cpp", (DL_FUNC)diffusr_insulated_heat_diffusion__try);
+    R_RegisterCCallable("diffusr", "diffusr_.laplacian.heat.diffusion.cpp", (DL_FUNC)diffusr_laplacian_diffusion__try);
     R_RegisterCCallable("diffusr", "diffusr_.stoch.col.norm.cpp", (DL_FUNC)diffusr_stoch_col_norm__try);
     R_RegisterCCallable("diffusr", "diffusr_.laplacian.cpp", (DL_FUNC)diffusr_laplacian__try);
     R_RegisterCCallable("diffusr", "diffusr_.mrwr.cpp", (DL_FUNC)diffusr_mrwr__try);

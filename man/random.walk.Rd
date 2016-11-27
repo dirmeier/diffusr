@@ -7,7 +7,7 @@
 random.walk(p0, graph, r = 0.5, ...)
 }
 \arguments{
-\item{p0}{the starting distribution of the Markov chain}
+\item{p0}{the starting distribution of the Markov chain (does not need to sum to one)}
 
 \item{graph}{a non-negative matrix}
 
@@ -19,8 +19,7 @@ random.walk(p0, graph, r = 0.5, ...)
 returns the stationary distribution as vector
 }
 \description{
-Do a Markov random walk with restarts on a graph.
-The MRW takes an inital distribution \code{p0} and calculates the stationary distribution of that.
+A Markov Random Walk takes an inital distribution \code{p0} and calculates the stationary distribution of that.
 The diffusion process is regulated by a restart probability \code{r}.
 It basically controls how often the MRW jumps back to the initial values.
 }
