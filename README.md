@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/dirmeier/diffusr.svg?branch=master)](https://travis-ci.org/dirmeier/diffusr.svg?branch=master)
 [![codecov](https://codecov.io/gh/dirmeier/diffusr/branch/master/graph/badge.svg)](https://codecov.io/gh/dirmeier/diffusr)
+[![CRAN](http://www.r-pkg.org/badges/version/diffusr)](https://cran.r-project.org/package=diffusr)
 
 Network diffusion algorithms in R.
 
