@@ -1,5 +1,6 @@
 <h1 align="center"> diffusr </h1>
 
+[![Project Status](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 [![Build Status](https://travis-ci.org/dirmeier/diffusr.svg?branch=master)](https://travis-ci.org/dirmeier/diffusr)
 [![codecov](https://codecov.io/gh/dirmeier/diffusr/branch/master/graph/badge.svg)](https://codecov.io/gh/dirmeier/diffusr)
 [![CRAN](http://www.r-pkg.org/badges/version/diffusr?color=brightgreen)](https://cran.r-project.org/package=diffusr)
