@@ -35,7 +35,7 @@ Eigen::MatrixXd stoch_col_norm_(const Eigen::MatrixXd& W)
 {
   Eigen::MatrixXd res(W.rows(), W.cols());
   Eigen::VectorXd colsums = W.colwise().sum();
-  const double empt_col_val = 1.0 / W.rows();
+  const double empt_col_val = 1.0 / W.cols();
   const double zero_col = 0.00001;
   for (unsigned int i = 0; i < W.cols(); ++i )
   {
