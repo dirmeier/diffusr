@@ -6,7 +6,6 @@
 ^\.Rproj\.user$
 .gitignore
 .git
-.lintr
 .idea
 .codecov.yml
 diffusr.Rcheck
