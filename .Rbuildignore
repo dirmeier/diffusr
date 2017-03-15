@@ -9,7 +9,6 @@
 .lintr
 .idea
 .codecov.yml
-test
 diffusr.Rcheck
 diffusr.Rproj
 diffusr*tar.gz
