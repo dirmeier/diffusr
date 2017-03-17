@@ -6,6 +6,7 @@
 .git
 .idea
 .codecov.yml
+.lintr
 diffusr.Rcheck
 diffusr.Rproj
 diffusr*tar.gz
