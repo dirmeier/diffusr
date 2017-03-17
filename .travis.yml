@@ -9,10 +9,6 @@ dist: trusty
 
 cache: packages
 
-os:
-  - linux
-  - osx
-
 r_packages:
   - covr
   - testthat
