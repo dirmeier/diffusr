@@ -2,7 +2,7 @@
 title: "The diffusr tutorial"
 author: "Simon Dirmeier"
 date: "`r Sys.Date()`"
-output: rmarkdown::pdf_document
+output: rmarkdown::html_document
 vignette: >
   %\VignetteIndexEntry{The diffusr tutorial}
   %\VignetteEngine{knitr::rmarkdown}
