@@ -17,4 +17,5 @@ env:
     - R_CHECK_ARGS="--no-build-vignettes --no-manual --as-cran"
 
 after_success:
-  - Rscript -e 'library(covr); codecov()'
+  - Rscript -e 'covr::codecov()'
+  - Rscript -e 'lintr::lint_package()'
