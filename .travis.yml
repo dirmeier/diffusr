@@ -1,8 +1,17 @@
 language: r
+r:
+  - oldrel
+  - release
+  - devel
 
 sudo: false
+dist: trusty
 
 cache: packages
+
+os:
+  - linux
+  - osx
 
 r_packages:
   - covr
@@ -15,6 +24,7 @@ env:
   global:
     - R_BUILD_ARGS="--no-build-vignettes --no-manual"
     - R_CHECK_ARGS="--no-build-vignettes --no-manual --as-cran"
+    - LINTR_COMMENT_BOT=false
 
 after_success:
   - Rscript -e 'covr::codecov()'
