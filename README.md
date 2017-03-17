@@ -2,6 +2,7 @@
 
 [![Project Status](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 [![Build Status](https://travis-ci.org/dirmeier/diffusr.svg?branch=master)](https://travis-ci.org/dirmeier/diffusr)
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/dirmeier/diffusr?branch=master&svg=true)](https://ci.appveyor.com/project/dirmeier/diffusr)
 [![codecov](https://codecov.io/gh/dirmeier/diffusr/branch/master/graph/badge.svg)](https://codecov.io/gh/dirmeier/diffusr)
 [![CRAN](http://www.r-pkg.org/badges/version/diffusr?color=brightgreen)](https://cran.r-project.org/package=diffusr)
 [![Downloads](http://cranlogs.r-pkg.org/badges/grand-total/diffusr?color=brightgreen)](https://cran.r-project.org/package=diffusr)

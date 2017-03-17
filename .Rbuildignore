@@ -2,8 +2,6 @@
 ^\.Rproj\.user$
 ^\.travis\.yml$
 ^codecov\.yml$
-^.*\.Rproj$
-^\.Rproj\.user$
 .gitignore
 .git
 .idea
@@ -29,4 +27,4 @@ build-pkg*
 \.out$
 \.tex$
 \.tar.gz$
-^\.travis\.yml$
+^appveyor\.yml$
