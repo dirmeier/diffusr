@@ -12,7 +12,6 @@ exclusions: list("tests/testthat.R",
                  "tests/testthat/test_insulated_heat.R",
                  "tests/testthat/test_laplacian_heat.R",
                  "tests/testthat/test_util.R",
-                 "tests/testthat/test_lint.R",
                  "inst/doc/diffusr.R",
                  "R/RcppExports.R")
 exclude: "# Exclude Linting"
