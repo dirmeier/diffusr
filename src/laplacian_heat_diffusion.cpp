@@ -34,7 +34,7 @@
 //' @param t  time for which geat is measured
 //' @return  returns the stationary distribution p_inf
 // [[Rcpp::interfaces(r, cpp)]]
-// [[Rcpp::export(name=".laplacian.heat.diffusion.cpp")]]
+// [[Rcpp::export]]
 Eigen::VectorXd laplacian_diffusion_(const Eigen::VectorXd& v0,
                                      const Eigen::MatrixXd& W,
                                      const double t)
@@ -44,7 +44,10 @@ Eigen::VectorXd laplacian_diffusion_(const Eigen::VectorXd& v0,
   Eigen::VectorXd D = es.eigenvalues();
   Eigen::VectorXd co =  V.transpose() * v0;
   for (int i = 0; i < co.size(); ++i)
+  {
+    if (i % 25 == 0) Rcpp::checkUserInterrupt();
     co(i) *= std::exp(-D(i) * t);
+  }
   co =  V * co;
   return co;
 }

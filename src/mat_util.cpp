@@ -30,7 +30,7 @@
 //' @param W  the adjacency matrix to be normalized
 //' @return  returns the normalized matrix
 // [[Rcpp::interfaces(r, cpp)]]
-// [[Rcpp::export(name=".stoch.col.norm.cpp")]]
+// [[Rcpp::export]]
 Eigen::MatrixXd stoch_col_norm_(const Eigen::MatrixXd& W)
 {
   Eigen::MatrixXd res(W.rows(), W.cols());
@@ -51,7 +51,7 @@ Eigen::MatrixXd stoch_col_norm_(const Eigen::MatrixXd& W)
 //' @param W  the adjacency matrix for which the Laplacian is calculated
 //' @return  returns the Laplacian of a matrix
 // [[Rcpp::interfaces(r, cpp)]]
-// [[Rcpp::export(name=".laplacian.cpp")]]
+// [[Rcpp::export]]
 Eigen::MatrixXd laplacian_(const Eigen::MatrixXd& W)
 {
   const int P = W.rows();
@@ -59,6 +59,7 @@ Eigen::MatrixXd laplacian_(const Eigen::MatrixXd& W)
   Eigen::VectorXd rowsums = W.rowwise().sum();
   for (int i = 0; i < P; ++i)
   {
+    Rcpp::checkUserInterrupt();
     for (int j = 0; j < P; ++j)
     {
       if (i == j && rowsums[i] != 0)

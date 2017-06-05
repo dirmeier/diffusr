@@ -31,7 +31,7 @@
 //' @param b  restart probability
 //' @return  returns the stationary distribution p_inf
 // [[Rcpp::interfaces(r, cpp)]]
-// [[Rcpp::export(name=".insulated.heat.diffusion.cpp")]]
+// [[Rcpp::export]]
 Eigen::VectorXd insulated_heat_diffusion_(const Eigen::VectorXd& v0,
                                           const Eigen::MatrixXd& W,
                                           double b)
@@ -52,6 +52,7 @@ Eigen::VectorXd insulated_heat_diffusion_(const Eigen::VectorXd& v0,
   int iter = 0;
   do
   {
+    if (iter % 25 == 0) Rcpp::checkUserInterrupt();
     vold = vt;
     vt = F * vold;
   }

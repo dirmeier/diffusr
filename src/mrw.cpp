@@ -32,7 +32,7 @@
 //' @param r  restart probability
 //' @return  returns the stationary distribution p_inf
 // [[Rcpp::interfaces(r, cpp)]]
-// [[Rcpp::export(name=".mrwr.cpp")]]
+// [[Rcpp::export]]
 Eigen::VectorXd mrwr_(const Eigen::VectorXd& p0,
                       const Eigen::MatrixXd& W,
                       const double r)
@@ -44,6 +44,7 @@ Eigen::VectorXd mrwr_(const Eigen::VectorXd& p0,
   int iter = 0;
   do
   {
+    if (iter % 25 == 0) Rcpp::checkUserInterrupt();
     pold = pt;
     pt = (1  - r) * W * pold + r * p0;
   }

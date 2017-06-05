@@ -58,10 +58,12 @@ void nearest_neighbor_dijkstra_(std::set<int>& nei,
   int r = 1;
   do
   {
+    Rcpp::checkUserInterrupt();
     // list for the neighbors that are all equally far apart
     std::vector<std::pair<int, double>> curr_nei;
     // get the nearest neighbor and add him to the list
-    std::pair<int, double> cn = queue.top(); queue.pop();
+    std::pair<int, double> cn = queue.top();
+    queue.pop();
     if (!visited[cn.first]) curr_nei.push_back(cn);
     // add neighbors that are as close as the first neighbor
     while (equals(queue.top().second, cn.second, .001) && queue.size())
@@ -93,7 +95,7 @@ void nearest_neighbor_dijkstra_(std::set<int>& nei,
 //' @param k  the depth of the nearest neighbor search
 //' @return  returns a list of nearest neighbors for every node idxs given in <emph>node_idxs</emph>
 // [[Rcpp::interfaces(r, cpp)]]
-// [[Rcpp::export(name=".neighbors.cpp")]]
+// [[Rcpp::export]]
 Rcpp::List neighbors_(const Rcpp::IntegerVector& node_idxs,
                       const Rcpp::NumericMatrix& W,
                       const int k)

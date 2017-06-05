@@ -25,17 +25,17 @@ namespace diffusr {
         }
     }
 
-    inline Eigen::VectorXd _insulated_heat_diffusion_cpp(const Eigen::VectorXd& v0, const Eigen::MatrixXd& W, double b) {
-        typedef SEXP(*Ptr__insulated_heat_diffusion_cpp)(SEXP,SEXP,SEXP);
-        static Ptr__insulated_heat_diffusion_cpp p__insulated_heat_diffusion_cpp = NULL;
-        if (p__insulated_heat_diffusion_cpp == NULL) {
-            validateSignature("Eigen::VectorXd(*_insulated_heat_diffusion_cpp)(const Eigen::VectorXd&,const Eigen::MatrixXd&,double)");
-            p__insulated_heat_diffusion_cpp = (Ptr__insulated_heat_diffusion_cpp)R_GetCCallable("diffusr", "diffusr__insulated_heat_diffusion_cpp");
+    inline Eigen::VectorXd insulated_heat_diffusion_(const Eigen::VectorXd& v0, const Eigen::MatrixXd& W, double b) {
+        typedef SEXP(*Ptr_insulated_heat_diffusion_)(SEXP,SEXP,SEXP);
+        static Ptr_insulated_heat_diffusion_ p_insulated_heat_diffusion_ = NULL;
+        if (p_insulated_heat_diffusion_ == NULL) {
+            validateSignature("Eigen::VectorXd(*insulated_heat_diffusion_)(const Eigen::VectorXd&,const Eigen::MatrixXd&,double)");
+            p_insulated_heat_diffusion_ = (Ptr_insulated_heat_diffusion_)R_GetCCallable("diffusr", "diffusr_insulated_heat_diffusion_");
         }
         RObject rcpp_result_gen;
         {
             RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p__insulated_heat_diffusion_cpp(Rcpp::wrap(v0), Rcpp::wrap(W), Rcpp::wrap(b));
+            rcpp_result_gen = p_insulated_heat_diffusion_(Rcpp::wrap(v0), Rcpp::wrap(W), Rcpp::wrap(b));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
@@ -44,17 +44,17 @@ namespace diffusr {
         return Rcpp::as<Eigen::VectorXd >(rcpp_result_gen);
     }
 
-    inline Eigen::VectorXd _laplacian_heat_diffusion_cpp(const Eigen::VectorXd& v0, const Eigen::MatrixXd& W, const double t) {
-        typedef SEXP(*Ptr__laplacian_heat_diffusion_cpp)(SEXP,SEXP,SEXP);
-        static Ptr__laplacian_heat_diffusion_cpp p__laplacian_heat_diffusion_cpp = NULL;
-        if (p__laplacian_heat_diffusion_cpp == NULL) {
-            validateSignature("Eigen::VectorXd(*_laplacian_heat_diffusion_cpp)(const Eigen::VectorXd&,const Eigen::MatrixXd&,const double)");
-            p__laplacian_heat_diffusion_cpp = (Ptr__laplacian_heat_diffusion_cpp)R_GetCCallable("diffusr", "diffusr__laplacian_heat_diffusion_cpp");
+    inline Eigen::VectorXd laplacian_diffusion_(const Eigen::VectorXd& v0, const Eigen::MatrixXd& W, const double t) {
+        typedef SEXP(*Ptr_laplacian_diffusion_)(SEXP,SEXP,SEXP);
+        static Ptr_laplacian_diffusion_ p_laplacian_diffusion_ = NULL;
+        if (p_laplacian_diffusion_ == NULL) {
+            validateSignature("Eigen::VectorXd(*laplacian_diffusion_)(const Eigen::VectorXd&,const Eigen::MatrixXd&,const double)");
+            p_laplacian_diffusion_ = (Ptr_laplacian_diffusion_)R_GetCCallable("diffusr", "diffusr_laplacian_diffusion_");
         }
         RObject rcpp_result_gen;
         {
             RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p__laplacian_heat_diffusion_cpp(Rcpp::wrap(v0), Rcpp::wrap(W), Rcpp::wrap(t));
+            rcpp_result_gen = p_laplacian_diffusion_(Rcpp::wrap(v0), Rcpp::wrap(W), Rcpp::wrap(t));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
@@ -63,17 +63,17 @@ namespace diffusr {
         return Rcpp::as<Eigen::VectorXd >(rcpp_result_gen);
     }
 
-    inline Eigen::MatrixXd _stoch_col_norm_cpp(const Eigen::MatrixXd& W) {
-        typedef SEXP(*Ptr__stoch_col_norm_cpp)(SEXP);
-        static Ptr__stoch_col_norm_cpp p__stoch_col_norm_cpp = NULL;
-        if (p__stoch_col_norm_cpp == NULL) {
-            validateSignature("Eigen::MatrixXd(*_stoch_col_norm_cpp)(const Eigen::MatrixXd&)");
-            p__stoch_col_norm_cpp = (Ptr__stoch_col_norm_cpp)R_GetCCallable("diffusr", "diffusr__stoch_col_norm_cpp");
+    inline Eigen::MatrixXd stoch_col_norm_(const Eigen::MatrixXd& W) {
+        typedef SEXP(*Ptr_stoch_col_norm_)(SEXP);
+        static Ptr_stoch_col_norm_ p_stoch_col_norm_ = NULL;
+        if (p_stoch_col_norm_ == NULL) {
+            validateSignature("Eigen::MatrixXd(*stoch_col_norm_)(const Eigen::MatrixXd&)");
+            p_stoch_col_norm_ = (Ptr_stoch_col_norm_)R_GetCCallable("diffusr", "diffusr_stoch_col_norm_");
         }
         RObject rcpp_result_gen;
         {
             RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p__stoch_col_norm_cpp(Rcpp::wrap(W));
+            rcpp_result_gen = p_stoch_col_norm_(Rcpp::wrap(W));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
@@ -82,17 +82,17 @@ namespace diffusr {
         return Rcpp::as<Eigen::MatrixXd >(rcpp_result_gen);
     }
 
-    inline Eigen::MatrixXd _laplacian_cpp(const Eigen::MatrixXd& W) {
-        typedef SEXP(*Ptr__laplacian_cpp)(SEXP);
-        static Ptr__laplacian_cpp p__laplacian_cpp = NULL;
-        if (p__laplacian_cpp == NULL) {
-            validateSignature("Eigen::MatrixXd(*_laplacian_cpp)(const Eigen::MatrixXd&)");
-            p__laplacian_cpp = (Ptr__laplacian_cpp)R_GetCCallable("diffusr", "diffusr__laplacian_cpp");
+    inline Eigen::MatrixXd laplacian_(const Eigen::MatrixXd& W) {
+        typedef SEXP(*Ptr_laplacian_)(SEXP);
+        static Ptr_laplacian_ p_laplacian_ = NULL;
+        if (p_laplacian_ == NULL) {
+            validateSignature("Eigen::MatrixXd(*laplacian_)(const Eigen::MatrixXd&)");
+            p_laplacian_ = (Ptr_laplacian_)R_GetCCallable("diffusr", "diffusr_laplacian_");
         }
         RObject rcpp_result_gen;
         {
             RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p__laplacian_cpp(Rcpp::wrap(W));
+            rcpp_result_gen = p_laplacian_(Rcpp::wrap(W));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
@@ -101,17 +101,17 @@ namespace diffusr {
         return Rcpp::as<Eigen::MatrixXd >(rcpp_result_gen);
     }
 
-    inline Eigen::VectorXd _mrwr_cpp(const Eigen::VectorXd& p0, const Eigen::MatrixXd& W, const double r) {
-        typedef SEXP(*Ptr__mrwr_cpp)(SEXP,SEXP,SEXP);
-        static Ptr__mrwr_cpp p__mrwr_cpp = NULL;
-        if (p__mrwr_cpp == NULL) {
-            validateSignature("Eigen::VectorXd(*_mrwr_cpp)(const Eigen::VectorXd&,const Eigen::MatrixXd&,const double)");
-            p__mrwr_cpp = (Ptr__mrwr_cpp)R_GetCCallable("diffusr", "diffusr__mrwr_cpp");
+    inline Eigen::VectorXd mrwr_(const Eigen::VectorXd& p0, const Eigen::MatrixXd& W, const double r) {
+        typedef SEXP(*Ptr_mrwr_)(SEXP,SEXP,SEXP);
+        static Ptr_mrwr_ p_mrwr_ = NULL;
+        if (p_mrwr_ == NULL) {
+            validateSignature("Eigen::VectorXd(*mrwr_)(const Eigen::VectorXd&,const Eigen::MatrixXd&,const double)");
+            p_mrwr_ = (Ptr_mrwr_)R_GetCCallable("diffusr", "diffusr_mrwr_");
         }
         RObject rcpp_result_gen;
         {
             RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p__mrwr_cpp(Rcpp::wrap(p0), Rcpp::wrap(W), Rcpp::wrap(r));
+            rcpp_result_gen = p_mrwr_(Rcpp::wrap(p0), Rcpp::wrap(W), Rcpp::wrap(r));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
@@ -120,17 +120,17 @@ namespace diffusr {
         return Rcpp::as<Eigen::VectorXd >(rcpp_result_gen);
     }
 
-    inline Rcpp::List _neighbors_cpp(const Rcpp::IntegerVector& node_idxs, const Rcpp::NumericMatrix& W, const int k) {
-        typedef SEXP(*Ptr__neighbors_cpp)(SEXP,SEXP,SEXP);
-        static Ptr__neighbors_cpp p__neighbors_cpp = NULL;
-        if (p__neighbors_cpp == NULL) {
-            validateSignature("Rcpp::List(*_neighbors_cpp)(const Rcpp::IntegerVector&,const Rcpp::NumericMatrix&,const int)");
-            p__neighbors_cpp = (Ptr__neighbors_cpp)R_GetCCallable("diffusr", "diffusr__neighbors_cpp");
+    inline Rcpp::List neighbors_(const Rcpp::IntegerVector& node_idxs, const Rcpp::NumericMatrix& W, const int k) {
+        typedef SEXP(*Ptr_neighbors_)(SEXP,SEXP,SEXP);
+        static Ptr_neighbors_ p_neighbors_ = NULL;
+        if (p_neighbors_ == NULL) {
+            validateSignature("Rcpp::List(*neighbors_)(const Rcpp::IntegerVector&,const Rcpp::NumericMatrix&,const int)");
+            p_neighbors_ = (Ptr_neighbors_)R_GetCCallable("diffusr", "diffusr_neighbors_");
         }
         RObject rcpp_result_gen;
         {
             RNGScope RCPP_rngScope_gen;
-            rcpp_result_gen = p__neighbors_cpp(Rcpp::wrap(node_idxs), Rcpp::wrap(W), Rcpp::wrap(k));
+            rcpp_result_gen = p_neighbors_(Rcpp::wrap(node_idxs), Rcpp::wrap(W), Rcpp::wrap(k));
         }
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
