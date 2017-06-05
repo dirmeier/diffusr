@@ -3,9 +3,12 @@
 \docType{methods}
 \name{insulated.heat.diffusion}
 \alias{insulated.heat.diffusion}
+\alias{insulated.heat.diffusion,numeric,matrix-method}
 \title{Graph diffusion using an insulated heat diffusion process}
 \usage{
 insulated.heat.diffusion(h0, graph, r = 0.5, ...)
+
+\S4method{insulated.heat.diffusion}{numeric,matrix}(h0, graph, r = 0.5, ...)
 }
 \arguments{
 \item{h0}{an \code{n}-dimensional numeric non-negative vector of starting temperatures}

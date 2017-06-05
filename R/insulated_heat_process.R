@@ -57,10 +57,11 @@ setGeneric(
   package="diffusr"
 )
 
-#' @noRd
+#' @rdname insulated-diffusion-methods
+#' @aliases insulated.heat.diffusion,numeric,matrix-method
 setMethod(
   "insulated.heat.diffusion",
-  signature = signature(h0="numeric", graph="matrix", r="numeric"),
+  signature = signature(h0="numeric", graph="matrix"),
   function(h0, graph, r=.5, ...)
   {
     stopifnot(length(r) == 1)

@@ -57,10 +57,12 @@ setGeneric(
   package="diffusr"
 )
 
-#' @noRd
+
+#' @rdname random-walk-methods
+#' @aliases random.walk,numeric,matrix-method
 setMethod(
   "random.walk",
-  signature = signature(p0="numeric", graph="matrix", r="numeric"),
+  signature = signature(p0="numeric", graph="matrix"),
   function(p0, graph, r=.5, ...)
   {
     stopifnot(length(r) == 1)

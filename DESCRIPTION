@@ -18,7 +18,8 @@ LazyData: TRUE
 LinkingTo: Rcpp, RcppEigen
 Imports:
     Rcpp,
-    igraph
+    igraph,
+    methods
 Suggests:
     knitr,
     rmarkdown,

@@ -3,9 +3,12 @@
 \docType{methods}
 \name{laplacian.heat.diffusion}
 \alias{laplacian.heat.diffusion}
+\alias{laplacian.heat.diffusion,numeric,matrix-method}
 \title{Graph diffusion using a heat diffusion process on a Laplacian matrix.}
 \usage{
 laplacian.heat.diffusion(h0, graph, t = 0.5, ...)
+
+\S4method{laplacian.heat.diffusion}{numeric,matrix}(h0, graph, t = 0.5, ...)
 }
 \arguments{
 \item{h0}{an \code{n}-dimensional numeric non-negative vector of starting temperatures}

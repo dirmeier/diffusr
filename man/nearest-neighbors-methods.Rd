@@ -3,9 +3,12 @@
 \docType{methods}
 \name{nearest.neighbors}
 \alias{nearest.neighbors}
+\alias{nearest.neighbors,integer,matrix-method}
 \title{Graph diffusion using nearest neighbors}
 \usage{
 nearest.neighbors(nodes, graph, k = 1L, ...)
+
+\S4method{nearest.neighbors}{integer,matrix}(nodes, graph, k = 1L, ...)
 }
 \arguments{
 \item{nodes}{a \code{n}-dimensional integer vector of node indexes (1-based) for which the algorithm is applied iteratively}

@@ -54,10 +54,11 @@ setGeneric(
 )
 
 
-#' @noRd
+#' @rdname nearest-neighbors-methods
+#' @aliases nearest.neighbors,integer,matrix-method
 setMethod(
   "nearest.neighbors",
-  signature=signature(nodes="integer", graph="matrix", k="integer"),
+  signature=signature(nodes="integer", graph="matrix"),
   function(nodes, graph, k=1L, ...)
   {
     if (!is.numeric(nodes) && !is.integer(nodes))

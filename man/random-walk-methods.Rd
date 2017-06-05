@@ -3,9 +3,12 @@
 \docType{methods}
 \name{random.walk}
 \alias{random.walk}
+\alias{random.walk,numeric,matrix-method}
 \title{Graph diffusion using a Markov random walk}
 \usage{
 random.walk(p0, graph, r = 0.5, ...)
+
+\S4method{random.walk}{numeric,matrix}(p0, graph, r = 0.5, ...)
 }
 \arguments{
 \item{p0}{an \code{n}-dimensional numeric non-negative vector representing the starting distribution of the Markov chain (does not need to sum to one)}

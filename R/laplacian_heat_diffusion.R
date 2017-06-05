@@ -54,10 +54,11 @@ setGeneric(
   package="diffusr"
 )
 
-#' @noRd
+#' @rdname laplacian-diffusion-methods
+#' @aliases laplacian.heat.diffusion,numeric,matrix-method
 setMethod(
   "laplacian.heat.diffusion",
-  signature = signature(h0="numeric", graph="matrix", t="numeric"),
+  signature = signature(h0="numeric", graph="matrix"),
   function(h0, graph, t=.5, ...)
   {
     stopifnot(length(t) == 1)
