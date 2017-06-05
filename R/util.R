@@ -42,7 +42,7 @@
 #' @noRd
 .check.graph <- function(m, v=NULL)
 {
-  name.graph <- deparse(substitute(m))
+  name.graph  <- deparse(substitute(m))
   name.vector <- deparse(substitute(v))
   if (!is.matrix(m))
     stop('please provide a matrix object!')

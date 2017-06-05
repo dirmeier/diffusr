@@ -68,7 +68,7 @@ nearest.neighbors.numeric <- function(nodes, graph, k=1L, ...)
     warning("setting diag of graph to zero")
     diag(graph) <- 0
   }
-  l <- .neighbors.cpp(int.nodes, graph, k)
+  l <- neighbors_(int.nodes, graph, k)
   names(l) <- int.nodes
   invisible(l)
 }

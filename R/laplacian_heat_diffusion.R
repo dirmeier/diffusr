@@ -62,7 +62,7 @@ laplacian.heat.diffusion.numeric <- function(h0, graph, t=.5, ...)
     warning("setting diag of graph to zero")
     diag(graph) <- 0
   }
-  invisible(.laplacian.heat.diffusion.cpp(h0,
-                                          normalize.laplacian(graph),
-                                          t))
+  invisible(laplacian_diffusion_(h0,
+                                 normalize.laplacian(graph),
+                                 t))
 }

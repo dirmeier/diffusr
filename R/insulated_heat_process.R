@@ -64,6 +64,6 @@ insulated.heat.diffusion.numeric <- function(h0, graph, r=.5, ...)
     warning("setting diag of graph to zero")
     diag(graph) <- 0
   }
-  invisible(.insulated.heat.diffusion.cpp(normalize.stochastic(h0),
-                                          normalize.stochastic(graph), 1 - r))
+  invisible(insulated_heat_diffusion_(normalize.stochastic(h0),
+                                      normalize.stochastic(graph), 1 - r))
 }

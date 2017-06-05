@@ -64,7 +64,7 @@ random.walk.numeric <- function(p0, graph, r=.5, ...)
     warning("setting diag of graph to zero")
     diag(graph) <- 0
   }
-  invisible(.mrwr.cpp(normalize.stochastic(p0),
-                      normalize.stochastic(graph),
-                      r))
+  invisible(mrwr_(normalize.stochastic(p0),
+                  normalize.stochastic(graph),
+                  r))
 }
