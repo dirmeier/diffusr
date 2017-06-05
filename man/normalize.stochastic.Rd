@@ -21,7 +21,3 @@ Create a stochastically normalized matrix/vector
 W <- matrix(abs(rnorm(10000)), 100, 100)
 stoch.W <- normalize.stochastic(W)
 }
-\author{
-Simon Dirmeier, \email{simon.dirmeier@gmx.de}
-}
-

@@ -33,18 +33,18 @@ test_that("knn neighbors tree",{
   n <- 10
   adj <- matrix(0, n, n)
   adj[1,2] <- adj[2,3] <-  adj[3,4] <- adj[3,5] <- 1
-  nei <- unname(unlist(nearest.neighbors(as.integer(1), adj, 3)))
+  nei <- unname(unlist(nearest.neighbors(as.integer(1), adj, 3L)))
   expect_equal(sort(nei), c(2,3,4,5))
 })
 
 test_that("knn neighbors non-positiv idx",{
   n <- 10
   adj <- rbind(cbind(0, diag(n-1)), 0)
-  expect_error(nearest.neighbors(as.integer(0), adj, 2))
+  expect_error(nearest.neighbors(as.integer(0), adj, 2L))
 })
 
 test_that("knn neighbors non-matrix elem",{
-  expect_error(nearest.neighbors(as.integer(0), "s", 2))
+  expect_error(nearest.neighbors(as.integer(0), "s", 2L))
 })
 
 test_that("knn neighbors non-numeric k",{

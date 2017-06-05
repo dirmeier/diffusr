@@ -23,7 +23,8 @@
 #' Every iteration (or time interval) \code{t} heat streams from the starting nodes into surrounding nodes.
 #'
 #' @export
-#' @author Simon Dirmeier, \email{simon.dirmeier@@gmx.de}
+#' @docType methods
+#' @rdname laplacian-diffusion-methods
 #'
 #' @param h0   an \code{n}-dimensional numeric non-negative vector of starting temperatures
 #' @param graph  an (\code{n x n})-dimensional numeric non-negative adjacence matrix representing the graph
@@ -44,25 +45,32 @@
 #' graph <- matrix(abs(rnorm(n*n)), n, n)
 #' # computation of stationary distribution
 #' ht <- laplacian.heat.diffusion(h0, graph)
-laplacian.heat.diffusion <- function(h0, graph, t=.5, ...)
-{
-  UseMethod("laplacian.heat.diffusion")
-}
-
-#' @export
-#' @method laplacian.heat.diffusion numeric
-laplacian.heat.diffusion.numeric <- function(h0, graph, t=.5, ...)
-{
-  if (!is.numeric(t)) stop("numeric t needed")
-  if (t < 0) stop("pls provide positive t")
-  .check.vector(h0)
-  .check.graph(graph, h0)
-  if (any(diag(graph) != 0))
+setGeneric(
+  "laplacian.heat.diffusion",
+  function(h0, graph, t=.5, ...)
   {
-    warning("setting diag of graph to zero")
-    diag(graph) <- 0
+    standardGeneric("laplacian.heat.diffusion")
+  },
+  package="diffusr"
+)
+
+#' @noRd
+setMethod(
+  "laplacian.heat.diffusion",
+  signature = signature(h0="numeric", graph="matrix", t="numeric"),
+  function(h0, graph, t=.5, ...)
+  {
+    stopifnot(length(t) == 1)
+    if (t < 0) stop("pls provide positive t")
+    .check.vector(h0)
+    .check.graph(graph, h0)
+    if (any(diag(graph) != 0))
+    {
+      warning("setting diag of graph to zero")
+      diag(graph) <- 0
+    }
+    invisible(laplacian_diffusion_(h0,
+                                   normalize.laplacian(graph),
+                                   t))
   }
-  invisible(laplacian_diffusion_(h0,
-                                 normalize.laplacian(graph),
-                                 t))
-}
+)

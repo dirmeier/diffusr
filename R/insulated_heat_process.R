@@ -23,7 +23,8 @@
 #' The insulated heat diffusion calculates the stationary distribution of the different temperatures on the nodes.
 #'
 #' @export
-#' @author Simon Dirmeier, \email{simon.dirmeier@@gmx.de}
+#' @docType methods
+#' @rdname insulated-diffusion-methods
 #'
 #' @param h0   an \code{n}-dimensional numeric non-negative vector of starting temperatures
 #' @param graph  an (\code{n x n})-dimensional numeric non-negative adjacence matrix representing the graph
@@ -47,23 +48,31 @@
 #' graph <- matrix(abs(rnorm(n*n)), n, n)
 #' # computation of stationary distribution
 #' ht <- insulated.heat.diffusion(h0, graph)
-insulated.heat.diffusion <- function(h0, graph, r=.5, ...)
-{
-  UseMethod("insulated.heat.diffusion")
-}
-
-#' @export
-#' @method insulated.heat.diffusion numeric
-insulated.heat.diffusion.numeric <- function(h0, graph, r=.5, ...)
-{
-  .check.restart(r)
-  .check.vector(h0)
-  .check.graph(graph, h0)
-  if (any(diag(graph) != 0))
+setGeneric(
+  "insulated.heat.diffusion",
+  function(h0, graph, r=.5, ...)
   {
-    warning("setting diag of graph to zero")
-    diag(graph) <- 0
+    standardGeneric("insulated.heat.diffusion")
+  },
+  package="diffusr"
+)
+
+#' @noRd
+setMethod(
+  "insulated.heat.diffusion",
+  signature = signature(h0="numeric", graph="matrix", r="numeric"),
+  function(h0, graph, r=.5, ...)
+  {
+    stopifnot(length(r) == 1)
+    .check.restart(r)
+    .check.vector(h0)
+    .check.graph(graph, h0)
+    if (any(diag(graph) != 0))
+    {
+      warning("setting diag of graph to zero")
+      diag(graph) <- 0
+    }
+    invisible(insulated_heat_diffusion_(normalize.stochastic(h0),
+                                        normalize.stochastic(graph), 1 - r))
   }
-  invisible(insulated_heat_diffusion_(normalize.stochastic(h0),
-                                      normalize.stochastic(graph), 1 - r))
-}
+)

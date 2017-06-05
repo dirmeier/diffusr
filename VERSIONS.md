@@ -1,6 +1,12 @@
 Versions
 ========
 
+### v0.1.1
+
+* Updated exported function names to make registering possible
+* Added stricter S3 dispatch
+* Added user interrupt
+
 ### v0.1
 
 * Basic S3 methods for:

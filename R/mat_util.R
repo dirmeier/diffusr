@@ -20,7 +20,6 @@
 #' Create a stochastically normalized matrix/vector
 #'
 #' @export
-#' @author Simon Dirmeier, \email{simon.dirmeier@@gmx.de}
 #'
 #' @param obj  matrix/vector that is stochstically normalized
 #' @param ...  additional params
@@ -63,7 +62,6 @@ normalize.stochastic.numeric <- function(obj, ...)
 #' Calculate the Laplacian of a matrix
 #'
 #' @export
-#' @author Simon Dirmeier, \email{simon.dirmeier@@gmx.de}
 #'
 #' @param obj  matrix for which the Laplacian is calculated
 #' @param ...  additional params

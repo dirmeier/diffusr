@@ -23,7 +23,8 @@
 #' The diffusion process is regulated by a restart probability \code{r} which controls how often the MRW jumps back to the initial values.
 #'
 #' @export
-#' @author Simon Dirmeier, \email{simon.dirmeier@@gmx.de}
+#' @docType methods
+#' @rdname random-walk-methods
 #'
 #' @param p0  an \code{n}-dimensional numeric non-negative vector representing the starting distribution of the Markov chain (does not need to sum to one)
 #' @param graph  an (\code{n x n})-dimensional numeric non-negative adjacence matrix representing the graph
@@ -47,24 +48,32 @@
 #' graph <- matrix(abs(rnorm(n*n)), n, n)
 #' # computation of stationary distribution
 #' pt    <- random.walk(p0, graph)
-random.walk <- function(p0, graph, r=.5, ...)
-{
-  UseMethod("random.walk")
-}
-
-#' @export
-#' @method random.walk numeric
-random.walk.numeric <- function(p0, graph, r=.5, ...)
-{
-  .check.restart(r)
-  .check.vector(p0)
-  .check.graph(graph, p0)
-  if (any(diag(graph) != 0))
+setGeneric(
+  "random.walk",
+  function(p0, graph, r=.5, ...)
   {
-    warning("setting diag of graph to zero")
-    diag(graph) <- 0
+    standardGeneric("random.walk")
+  },
+  package="diffusr"
+)
+
+#' @noRd
+setMethod(
+  "random.walk",
+  signature = signature(p0="numeric", graph="matrix", r="numeric"),
+  function(p0, graph, r=.5, ...)
+  {
+    stopifnot(length(r) == 1)
+    .check.restart(r)
+    .check.vector(p0)
+    .check.graph(graph, p0)
+    if (any(diag(graph) != 0))
+    {
+      warning("setting diag of graph to zero")
+      diag(graph) <- 0
+    }
+    invisible(mrwr_(normalize.stochastic(p0),
+                    normalize.stochastic(graph),
+                    r))
   }
-  invisible(mrwr_(normalize.stochastic(p0),
-                  normalize.stochastic(graph),
-                  r))
-}
+)

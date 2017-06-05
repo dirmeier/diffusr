@@ -26,7 +26,8 @@
 #' than \code{k} neighbors having the same distance, all neighbors are returned.
 #'
 #' @export
-#' @author  Simon Dirmeier, \email{simon.dirmeier@@gmx.de}
+#' @docType methods
+#' @rdname nearest-neighbors-methods
 #'
 #' @param nodes  a \code{n}-dimensional integer vector of node indexes (1-based) for which the algorithm is applied iteratively
 #' @param graph  an (\code{n x n})-dimensional numeric non-negative adjacence matrix representing the graph
@@ -43,32 +44,41 @@
 #'  graph <- rbind(cbind(0, diag(n-1)), 0)
 #'  # compute the neighbors until depth 3
 #'  neighs <- nearest.neighbors(node.idxs, graph, 3)
-nearest.neighbors <- function(nodes, graph, k=1L, ...)
-{
-  UseMethod("nearest.neighbors")
-}
-
-#' @export
-#' @method nearest.neighbors numeric
-nearest.neighbors.numeric <- function(nodes, graph, k=1L, ...)
-{
-  if (!is.numeric(nodes) && !is.integer(nodes))
-    stop('nodes has to be a vector of integer')
-  int.nodes <- unique(as.integer(nodes))
-  if (length(int.nodes) != length(nodes))
-    warning("casting nodes to int removed some of the indexes.")
-  if (any(int.nodes < 1))
-    stop("node idxs have to be 1-indexed!")
-  if ((!is.numeric(k) && !is.integer(k)) || length(k) != 1 || k < 1)
-    stop('k has to be a positive scalar int')
-  k <- as.integer(k)
-  .check.graph(graph)
-  if (any(diag(graph) != 0))
+setGeneric(
+  "nearest.neighbors",
+  function(nodes, graph, k=1L, ...)
   {
-    warning("setting diag of graph to zero")
-    diag(graph) <- 0
+    standardGeneric("nearest.neighbors")
+  },
+  package="diffusr"
+)
+
+
+#' @noRd
+setMethod(
+  "nearest.neighbors",
+  signature=signature(nodes="integer", graph="matrix", k="integer"),
+  function(nodes, graph, k=1L, ...)
+  {
+    if (!is.numeric(nodes) && !is.integer(nodes))
+      stop('nodes has to be a vector of integer')
+    int.nodes <- unique(as.integer(nodes))
+    if (length(int.nodes) != length(nodes))
+      warning("casting nodes to int removed some of the indexes.")
+    if (any(int.nodes < 1))
+      stop("node idxs have to be 1-indexed!")
+    if ((!is.numeric(k) && !is.integer(k)) || length(k) != 1 || k < 1)
+      stop('k has to be a positive scalar int')
+    k <- as.integer(k)
+    .check.graph(graph)
+    if (any(diag(graph) != 0))
+    {
+      warning("setting diag of graph to zero")
+      diag(graph) <- 0
+    }
+    l <- neighbors_(int.nodes, graph, k)
+    names(l) <- int.nodes
+    invisible(l)
   }
-  l <- neighbors_(int.nodes, graph, k)
-  names(l) <- int.nodes
-  invisible(l)
-}
+)
+

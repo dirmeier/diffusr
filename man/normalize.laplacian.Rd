@@ -21,7 +21,3 @@ Calculate the Laplacian of a matrix
 W <- matrix(abs(rnorm(10000)), 100, 100)
 lapl.W <- normalize.laplacian(W)
 }
-\author{
-Simon Dirmeier, \email{simon.dirmeier@gmx.de}
-}
-

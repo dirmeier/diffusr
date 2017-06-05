@@ -7,9 +7,6 @@
 \description{
 Network diffusion algorithms in R.
 }
-\author{
-Simon Dirmeier \email{simon.dirmeier@gmx.de}
-}
 \references{
 Tong, H., Faloutsos, C., & Pan, J. Y. (2006),
 Fast random walk with restart and its applications.\cr \cr
@@ -25,5 +22,7 @@ Pan-cancer network analysis identifies combinations of rare somatic mutations ac
 \url{https://en.wikipedia.org/wiki/Laplacian_matrix} \cr
 \url{https://en.wikipedia.org/wiki/Heat_equation}
 }
+\author{
+Simon Dirmeier \email{simon.dirmeier@gmx.de}
+}
 \keyword{package}
-

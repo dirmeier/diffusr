@@ -1,7 +1,7 @@
 Package: diffusr
 Type: Package
 Title: Network Diffusion Algorithms
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: person("Simon", "Dirmeier", email = "simon.dirmeier@gmx.de", role = c("aut", "cre"))
 Maintainer: Simon Dirmeier <simon.dirmeier@gmx.de>
 Description: Implementation of network diffusion algorithms such as insulated
@@ -25,5 +25,5 @@ Suggests:
     lintr,
     igraph
 VignetteBuilder: knitr
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
 SystemRequirements: C++11
