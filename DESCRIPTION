@@ -17,13 +17,13 @@ License: GPL (>=3)
 LazyData: TRUE
 LinkingTo: Rcpp, RcppEigen
 Imports:
-    Rcpp
+    Rcpp,
+    igraph
 Suggests:
     knitr,
     rmarkdown,
     testthat,
-    lintr,
-    igraph
+    lintr
 VignetteBuilder: knitr
 RoxygenNote: 6.0.1
 SystemRequirements: C++11

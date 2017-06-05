@@ -64,3 +64,15 @@ test_that(".in is false", {
 test_that("normalize vector", {
   expect_equal(sum(normalize.stochastic(1:10)), 1)
 })
+
+test_that("matrix is ergodic", {
+  m <- matrix(0.1 + rnorm(100), 10, 10)
+  expect_true(.is.ergodic(m))
+})
+
+test_that("matrix is not ergodic raises error", {
+  m <- matrix(0, 10, 10)
+  m[1:3, 1:3]    <- 1
+  m[7:10, 7:10] <- 1
+  expect_false(.is.ergodic(m))
+})

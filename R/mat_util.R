@@ -85,3 +85,13 @@ normalize.laplacian.numeric <- function(obj, ...)
   lapl <- laplacian_(obj)
   return(lapl)
 }
+
+#' @noRd
+#' @importFrom igraph graph_from_adjacency_matrix components
+.is.ergodic <- function(obj)
+{
+  adj   <- igraph::graph_from_adjacency_matrix(obj)
+  comps <- igraph::components(adj)
+  ifelse(length(comps$csize) == 1, TRUE, FALSE)
+}
+
