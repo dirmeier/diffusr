@@ -69,13 +69,12 @@ setMethod(
     .check.graph(graph, p0)
     if (any(diag(graph) != 0))
     {
-      warning("setting diag of graph to zero")
+      message("setting diag of graph to zero")
       diag(graph) <- 0
     }
     stoch.graph <- normalize.stochastic(graph)
     if(!.is.ergodic(stoch.graph))
-      stop("The provided graph has more than one component.
-           It is likely not ergodic.")
+      stop("the provided graph has more than one component. It is likely not ergodic.")
     invisible(mrwr_(normalize.stochastic(p0),
                     stoch.graph,
                     r))

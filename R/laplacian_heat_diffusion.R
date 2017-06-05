@@ -66,7 +66,7 @@ setMethod(
     .check.graph(graph, h0)
     if (any(diag(graph) != 0))
     {
-      warning("setting diag of graph to zero")
+      message("setting diag of graph to zero")
       diag(graph) <- 0
     }
     invisible(laplacian_diffusion_(h0,

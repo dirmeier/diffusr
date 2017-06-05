@@ -66,7 +66,7 @@ test_that("normalize vector", {
 })
 
 test_that("matrix is ergodic", {
-  m <- matrix(0.1 + rnorm(100), 10, 10)
+  m <- matrix(1, 10, 10)
   expect_true(.is.ergodic(m))
 })
 

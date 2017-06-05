@@ -90,7 +90,9 @@ normalize.laplacian.numeric <- function(obj, ...)
 #' @importFrom igraph graph_from_adjacency_matrix components
 .is.ergodic <- function(obj)
 {
-  adj   <- igraph::graph_from_adjacency_matrix(obj)
+  adj   <- igraph::graph_from_adjacency_matrix(obj,
+                                               mode="directed",
+                                               weighted=T)
   comps <- igraph::components(adj)
   ifelse(length(comps$csize) == 1, TRUE, FALSE)
 }
