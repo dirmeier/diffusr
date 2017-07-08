@@ -14,6 +14,7 @@ Description: Implementation of network diffusion algorithms such as insulated
 URL: https://github.com/dirmeier/diffusr
 BugReports: https://github.com/dirmeier/diffusr/issues
 License: GPL (>=3)
+Depends: R (>= 3.4)
 LazyData: TRUE
 LinkingTo: Rcpp, RcppEigen
 Imports:
