@@ -24,30 +24,47 @@
 #include <RcppEigen.h>
 #include <vector>
 
-//' Do a Markon random walk (with restart) on an column-normalised adjacency matrix.
+//' Do a Markon random walk (with restart) on an column-normalised adjacency
+// matrix.
 //'
 //' @noRd
-//' @param p0  the staring distribution
+//' @param p0  matrix of starting distribution
 //' @param W  the column normalized adjacency matrix
 //' @param r  restart probability
-//' @return  returns the stationary distribution p_inf
+//' @param thresh  threshold to break as soon as new stationary distribution
+//   converges to the stationary distribution of the previous timepoint
+//' @param niter  maximum number of iterations for the chain
+//' @param do_analytical  boolean if the stationary distribution shall be
+//'  computed solving the analytical solution or iteratively
+//' @return  returns the matrix of stationary distributions p_inf
 // [[Rcpp::interfaces(r, cpp)]]
 // [[Rcpp::export]]
-Eigen::VectorXd mrwr_(const Eigen::VectorXd& p0,
+Eigen::VectorXd mrwr_(const Eigen::MatrixXd& p0,
                       const Eigen::MatrixXd& W,
-                      const double r)
+                      const double r,
+                      const double thresh,
+                      const int niter,
+                      const bool do_analytical))
 {
-  Eigen::VectorXd pt = p0;
-  Eigen::VectorXd pold;
-  const double thresh = .00000001;
-  const int niter = 100000;
-  int iter = 0;
-  do
-  {
-    if (iter % 25 == 0) Rcpp::checkUserInterrupt();
-    pold = pt;
-    pt = (1  - r) * W * pold + r * p0;
-  }
-  while ((pt - pold).norm() > thresh && iter++ < niter);
-  return pt;
+    Eigen::MatrixXd pt;
+    if (!do_analytical)
+    {
+      Eigen::MatrixXd pt = p0;
+      Eigen::MatrixXd pold;
+      int iter   = 0;
+      do
+      {
+          if (iter % 25 == 0)
+              Rcpp::checkUserInterrupt();
+          pold = pt;
+          pt   = (1 - r) * W * pold + r * p0;
+      } while ((pt - pold).norm() > thresh && iter++ < niter);
+    }
+    else
+    {
+      Eigen::MatrixXd T  = r * (I - (1 - r) * W).inverse();
+      pt = T %*% p0;
+    }
+
+    return pt;
 }

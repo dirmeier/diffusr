@@ -42,6 +42,7 @@ Eigen::MatrixXd stoch_col_norm_(const Eigen::MatrixXd& W)
     if ((W.col(i)).sum() <= zero_col) res.col(i).fill(empt_col_val);
     else res.col(i) = W.col(i) / colsums(i);
   }
+  
   return res;
 }
 

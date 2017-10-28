@@ -7,6 +7,7 @@
 .idea
 .codecov.yml
 .lintr
+.clang-format
 diffusr.Rcheck
 diffusr.Rproj
 diffusr*tar.gz
