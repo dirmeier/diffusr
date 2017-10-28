@@ -1,6 +1,11 @@
 Versions
 ========
 
+### v0.1.2
+
+* Removes `insulated.heat.diffusion`
+* Adds matrix inputs for most methods
+
 ### v0.1.1
 
 * Updated exported function names to make registering possible
@@ -24,7 +29,7 @@ Versions
 	* Config, Readme, Travis
 	* Lintr
 	* Codecov
-* Initial submission to CRAN	
+* Initial submission to CRAN
 
 ### Author
 

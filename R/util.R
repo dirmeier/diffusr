@@ -55,11 +55,11 @@
 }
 
 #' @noRd
-.check.vector <- function(v)
+.check.starting.matrix <- function(v)
 {
   name <- deparse(substitute(v))
   if (any(v < 0))
     stop(paste(name, "can only contain non-negative values!"))
-  if (!is.vector(v))
-    stop(paste("vectorial", name, "required"))
+  if (!is.matrix(v))
+    stop(paste("matrix-shaped", name, "required"))
 }

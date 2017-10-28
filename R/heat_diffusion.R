@@ -17,17 +17,21 @@
 # You should have received a copy of the GNU General Public License
 # along with diffusr. If not, see <http://www.gnu.org/licenses/>.
 
+
 #' Graph diffusion using a heat diffusion process on a Laplacian matrix.
 #'
-#' @description An amount of starting heat gets distribution using the Laplacian matrix of a graph.
-#' Every iteration (or time interval) \code{t} heat streams from the starting nodes into surrounding nodes.
+#' @description An amount of starting heat gets distribution using the
+#' Laplacian matrix of a graph. Every iteration (or time interval) \code{t}
+#'heat streams from the starting nodes into surrounding nodes.
 #'
 #' @export
 #' @docType methods
-#' @rdname laplacian-diffusion-methods
+#' @rdname heat-diffusion-methods
 #'
-#' @param h0   an \code{n}-dimensional numeric non-negative vector of starting temperatures
-#' @param graph  an (\code{n x n})-dimensional numeric non-negative adjacence matrix representing the graph
+#' @param h0   an \code{n x p}-dimensional numeric non-negative vector/matrix
+#'  of starting temperatures
+#' @param graph  an (\code{n x n})-dimensional numeric non-negative adjacence
+#'  matrix representing the graph
 #' @param t  time point when heat is measured
 #' @param ...  additional parameters
 #' @return  returns the heat on every node as numeric vector
@@ -44,9 +48,9 @@
 #' # adjacency matrix (either normalized or not)
 #' graph <- matrix(abs(rnorm(n*n)), n, n)
 #' # computation of stationary distribution
-#' ht <- laplacian.heat.diffusion(h0, graph)
+#' ht <- heat.diffusion(h0, graph)
 setGeneric(
-  "laplacian.heat.diffusion",
+  "heat.diffusion",
   function(h0, graph, t=.5, ...)
   {
     standardGeneric("laplacian.heat.diffusion")
@@ -54,24 +58,36 @@ setGeneric(
   package="diffusr"
 )
 
-#' @rdname laplacian-diffusion-methods
-#' @aliases laplacian.heat.diffusion,numeric,matrix-method
+#' @rdname heat-diffusion-methods
+#' @aliases heat.diffusion,numeric,matrix-method
 setMethod(
-  "laplacian.heat.diffusion",
+  "heat.diffusion",
   signature = signature(h0="numeric", graph="matrix"),
+  function(h0, graph, t=.5, ...)
+  {
+    h0 <- as.matrix(h0, ncol=1)
+    heat.diffusion(h0, graph, t, ...)
+  }
+)
+
+#' @rdname heat-diffusion-methods
+#' @aliases heat.diffusion,matrix,matrix-method
+setMethod(
+  "heat.diffusion",
+  signature = signature(h0="matrix", graph="matrix"),
   function(h0, graph, t=.5, ...)
   {
     stopifnot(length(t) == 1)
     if (t < 0) stop("pls provide positive t")
-    .check.vector(h0)
+    .check.starting.matrix(h0)
     .check.graph(graph, h0)
     if (any(diag(graph) != 0))
     {
       message("setting diag of graph to zero")
       diag(graph) <- 0
     }
-    invisible(laplacian_diffusion_(h0,
-                                   normalize.laplacian(graph),
-                                   t))
+    invisible(heat_diffusion_(h0,
+                              normalize.laplacian(graph),
+                              t))
   }
 )

@@ -17,18 +17,25 @@
 # You should have received a copy of the GNU General Public License
 # along with diffusr. If not, see <http://www.gnu.org/licenses/>.
 
+
 #' Graph diffusion using a Markov random walk
 #'
-#' @description A Markov Random Walk takes an inital distribution \code{p0} and calculates the stationary distribution of that.
-#' The diffusion process is regulated by a restart probability \code{r} which controls how often the MRW jumps back to the initial values.
+#' @description A Markov Random Walk takes an inital distribution \code{p0}
+#' and calculates the stationary distribution of that.
+#' The diffusion process is regulated by a restart probability \code{r} which
+#' controls how often the MRW jumps back to the initial values.
 #'
 #' @export
 #' @docType methods
 #' @rdname random-walk-methods
 #'
-#' @param p0  an \code{n}-dimensional numeric non-negative vector representing the starting distribution of the Markov chain (does not need to sum to one)
-#' @param graph  an (\code{n x n})-dimensional numeric non-negative adjacence matrix representing the graph
-#' @param r  a scalar between (0, 1). restart probability if a Markov random walk with restart is desired
+#' @param p0  an \code{n x p}-dimensional numeric non-negative vector/matrix
+#'  representing the starting distribution of the Markov chain
+#'  (does not need to sum to one).
+#' @param graph  an (\code{n x n})-dimensional numeric non-negative adjacence
+#' matrix representing the graph
+#' @param r  a scalar between (0, 1). restart probability if a Markov random
+#' walk with restart is desired
 #' @param ...  additional parameters
 #' @return  returns the stationary distribution as numeric vector
 #'
@@ -57,7 +64,6 @@ setGeneric(
   package="diffusr"
 )
 
-
 #' @rdname random-walk-methods
 #' @aliases random.walk,numeric,matrix-method
 setMethod(
@@ -65,9 +71,21 @@ setMethod(
   signature = signature(p0="numeric", graph="matrix"),
   function(p0, graph, r=.5, ...)
   {
+    p0 <- as.matrix(p0, ncol=1)
+    random.walk(p0, graph, r, ...)
+  }
+)
+
+#' @rdname random-walk-methods
+#' @aliases random.walk,matrix,matrix-method
+setMethod(
+  "random.walk",
+  signature = signature(p0="matrix", graph="matrix"),
+  function(p0, graph, r=.5, ...)
+  {
     stopifnot(length(r) == 1)
     .check.restart(r)
-    .check.vector(p0)
+    .check.starting.matrix(p0)
     .check.graph(graph, p0)
     if (any(diag(graph) != 0))
     {
@@ -79,6 +97,7 @@ setMethod(
       stop("the provided graph has more than one component. It is likely not ergodic.")
     invisible(mrwr_(normalize.stochastic(p0),
                     stoch.graph,
-                    r))
+                    r)
+              )
   }
 )

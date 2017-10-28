@@ -17,6 +17,7 @@
 # You should have received a copy of the GNU General Public License
 # along with diffusr. If not, see <http://www.gnu.org/licenses/>.
 
+
 #' Create a stochastically normalized matrix/vector
 #'
 #' @export
@@ -40,8 +41,6 @@ normalize.stochastic.numeric <- function(obj, ...)
     stop('please provide an object with only non-negative values!')
   if (is.matrix(obj))
   {
-    if (nrow(obj) != ncol(obj))
-      stop('please provide a square matrix!')
     if (!all(.equals.double(colSums(obj), 1, .001)))
     {
       message("normalizing column vectors!")

@@ -38,8 +38,8 @@
 // [[Rcpp::interfaces(r, cpp)]]
 // [[Rcpp::export]]
 Eigen::MatrixXd heat_diffusion_(const Eigen::MatrixXd& v0,
-                                     const Eigen::MatrixXd& W,
-                                     const double t)
+                                const Eigen::MatrixXd& W,
+                                const double t)
 {
   Eigen::SelfAdjointEigenSolver<Eigen::MatrixXd> es(W);
   Eigen::MatrixXd V = es.eigenvectors();
