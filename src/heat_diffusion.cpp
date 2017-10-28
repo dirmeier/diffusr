@@ -47,7 +47,8 @@ Eigen::MatrixXd heat_diffusion_(const Eigen::MatrixXd& v0,
   Eigen::VectorXd co =  V.transpose() * v0;
   for (int i = 0; i < co.rows(); ++i)
   {
-    for (int j = 0; j < co.cols(); ++j) {
+    for (int j = 0; j < co.cols(); ++j)
+    {
       if (j % 25 == 0) Rcpp::checkUserInterrupt();
       co(i, j) *= std::exp(-D(i) * t);
     }

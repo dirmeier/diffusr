@@ -36,6 +36,16 @@
 #' matrix representing the graph
 #' @param r  a scalar between (0, 1). restart probability if a Markov random
 #' walk with restart is desired
+#' @param thresh  threshold for breaking the iterative computation of the
+#'  stationary distribution. If the absolute difference of the distribution at
+#'  time point $t-1$ and $t$ is less than \code{thresh}, then the algorithm stops.
+#'  If \code{thresh} is not reached before \code{niter}, then the algorithm stops
+#'  as well.
+#' @param niter  maximal number of iterations for computation of the
+#'  Markov chain. If \code{thresh} is not reached, then \code{niter} is used as
+#' stop criterion.
+#' @param do.analytical  boolean if the stationary distribution shall be
+#'  computed solving the analytical solution or rather iteratively
 #' @param ...  additional parameters
 #' @return  returns the stationary distribution as numeric vector
 #'
@@ -57,7 +67,7 @@
 #' pt    <- random.walk(p0, graph)
 setGeneric(
   "random.walk",
-  function(p0, graph, r=.5, ...)
+  function(p0, graph, r=.5, niter=1e4, thresh=1e-4, do.analytical=FALSE, ...)
   {
     standardGeneric("random.walk")
   },
@@ -69,10 +79,10 @@ setGeneric(
 setMethod(
   "random.walk",
   signature = signature(p0="numeric", graph="matrix"),
-  function(p0, graph, r=.5, ...)
+  function(p0, graph, r=.5, niter=1e4, thresh=1e-4, do.analytical=FALSE, ...)
   {
     p0 <- as.matrix(p0, ncol=1)
-    random.walk(p0, graph, r, ...)
+    random.walk(p0, graph, r, niter, thresh, do.analytical, ...)
   }
 )
 
@@ -81,23 +91,32 @@ setMethod(
 setMethod(
   "random.walk",
   signature = signature(p0="matrix", graph="matrix"),
-  function(p0, graph, r=.5, ...)
+  function(p0, graph, r=.5, niter=1e4, thresh=1e-4, do.analytical=FALSE, ...)
   {
     stopifnot(length(r) == 1)
     .check.restart(r)
     .check.starting.matrix(p0)
     .check.graph(graph, p0)
+
     if (any(diag(graph) != 0))
     {
       message("setting diag of graph to zero")
       diag(graph) <- 0
     }
+
     stoch.graph <- normalize.stochastic(graph)
     if(!.is.ergodic(stoch.graph))
       stop("the provided graph has more than one component. It is likely not ergodic.")
-    invisible(mrwr_(normalize.stochastic(p0),
-                    stoch.graph,
-                    r)
-              )
+
+    print(p0)
+    print(stoch.graph)
+    print(r)
+    print(thresh)
+    print(niter)
+    print(do.analytical)
+
+    invisible(
+      mrwr_(normalize.stochastic(p0),
+            stoch.graph, r, thresh, niter, do.analytical))
   }
 )

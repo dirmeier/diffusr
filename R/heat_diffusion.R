@@ -53,7 +53,7 @@ setGeneric(
   "heat.diffusion",
   function(h0, graph, t=.5, ...)
   {
-    standardGeneric("laplacian.heat.diffusion")
+    standardGeneric("heat.diffusion")
   },
   package="diffusr"
 )

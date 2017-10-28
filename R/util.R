@@ -50,7 +50,7 @@
     stop(paste0("'", name.graph, "' has to be non-negative"))
   if (dim(m)[1] != dim(m)[2])
     stop(paste(name.graph, "has to be of dimension (n x n)!"))
-  if (!is.null(v) && dim(m)[1] != length(v))
+  if (!is.null(v) && dim(m)[1] != dim(v)[1])
     stop(paste(name.vector, "has to have same dimension as", name.graph))
 }
 

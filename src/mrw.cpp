@@ -23,6 +23,7 @@
 // [[Rcpp::depends(RcppEigen)]]
 #include <RcppEigen.h>
 #include <vector>
+#include <iostream>
 
 //' Do a Markon random walk (with restart) on an column-normalised adjacency
 //' matrix.
@@ -49,7 +50,7 @@ Eigen::MatrixXd mrwr_(const Eigen::MatrixXd& p0,
     Eigen::MatrixXd pt;
     if (!do_analytical)
     {
-      Eigen::MatrixXd pt = p0;
+      pt = p0;
       Eigen::MatrixXd pold;
       int iter   = 0;
       do
@@ -62,8 +63,9 @@ Eigen::MatrixXd mrwr_(const Eigen::MatrixXd& p0,
     }
     else
     {
+      Eigen::MatrixXd I = Eigen::MatrixXd::Identity(W.rows(), W.cols());
       Eigen::MatrixXd T  = r * (I - (1 - r) * W).inverse();
-      pt = T %*% p0;
+      pt = T * p0;
     }
 
     return pt;

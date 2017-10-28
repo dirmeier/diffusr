@@ -4,18 +4,41 @@
 \name{random.walk}
 \alias{random.walk}
 \alias{random.walk,numeric,matrix-method}
+\alias{random.walk,matrix,matrix-method}
 \title{Graph diffusion using a Markov random walk}
 \usage{
-random.walk(p0, graph, r = 0.5, ...)
+random.walk(p0, graph, r = 0.5, niter = 10000, thresh = 1e-04,
+  do.analytical = FALSE, ...)
 
-\S4method{random.walk}{numeric,matrix}(p0, graph, r = 0.5, ...)
+\S4method{random.walk}{numeric,matrix}(p0, graph, r = 0.5, niter = 10000,
+  thresh = 1e-04, do.analytical = FALSE, ...)
+
+\S4method{random.walk}{matrix,matrix}(p0, graph, r = 0.5, niter = 10000,
+  thresh = 1e-04, do.analytical = FALSE, ...)
 }
 \arguments{
-\item{p0}{an \code{n}-dimensional numeric non-negative vector representing the starting distribution of the Markov chain (does not need to sum to one)}
+\item{p0}{an \code{n x p}-dimensional numeric non-negative vector/matrix
+representing the starting distribution of the Markov chain
+(does not need to sum to one).}
 
-\item{graph}{an (\code{n x n})-dimensional numeric non-negative adjacence matrix representing the graph}
+\item{graph}{an (\code{n x n})-dimensional numeric non-negative adjacence
+matrix representing the graph}
 
-\item{r}{a scalar between (0, 1). restart probability if a Markov random walk with restart is desired}
+\item{r}{a scalar between (0, 1). restart probability if a Markov random
+walk with restart is desired}
+
+\item{niter}{maximal number of iterations for computation of the
+ Markov chain. If \code{thresh} is not reached, then \code{niter} is used as
+stop criterion.}
+
+\item{thresh}{threshold for breaking the iterative computation of the
+stationary distribution. If the absolute difference of the distribution at
+time point $t-1$ and $t$ is less than \code{thresh}, then the algorithm stops.
+If \code{thresh} is not reached before \code{niter}, then the algorithm stops
+as well.}
+
+\item{do.analytical}{boolean if the stationary distribution shall be
+computed solving the analytical solution or rather iteratively}
 
 \item{...}{additional parameters}
 }
@@ -23,8 +46,10 @@ random.walk(p0, graph, r = 0.5, ...)
 returns the stationary distribution as numeric vector
 }
 \description{
-A Markov Random Walk takes an inital distribution \code{p0} and calculates the stationary distribution of that.
-The diffusion process is regulated by a restart probability \code{r} which controls how often the MRW jumps back to the initial values.
+A Markov Random Walk takes an inital distribution \code{p0}
+and calculates the stationary distribution of that.
+The diffusion process is regulated by a restart probability \code{r} which
+controls how often the MRW jumps back to the initial values.
 }
 \examples{
 # count of nodes

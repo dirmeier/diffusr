@@ -2,8 +2,7 @@
 
 S3method(normalize.laplacian,numeric)
 S3method(normalize.stochastic,numeric)
-export(insulated.heat.diffusion)
-export(laplacian.heat.diffusion)
+export(heat.diffusion)
 export(nearest.neighbors)
 export(normalize.laplacian)
 export(normalize.stochastic)

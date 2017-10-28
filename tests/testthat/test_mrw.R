@@ -25,17 +25,35 @@ graph <-  igraph::graph_from_adjacency_matrix(adja)
 
 test_that("random walk if w restarts", {
   s <- random.walk(p0, as.matrix(igraph::get.adjacency(graph)), 1)
-  expect_equal(s, p0)
+  expect_equal(as.vector(s), p0, 0.001)
+})
+
+test_that("random walk with vectors is same as for matrices", {
+  p0 <- matrix(runif(10*20), nrow=5)
+  mat.walk <- random.walk(p0, as.matrix(igraph::get.adjacency(graph)), .5)
+  vec.walk <- sapply(seq(ncol(p0)), function(e) {
+      p <- random.walk(p0[, e], as.matrix(igraph::get.adjacency(graph)), .5)
+      p
+  })
+  expect_equal(mat.walk, vec.walk, 0.001)
+})
+
+test_that("random walk analytical is same as iterative", {
+  ana.walk <- random.walk(p0, as.matrix(igraph::get.adjacency(graph)),
+                          .5, do.analytical=TRUE)
+  it.walk  <- random.walk(p0, as.matrix(igraph::get.adjacency(graph)),
+                          .5, do.analytical=FALSE)
+  expect_equal(ana.walk, it.walk, 0.001)
 })
 
 test_that("random walk if w/o restarts", {
   s <- random.walk(p0, as.matrix(igraph::get.adjacency(graph)), 0)
-   expect_equal(s, rep(.2, 5))
+   expect_equal(as.vector(s), rep(.2, 5), 0.001)
 })
 
 test_that("random walk with mat for graph", {
   s <- random.walk(p0, adja, 1)
-  expect_equal(s, p0)
+  expect_equal(as.vector(s), p0, 0.001)
 })
 
 test_that("random walk if false p0", {

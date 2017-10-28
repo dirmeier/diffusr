@@ -20,8 +20,10 @@
  * along with diffusr. If not, see <http://www.gnu.org/licenses/>.
  */
 
+
 // [[Rcpp::depends(RcppEigen)]]
 #include <RcppEigen.h>
+// [[Rcpp::plugins(cpp11)]]
 #include <cmath>
 
 //' Column normalize a matrix, so that it is stochastic.
@@ -42,7 +44,7 @@ Eigen::MatrixXd stoch_col_norm_(const Eigen::MatrixXd& W)
     if ((W.col(i)).sum() <= zero_col) res.col(i).fill(empt_col_val);
     else res.col(i) = W.col(i) / colsums(i);
   }
-  
+
   return res;
 }
 
