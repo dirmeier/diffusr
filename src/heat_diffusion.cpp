@@ -20,13 +20,11 @@
  * along with diffusr. If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 // [[Rcpp::depends(RcppEigen)]]
 #include <RcppEigen.h>
 // [[Rcpp::plugins(cpp11)]]
 #include <cmath>
 #include <Eigen/Eigenvalues>
-
 
 //' Do graph diffusion using an heat diffusion on a Laplacian.
 //'
@@ -39,23 +37,24 @@
 // [[Rcpp::export]]
 Eigen::MatrixXd heat_diffusion_(const Eigen::MatrixXd& v0,
                                 const Eigen::MatrixXd& W,
-                                const double t)
+                                const double           t)
 {
-  Eigen::SelfAdjointEigenSolver<Eigen::MatrixXd> es(W);
-  Eigen::MatrixXd V = es.eigenvectors();
-  Eigen::VectorXd D = es.eigenvalues();
-  Eigen::MatrixXd co =  V.transpose() * v0;
-  
-  // solution to the heat equation at time t
-  for (int i = 0; i < co.rows(); ++i)
-  {
-    for (int j = 0; j < co.cols(); ++j)
-    {
-      if (j % 25 == 0) Rcpp::checkUserInterrupt();
-      co(i, j) *= std::exp(-D(i) * t);
-    }
-  }
-  co =  V * co;
+    Eigen::SelfAdjointEigenSolver<Eigen::MatrixXd> es(W);
+    Eigen::MatrixXd                                V  = es.eigenvectors();
+    Eigen::VectorXd                                D  = es.eigenvalues();
+    Eigen::MatrixXd                                co = V.transpose() * v0;
 
-  return co;
+    // solution to the heat equation at time t
+    for (int i = 0; i < co.rows(); ++i)
+    {
+        for (int j = 0; j < co.cols(); ++j)
+        {
+            if (j % 25 == 0)
+                Rcpp::checkUserInterrupt();
+            co(i, j) *= std::exp(-D(i) * t);
+        }
+    }
+    co = V * co;
+
+    return co;
 }

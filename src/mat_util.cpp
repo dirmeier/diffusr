@@ -20,7 +20,6 @@
  * along with diffusr. If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 // [[Rcpp::depends(RcppEigen)]]
 #include <RcppEigen.h>
 // [[Rcpp::plugins(cpp11)]]
@@ -35,17 +34,19 @@
 // [[Rcpp::export]]
 Eigen::MatrixXd stoch_col_norm_(const Eigen::MatrixXd& W)
 {
-  Eigen::MatrixXd res(W.rows(), W.cols());
-  Eigen::VectorXd colsums = W.colwise().sum();
-  const double empt_col_val = 1.0 / W.cols();
-  const double zero_col = 0.00001;
-  for (unsigned int i = 0; i < W.cols(); ++i )
-  {
-    if ((W.col(i)).sum() <= zero_col) res.col(i).fill(empt_col_val);
-    else res.col(i) = W.col(i) / colsums(i);
-  }
+    Eigen::MatrixXd res(W.rows(), W.cols());
+    Eigen::VectorXd colsums      = W.colwise().sum();
+    const double    empt_col_val = 1.0 / W.cols();
+    const double    zero_col     = 0.00001;
+    for (unsigned int i = 0; i < W.cols(); ++i)
+    {
+        if ((W.col(i)).sum() <= zero_col)
+            res.col(i).fill(empt_col_val);
+        else
+            res.col(i) = W.col(i) / colsums(i);
+    }
 
-  return res;
+    return res;
 }
 
 //' Calculate the Laplacian of a weighted matrix.
@@ -57,21 +58,21 @@ Eigen::MatrixXd stoch_col_norm_(const Eigen::MatrixXd& W)
 // [[Rcpp::export]]
 Eigen::MatrixXd laplacian_(const Eigen::MatrixXd& W)
 {
-  const int P = W.rows();
-  Eigen::MatrixXd res(W.rows(), W.cols());
-  Eigen::VectorXd rowsums = W.rowwise().sum();
-  for (int i = 0; i < P; ++i)
-  {
-    Rcpp::checkUserInterrupt();
-    for (int j = 0; j < P; ++j)
+    const int       P = W.rows();
+    Eigen::MatrixXd res(W.rows(), W.cols());
+    Eigen::VectorXd rowsums = W.rowwise().sum();
+    for (int i = 0; i < P; ++i)
     {
-      if (i == j && rowsums[i] != 0)
-        res(i,j)  = 1 - (W(i,j) / rowsums(i));
-      else if (i != j && W(i,j) != 0)
-        res(i,j) = -W(i,j) / sqrt(rowsums(i) * rowsums(j));
-      else
-        res(i,j) = 0;
+        Rcpp::checkUserInterrupt();
+        for (int j = 0; j < P; ++j)
+        {
+            if (i == j && rowsums[i] != 0)
+                res(i, j) = 1 - (W(i, j) / rowsums(i));
+            else if (i != j && W(i, j) != 0)
+                res(i, j) = -W(i, j) / sqrt(rowsums(i) * rowsums(j));
+            else
+                res(i, j) = 0;
+        }
     }
-  }
-  return res;
+    return res;
 }
