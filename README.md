@@ -1,4 +1,4 @@
-<h1 align="center"> diffusr </h1>
+# diffusr <img src="https://rawgit.com/dirmeier/diffusr/master/inst/fig/diffusion.gif" align="right" width="160px"/>
 
 [![Project Status](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 [![Build Status](https://travis-ci.org/dirmeier/diffusr.svg?branch=master)](https://travis-ci.org/dirmeier/diffusr)
@@ -14,7 +14,7 @@ Network diffusion algorithms in R.
 `diffusr` implements several algorithms for network diffusion such as *Markov random walks with restarts* and *weighted neighbor classification*. Network diffusion has been studied extensively in bioinformatics, e.g. in the field of cancer gene prioritization. Network diffusion algorithms generally spread information, e.g. encoded as node weights, along the edges of a graph to other nodes. These weights can for example be interpreted as temperature, an initial amount of water, the activation of neurons in the brain, or the location of a random surfer in the internet. The information (node weights) is iteratively propagated to other nodes until a equilibrium state or stop criterion occurs.
 
 ## Installation
- 
+
 Install `diffusr` using:
 ```{r}
 install.packages("diffusr")
@@ -22,7 +22,7 @@ install.packages("diffusr")
 
 Alternatively use the latest version from github:
 ```{r}
-devtools::install_github("dirmeier/diffusr") 
+devtools::install_github("dirmeier/diffusr")
 ```
 
 ## Usage

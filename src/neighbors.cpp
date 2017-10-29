@@ -143,7 +143,7 @@ void nearest_neighbor_dijkstra_(std::set<int>&             nei,
             {
                 visited[cn.first] = true;
             }
-            // add as neighbor with index + 1, cause neighbors are indexed
+            // add as neighbor with index + 1, cause neighbors are indexe
             // starting from 1 in R
             nei.insert(cn.first + 1);
             // add current node to priority queue
