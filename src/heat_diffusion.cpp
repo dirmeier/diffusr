@@ -44,7 +44,9 @@ Eigen::MatrixXd heat_diffusion_(const Eigen::MatrixXd& v0,
   Eigen::SelfAdjointEigenSolver<Eigen::MatrixXd> es(W);
   Eigen::MatrixXd V = es.eigenvectors();
   Eigen::VectorXd D = es.eigenvalues();
-  Eigen::VectorXd co =  V.transpose() * v0;
+  Eigen::MatrixXd co =  V.transpose() * v0;
+  
+  // solution to the heat equation at time t
   for (int i = 0; i < co.rows(); ++i)
   {
     for (int j = 0; j < co.cols(); ++j)

@@ -106,7 +106,7 @@ You can use the *Laplacian heat diffusion process* like this:
   # adjacency matrix (either normalized or not)
   graph <- matrix(abs(rnorm(n*n)), n, n)
   # computation of stationary distribution
-  ht    <- laplacian.heat.diffusion(h0, graph)
+  ht    <- heat.diffusion(h0, graph)
 ```
 
 Here are the results:
@@ -118,7 +118,7 @@ Here are the results:
 
 As before, `p0` can also be a matrix:
 ```{r, message=F, warning=F}
-   p0 <- matrix(c(p0, runif(20)), nrow=n)
-   pt <- random.walk(p0, graph)
-   pt
+   h0 <- matrix(c(h0, runif(20)), nrow=n)
+   ht <- heat.diffusion(h0, graph)
+   ht
 ```

@@ -23,7 +23,6 @@
 // [[Rcpp::depends(RcppEigen)]]
 #include <RcppEigen.h>
 #include <vector>
-#include <iostream>
 
 //' Do a Markon random walk (with restart) on an column-normalised adjacency
 //' matrix.

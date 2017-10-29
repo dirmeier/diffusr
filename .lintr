@@ -6,11 +6,10 @@ linters: list(linelen=line_length_linter(80),
               snakelinter=snake_case_linter,
               closedcurly=closed_curly_linter,
               trailingwhites=trailing_whitespace_linter)
-exclusions: list("tests/testthat.R", 
+exclusions: list("tests/testthat.R",
                  "tests/testthat/test_knn.R",
                  "tests/testthat/test_mrw.R",
-                 "tests/testthat/test_insulated_heat.R",
-                 "tests/testthat/test_laplacian_heat.R",
+                 "tests/testthat/test_heat.R",
                  "tests/testthat/test_util.R",
                  "inst/doc/diffusr.R",
                  "R/RcppExports.R")

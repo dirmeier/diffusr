@@ -91,8 +91,7 @@ normalize.laplacian.numeric <- function(obj, ...)
 {
   adj   <- igraph::graph_from_adjacency_matrix(obj,
                                                mode="directed",
-                                               weighted=T)
+                                               weighted=TRUE)
   comps <- igraph::components(adj)
   ifelse(length(comps$csize) == 1, TRUE, FALSE)
 }
-

@@ -79,7 +79,7 @@ setMethod(
     }
     l <- neighbors_(int.nodes, graph, k)
     names(l) <- int.nodes
+    
     invisible(l)
   }
 )
-

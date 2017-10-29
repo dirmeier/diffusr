@@ -86,8 +86,8 @@ setMethod(
       message("setting diag of graph to zero")
       diag(graph) <- 0
     }
-    invisible(heat_diffusion_(h0,
-                              normalize.laplacian(graph),
-                              t))
+
+    invisible(
+      heat_diffusion_(h0, normalize.laplacian(graph), t))
   }
 )

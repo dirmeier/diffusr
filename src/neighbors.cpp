@@ -64,7 +64,10 @@ void nearest_neighbor_dijkstra_(std::set<int>& nei,
     // get the nearest neighbor and add him to the list
     std::pair<int, double> cn = queue.top();
     queue.pop();
-    if (!visited[cn.first]) curr_nei.push_back(cn);
+    if (!visited[cn.first])
+    {
+      curr_nei.push_back(cn);
+    }
     // add neighbors that are as close as the first neighbor
     while (equals(queue.top().second, cn.second, .001) && queue.size())
     {
@@ -72,6 +75,7 @@ void nearest_neighbor_dijkstra_(std::set<int>& nei,
       if (!visited[nn.first]) curr_nei.push_back(nn);
       queue.pop();
     }
+
     for (std::vector<std::pair<int, double>>::size_type i = 0;
          i < curr_nei.size(); ++i)
     {
@@ -80,8 +84,12 @@ void nearest_neighbor_dijkstra_(std::set<int>& nei,
       else visited[cn.first] = true;
       nei.insert(cn.first + 1);
       for (int i = 0; i < W.cols(); ++i)
+      {
         if (i != cn.first && W(cn.first, i) > 0)
+        {
           queue.push(std::make_pair(i, W(cn.first, i)));
+        }
+      }
     }
   }
   while (r++ < max_depth && queue.size());
@@ -115,5 +123,6 @@ Rcpp::List neighbors_(const Rcpp::IntegerVector& node_idxs,
     // run disjkstra until k neighbors are found
     nearest_neighbor_dijkstra_(neighbors[i], node_idx, k, W);
   }
+
   return Rcpp::wrap(neighbors);
 }

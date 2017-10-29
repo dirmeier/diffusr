@@ -106,14 +106,8 @@ setMethod(
 
     stoch.graph <- normalize.stochastic(graph)
     if(!.is.ergodic(stoch.graph))
-      stop("the provided graph has more than one component. It is likely not ergodic.")
-
-    print(p0)
-    print(stoch.graph)
-    print(r)
-    print(thresh)
-    print(niter)
-    print(do.analytical)
+      stop(paste("the provided graph has more than one component.",
+                 "It is likely not ergodic."))
 
     invisible(
       mrwr_(normalize.stochastic(p0),

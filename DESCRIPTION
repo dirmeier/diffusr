@@ -2,12 +2,13 @@ Package: diffusr
 Type: Package
 Title: Network Diffusion Algorithms
 Version: 0.1.2
-Authors@R: person("Simon", "Dirmeier", 
+Date: 2017-10-29
+Authors@R: person("Simon", "Dirmeier",
                   email = "simon.dirmeier@gmx.de",
                   role = c("aut", "cre"))
 Maintainer: Simon Dirmeier <simon.dirmeier@gmx.de>
 Description: Implementation of network diffusion algorithms such as
-  heat diffusrion or Markov random walks. Network diffusion algorithms generally
+  heat diffusion or Markov random walks. Network diffusion algorithms generally
   spread information in the form of node weights along the edges of a graph to other nodes.
   These weights can for example be interpreted as temperature, an initial amount
   of water, the activation of neurons in the brain, or the location of a random

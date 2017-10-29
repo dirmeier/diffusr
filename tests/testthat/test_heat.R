@@ -34,14 +34,22 @@ test_that("heat diffusion if maximum diffusion",{
   expect_equal(as.vector(s), expect, 0.001)
 })
 
+test_that("heat diffusion matrix if maximum diffusion",  {
+  p0 <- matrix(0, nrow=5, ncol=10)
+  p0[1,] <- 1
+  expect <- matrix(1/5, nrow=5, ncol=10)
+  mat.heat <- heat.diffusion(p0, adja, 1000000)
+  expect_equal(mat.heat, expect, 0.0001)
+})
+
 test_that("heat diffusion vectorial is same as with matrix",  {
-  p0 <- matrix(rep(1:10, each=20), nrow=5)
-  mat.heat <- heat.diffusion(p0, adja, .5)
+  p0 <- matrix(rep(1:10, each=5), nrow=5)
+  mat.heat <- heat.diffusion(p0, adja, 1000000)
   vec.heat <- sapply(seq(ncol(p0)), function(e) {
       p <- heat.diffusion(p0[, e], adja, .5)
       p
   })
-  expect_equal(mat.walk, vec.walk, 0.0001)
+  expect_equal(mat.heat, vec.heat, 0.0001)
 })
 
 test_that("wrong t negative values", {
