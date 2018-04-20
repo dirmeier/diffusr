@@ -83,7 +83,7 @@ std::vector<std::pair<int, double>> current_neighbors(
     }
 
     // add neighbors that are as close as the first neighbor `cn`
-    while (equals(queue.top().second, cn.second, .001) && queue.size())
+    while (queue.size() && equals(queue.top().second, cn.second, .001))
     {
         std::pair<int, double> nn = queue.top();
         if (!visited[nn.first])

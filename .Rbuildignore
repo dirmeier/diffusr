@@ -30,3 +30,4 @@ build-pkg*
 \.tex$
 \.tar.gz$
 ^appveyor\.yml$
+.valgrindrc

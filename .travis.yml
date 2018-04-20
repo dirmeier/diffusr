@@ -3,15 +3,19 @@ r:
   - release
   - devel
 
-sudo: false
+sudo: required
 dist: trusty
 
 cache: packages
 
 r_packages:
+  - devtools
   - covr
   - testthat
   - lintr
+
+before_install:
+  - sudo apt-get install valgrind
 
 env:
   global:
@@ -22,3 +26,5 @@ env:
 after_success:
   - Rscript -e 'covr::codecov()'
   - Rscript -e 'lintr::lint_package()'
+  - Rscript -e "devtools::install_github('dirmeier/diffusr')"
+  - R -d "valgrind --tool=memcheck --leak-check=full --track-origins=yes" --vanilla < diffusr.Rcheck/diffusr-Ex.R
