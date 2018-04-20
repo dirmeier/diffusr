@@ -46,8 +46,14 @@
 #' stop criterion.
 #' @param do.analytical  boolean if the stationary distribution shall be
 #'  computed solving the analytical solution or rather iteratively
-#' @param ...  additional parameters
-#' @return  returns the stationary distribution as numeric vector
+#' @param correct.for.hubs if \code{TRUE} multiplies a correction factor to the
+#'  nodes, such that the random walk gets not biased to nodes with high
+#'  degree.
+#' @return  returns a list with the following elements
+#'  \itemize{
+#'   \item p.inf  the stationary distribution as numeric vector
+#'   \item transition.matrix the column normalized transition matrix used for the random walk
+#'  }
 #'
 #' @references
 #' Tong, H., Faloutsos, C., & Pan, J. Y. (2006),
@@ -57,32 +63,38 @@
 #' \emph{The American Journal of Human Genetics}\cr \cr
 #'
 #' @examples
-#' # count of nodes
-#' n <- 5
-#' # starting distribution (has to sum to one)
-#' p0    <- as.vector(rmultinom(1, 1, prob=rep(.2, n)))
-#' # adjacency matrix (either normalized or not)
-#' graph <- matrix(abs(rnorm(n*n)), n, n)
-#' # computation of stationary distribution
-#' pt    <- random.walk(p0, graph)
+#'  # count of nodes
+#'  n <- 5
+#'  # starting distribution (has to sum to one)
+#'  p0    <- as.vector(rmultinom(1, 1, prob=rep(.2, n)))
+#'  # adjacency matrix (either normalized or not)
+#'  graph <- matrix(abs(rnorm(n*n)), n, n)
+#'  # computation of stationary distribution
+#'  pt    <- random.walk(p0, graph)
+#'
 setGeneric(
   "random.walk",
-  function(p0, graph, r=.5, niter=1e4, thresh=1e-4, do.analytical=FALSE, ...)
+  function(p0, graph, r=.5,
+           niter=1e4, thresh=1e-4, do.analytical=FALSE,
+           correct.for.hubs=FALSE)
   {
     standardGeneric("random.walk")
   },
   package="diffusr"
 )
 
+
 #' @rdname random-walk-methods
 #' @aliases random.walk,numeric,matrix-method
 setMethod(
   "random.walk",
   signature = signature(p0="numeric", graph="matrix"),
-  function(p0, graph, r=.5, niter=1e4, thresh=1e-4, do.analytical=FALSE, ...)
+  function(p0, graph, r=.5,
+           niter=1e4, thresh=1e-4, do.analytical=FALSE,
+           correct.for.hubs=FALSE)
   {
     p0 <- as.matrix(p0, ncol=1)
-    random.walk(p0, graph, r, niter, thresh, do.analytical, ...)
+    random.walk(p0, graph, r, niter, thresh, do.analytical, correct.for.hubs)
   }
 )
 
@@ -91,9 +103,12 @@ setMethod(
 setMethod(
   "random.walk",
   signature = signature(p0="matrix", graph="matrix"),
-  function(p0, graph, r=.5, niter=1e4, thresh=1e-4, do.analytical=FALSE, ...)
+  function(p0, graph, r=.5,
+           niter=1e4, thresh=1e-4, do.analytical=FALSE,
+           correct.for.hubs=FALSE)
   {
     stopifnot(length(r) == 1)
+    stopifnot(is.logical(correct.for.hubs))
     .check.restart(r)
     .check.starting.matrix(p0)
     .check.graph(graph, p0)
@@ -103,14 +118,17 @@ setMethod(
       message("setting diag of graph to zero")
       diag(graph) <- 0
     }
-
+    if (correct.for.hubs) graph <- hub.correction(graph)
     stoch.graph <- normalize.stochastic(graph)
     if(!.is.ergodic(stoch.graph))
       stop(paste("the provided graph has more than one component.",
                  "It is likely not ergodic."))
 
-    invisible(
-      mrwr_(normalize.stochastic(p0),
-            stoch.graph, r, thresh, niter, do.analytical))
+    l <- list(
+       p.inf=mrwr_(normalize.stochastic(p0),
+                   stoch.graph, r, thresh, niter, do.analytical),
+       transition.matrix=stoch.graph)
+
+    l
   }
 )

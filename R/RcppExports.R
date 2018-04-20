@@ -13,6 +13,14 @@ laplacian_ <- function(W) {
     .Call('_diffusr_laplacian_', PACKAGE = 'diffusr', W)
 }
 
+node_degrees_ <- function(W) {
+    .Call('_diffusr_node_degrees_', PACKAGE = 'diffusr', W)
+}
+
+hub_normalize_ <- function(W) {
+    .Call('_diffusr_hub_normalize_', PACKAGE = 'diffusr', W)
+}
+
 mrwr_ <- function(p0, W, r, thresh, niter, do_analytical) {
     .Call('_diffusr_mrwr_', PACKAGE = 'diffusr', p0, W, r, thresh, niter, do_analytical)
 }

@@ -40,7 +40,7 @@ namespace diffusr {
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
         if (rcpp_result_gen.inherits("try-error"))
-            throw Rcpp::exception(as<std::string>(rcpp_result_gen).c_str());
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
         return Rcpp::as<Eigen::MatrixXd >(rcpp_result_gen);
     }
 
@@ -59,7 +59,7 @@ namespace diffusr {
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
         if (rcpp_result_gen.inherits("try-error"))
-            throw Rcpp::exception(as<std::string>(rcpp_result_gen).c_str());
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
         return Rcpp::as<Eigen::MatrixXd >(rcpp_result_gen);
     }
 
@@ -78,7 +78,45 @@ namespace diffusr {
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
         if (rcpp_result_gen.inherits("try-error"))
-            throw Rcpp::exception(as<std::string>(rcpp_result_gen).c_str());
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<Eigen::MatrixXd >(rcpp_result_gen);
+    }
+
+    inline std::vector<double> node_degrees_(const Eigen::MatrixXd& W) {
+        typedef SEXP(*Ptr_node_degrees_)(SEXP);
+        static Ptr_node_degrees_ p_node_degrees_ = NULL;
+        if (p_node_degrees_ == NULL) {
+            validateSignature("std::vector<double>(*node_degrees_)(const Eigen::MatrixXd&)");
+            p_node_degrees_ = (Ptr_node_degrees_)R_GetCCallable("diffusr", "_diffusr_node_degrees_");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_node_degrees_(Shield<SEXP>(Rcpp::wrap(W)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<std::vector<double> >(rcpp_result_gen);
+    }
+
+    inline Eigen::MatrixXd hub_normalize_(const Eigen::MatrixXd& W) {
+        typedef SEXP(*Ptr_hub_normalize_)(SEXP);
+        static Ptr_hub_normalize_ p_hub_normalize_ = NULL;
+        if (p_hub_normalize_ == NULL) {
+            validateSignature("Eigen::MatrixXd(*hub_normalize_)(const Eigen::MatrixXd&)");
+            p_hub_normalize_ = (Ptr_hub_normalize_)R_GetCCallable("diffusr", "_diffusr_hub_normalize_");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_hub_normalize_(Shield<SEXP>(Rcpp::wrap(W)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
         return Rcpp::as<Eigen::MatrixXd >(rcpp_result_gen);
     }
 
@@ -97,7 +135,7 @@ namespace diffusr {
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
         if (rcpp_result_gen.inherits("try-error"))
-            throw Rcpp::exception(as<std::string>(rcpp_result_gen).c_str());
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
         return Rcpp::as<Eigen::MatrixXd >(rcpp_result_gen);
     }
 
@@ -116,7 +154,7 @@ namespace diffusr {
         if (rcpp_result_gen.inherits("interrupted-error"))
             throw Rcpp::internal::InterruptedException();
         if (rcpp_result_gen.inherits("try-error"))
-            throw Rcpp::exception(as<std::string>(rcpp_result_gen).c_str());
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
         return Rcpp::as<Rcpp::List >(rcpp_result_gen);
     }
 

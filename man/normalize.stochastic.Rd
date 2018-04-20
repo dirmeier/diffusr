@@ -18,6 +18,6 @@ returns the normalized matrix/vector
 Create a stochastically normalized matrix/vector
 }
 \examples{
-W <- matrix(abs(rnorm(10000)), 100, 100)
-stoch.W <- normalize.stochastic(W)
+ W <- matrix(abs(rnorm(10000)), 100, 100)
+ stoch.W <- normalize.stochastic(W)
 }

@@ -18,6 +18,6 @@ returns the Laplacian
 Calculate the Laplacian of a matrix
 }
 \examples{
-W <- matrix(abs(rnorm(10000)), 100, 100)
-lapl.W <- normalize.laplacian(W)
+ W <- matrix(abs(rnorm(10000)), 100, 100)
+ lapl.W <- normalize.laplacian(W)
 }

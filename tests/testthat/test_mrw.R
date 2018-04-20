@@ -25,7 +25,7 @@ graph <-  igraph::graph_from_adjacency_matrix(adja)
 
 test_that("random walk if w restarts", {
   s <- random.walk(p0, as.matrix(igraph::get.adjacency(graph)), 1)
-  expect_equal(as.vector(s), p0, 0.001)
+  expect_equal(as.vector(s$p.inf), p0, 0.001)
 })
 
 test_that("random walk with vectors is same as for matrices", {
@@ -33,9 +33,9 @@ test_that("random walk with vectors is same as for matrices", {
   mat.walk <- random.walk(p0, as.matrix(igraph::get.adjacency(graph)), .5)
   vec.walk <- sapply(seq(ncol(p0)), function(e) {
       p <- random.walk(p0[, e], as.matrix(igraph::get.adjacency(graph)), .5)
-      p
+      p$p.inf
   })
-  expect_equal(mat.walk, vec.walk, 0.001)
+  expect_equal(mat.walk$p.inf, vec.walk, 0.001)
 })
 
 test_that("random walk analytical is same as iterative", {
@@ -43,17 +43,17 @@ test_that("random walk analytical is same as iterative", {
                           .5, do.analytical=TRUE)
   it.walk  <- random.walk(p0, as.matrix(igraph::get.adjacency(graph)),
                           .5, do.analytical=FALSE)
-  expect_equal(ana.walk, it.walk, 0.001)
+  expect_equal(ana.walk$p.inf, it.walk$p.inf, 0.001)
 })
 
 test_that("random walk if w/o restarts", {
   s <- random.walk(p0, as.matrix(igraph::get.adjacency(graph)), 0)
-   expect_equal(as.vector(s), rep(.2, 5), 0.001)
+   expect_equal(as.vector(s$p.inf), rep(.2, 5), 0.001)
 })
 
 test_that("random walk with mat for graph", {
   s <- random.walk(p0, adja, 1)
-  expect_equal(as.vector(s), p0, 0.001)
+  expect_equal(as.vector(s$p.inf), p0, 0.001)
 })
 
 test_that("random walk if false p0", {
@@ -78,4 +78,15 @@ test_that("random walk if r not numeric", {
 
 test_that("random walk p0 smaller zero", {
   expect_error(random.walk(p0 - 5, graph, 1))
+})
+
+test_that("hub correction workse", {
+  set.seed(23)
+  g <- igraph::barabasi.game(10, directed=F)
+  ad <- as.matrix(igraph::get.adjacency(g))
+  pt <- runif(10)
+  r1 <- random.walk(pt, ad, .5, correct.for.hubs=FALSE)
+  r2 <- random.walk(pt, ad, .5, correct.for.hubs=TRUE)
+  expect_true(all(r1$p.inf != r2$p.inf))
+  expect_true(any(r1$transition.matrix != r2$transition.matrix))
 })

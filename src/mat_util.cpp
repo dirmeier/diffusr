@@ -20,10 +20,14 @@
  * along with diffusr. If not, see <http://www.gnu.org/licenses/>.
  */
 
+
 // [[Rcpp::depends(RcppEigen)]]
 #include <RcppEigen.h>
 // [[Rcpp::plugins(cpp11)]]
 #include <cmath>
+#include <vector>
+#include <algorithm>
+
 
 //' Column normalize a matrix, so that it is stochastic.
 //'
@@ -48,6 +52,7 @@ Eigen::MatrixXd stoch_col_norm_(const Eigen::MatrixXd& W)
 
     return res;
 }
+
 
 //' Calculate the Laplacian of a weighted matrix.
 //'
@@ -74,5 +79,62 @@ Eigen::MatrixXd laplacian_(const Eigen::MatrixXd& W)
                 res(i, j) = 0;
         }
     }
+    return res;
+}
+
+
+double identity_(double d)
+{
+    return d;
+}
+
+//' Get the unweighted node degrees of a adjacency matrix.
+//'
+//' @noRd
+//' @param W  the adjacency matrix to be normalized
+//' @return  returns the node degrees as vectors.
+// [[Rcpp::interfaces(r, cpp)]]
+// [[Rcpp::export]]
+std::vector<double> node_degrees_(const Eigen::MatrixXd& W)
+{
+    std::vector<double> node_degrees(W.rows());
+    for (unsigned int i = 0; i < W.rows(); ++i)
+    {
+      node_degrees[i] = 0;
+      for (unsigned int j = 0; j < W.cols(); ++j)
+      {
+        if (W(i, j) != 0) node_degrees[i]++;
+      }
+    }
+
+    return node_degrees;
+}
+
+
+//' Normalize the hub bias in a matrix.
+//'
+//' @noRd
+//' @param W  the adjacency matrix to be normalized
+//' @return  returns the hub corrected matrix
+// [[Rcpp::interfaces(r, cpp)]]
+// [[Rcpp::export]]
+Eigen::MatrixXd hub_normalize_(const Eigen::MatrixXd& W)
+{
+    auto &fc(identity_);
+    Eigen::MatrixXd res = Eigen::MatrixXd::Constant(W.rows(), W.cols(), 0.0);
+    std::vector<double> node_degrees = node_degrees_(W);
+
+    for (unsigned int i = 0; i < W.rows(); ++i)
+    {
+      for (unsigned int j = 0; j < W.cols(); ++j)
+      {
+          if (W(i, j) != 0)
+          {
+              double mh = fc(node_degrees[i] / node_degrees[j]);
+              res(i, j) = std::min(1.0, mh) / node_degrees[i];
+          }
+      }
+    }
+
     return res;
 }

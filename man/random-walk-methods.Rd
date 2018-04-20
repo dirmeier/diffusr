@@ -8,13 +8,13 @@
 \title{Graph diffusion using a Markov random walk}
 \usage{
 random.walk(p0, graph, r = 0.5, niter = 10000, thresh = 1e-04,
-  do.analytical = FALSE, ...)
+  do.analytical = FALSE, correct.for.hubs = FALSE)
 
 \S4method{random.walk}{numeric,matrix}(p0, graph, r = 0.5, niter = 10000,
-  thresh = 1e-04, do.analytical = FALSE, ...)
+  thresh = 1e-04, do.analytical = FALSE, correct.for.hubs = FALSE)
 
 \S4method{random.walk}{matrix,matrix}(p0, graph, r = 0.5, niter = 10000,
-  thresh = 1e-04, do.analytical = FALSE, ...)
+  thresh = 1e-04, do.analytical = FALSE, correct.for.hubs = FALSE)
 }
 \arguments{
 \item{p0}{an \code{n x p}-dimensional numeric non-negative vector/matrix
@@ -40,10 +40,16 @@ as well.}
 \item{do.analytical}{boolean if the stationary distribution shall be
 computed solving the analytical solution or rather iteratively}
 
-\item{...}{additional parameters}
+\item{correct.for.hubs}{if \code{TRUE} multiplies a correction factor to the
+nodes, such that the random walk gets not biased to nodes with high
+degree.}
 }
 \value{
-returns the stationary distribution as numeric vector
+returns a list with the following elements
+ \itemize{
+  \item p.inf  the stationary distribution as numeric vector
+  \item transition.matrix the column normalized transition matrix used for the random walk
+ }
 }
 \description{
 A Markov Random Walk takes an inital distribution \code{p0}
@@ -52,14 +58,15 @@ The diffusion process is regulated by a restart probability \code{r} which
 controls how often the MRW jumps back to the initial values.
 }
 \examples{
-# count of nodes
-n <- 5
-# starting distribution (has to sum to one)
-p0    <- as.vector(rmultinom(1, 1, prob=rep(.2, n)))
-# adjacency matrix (either normalized or not)
-graph <- matrix(abs(rnorm(n*n)), n, n)
-# computation of stationary distribution
-pt    <- random.walk(p0, graph)
+ # count of nodes
+ n <- 5
+ # starting distribution (has to sum to one)
+ p0    <- as.vector(rmultinom(1, 1, prob=rep(.2, n)))
+ # adjacency matrix (either normalized or not)
+ graph <- matrix(abs(rnorm(n*n)), n, n)
+ # computation of stationary distribution
+ pt    <- random.walk(p0, graph)
+
 }
 \references{
 Tong, H., Faloutsos, C., & Pan, J. Y. (2006),

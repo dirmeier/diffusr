@@ -26,12 +26,13 @@
 #' @param ...  additional params
 #' @return  returns the normalized matrix/vector
 #' @examples
-#' W <- matrix(abs(rnorm(10000)), 100, 100)
-#' stoch.W <- normalize.stochastic(W)
+#'  W <- matrix(abs(rnorm(10000)), 100, 100)
+#'  stoch.W <- normalize.stochastic(W)
 normalize.stochastic <- function(obj, ...)
 {
   UseMethod("normalize.stochastic")
 }
+
 
 #' @export
 #' @method normalize.stochastic numeric
@@ -58,6 +59,7 @@ normalize.stochastic.numeric <- function(obj, ...)
   return(obj)
 }
 
+
 #' Calculate the Laplacian of a matrix
 #'
 #' @export
@@ -66,12 +68,13 @@ normalize.stochastic.numeric <- function(obj, ...)
 #' @param ...  additional params
 #' @return  returns the Laplacian
 #' @examples
-#' W <- matrix(abs(rnorm(10000)), 100, 100)
-#' lapl.W <- normalize.laplacian(W)
+#'  W <- matrix(abs(rnorm(10000)), 100, 100)
+#'  lapl.W <- normalize.laplacian(W)
 normalize.laplacian <- function(obj, ...)
 {
   UseMethod("normalize.laplacian")
 }
+
 
 #' @export
 #' @method normalize.laplacian numeric
@@ -82,16 +85,48 @@ normalize.laplacian.numeric <- function(obj, ...)
   if (any(obj < 0.0))
     stop('please provide a matrix with only non-negative alues!')
   lapl <- laplacian_(obj)
-  return(lapl)
+
+  lapl
 }
+
+
+
+#' Correct for hubs in an adjacency matrix
+#'
+#' @export
+#'
+#' @param obj  matrix for which hubs are corrected
+#' @return  returns the matrix with hub correction
+#' @examples
+#'  W <- matrix(abs(rnorm(10000)), 100, 100)
+#'  cor.hub <- hub.correction(W)
+hub.correction <- function(obj)
+{
+  UseMethod("hub.correction")
+}
+
+
+#' @export
+#' @method hub.correction numeric
+hub.correction.numeric <- function(obj)
+{
+  if (!is.matrix(obj)) stop('please provide a matrix object!')
+  if (nrow(obj) != ncol(obj)) stop('please provide a square matrix!')
+  if (any(obj < 0.0))
+    stop('please provide a matrix with only non-negative alues!')
+  message("Correcting for hub degrees.")
+  hub.mat <- hub_normalize_(obj)
+
+  hub.mat
+}
+
 
 #' @noRd
 #' @importFrom igraph graph_from_adjacency_matrix components
 .is.ergodic <- function(obj)
 {
-  adj   <- igraph::graph_from_adjacency_matrix(obj,
-                                               mode="directed",
-                                               weighted=TRUE)
+  adj   <- igraph::graph_from_adjacency_matrix(
+    obj, mode="directed", weighted=TRUE)
   comps <- igraph::components(adj)
   ifelse(length(comps$csize) == 1, TRUE, FALSE)
 }

@@ -1,7 +1,7 @@
 Package: diffusr
 Type: Package
 Title: Network Diffusion Algorithms
-Version: 0.1.2
+Version: 0.1.3
 Date: 2017-10-29
 Authors@R: person("Simon", "Dirmeier",
                   email = "simon.dirmeier@gmx.de",

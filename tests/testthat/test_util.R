@@ -17,6 +17,7 @@
 # You should have received a copy of the GNU General Public License
 # along with diffusr. If not, see <http://www.gnu.org/licenses/>.
 
+
 context("util")
 
 p0 <- c(1, rep(0, 4))
@@ -75,4 +76,25 @@ test_that("matrix is not ergodic raises error", {
   m[1:3, 1:3]    <- 1
   m[7:10, 7:10] <- 1
   expect_false(.is.ergodic(m))
+})
+
+
+test_that("hub correction has no influence", {
+  ad <- as.matrix(igraph::get.adjacency(graph))
+  ad.hub <- hub.correction(ad)
+  expect_equal(normalize.stochastic(ad), normalize.stochastic(ad.hub), 0.0001)
+})
+
+
+test_that("hub correction has influence", {
+  set.seed(23)
+  g <- igraph::barabasi.game(10, directed=F)
+  ad <- as.matrix(igraph::get.adjacency(g))
+  ad.hub   <- hub.correction(ad)
+  norm.ad  <- normalize.stochastic(ad)
+  norm.cor <- normalize.stochastic(ad.hub)
+  expect_true(norm.ad[2,1] > norm.cor[2,1])
+  for (c in colSums(norm.cor)) {
+    expect_equal(c, 1, 0.0001)
+  }
 })
