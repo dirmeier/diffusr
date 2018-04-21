@@ -48,7 +48,10 @@
 #'  computed solving the analytical solution or rather iteratively
 #' @param correct.for.hubs if \code{TRUE} multiplies a correction factor to the
 #'  nodes, such that the random walk gets not biased to nodes with high
-#'  degree.
+#'  degree. In that case the original input matrix will be normalized as:
+#'  \deqn{ P(j | i) =  1 /degree(i) *  min(1, degree(j)/degree(j))}
+#'  \emph{Note that this will not consider edge weights.}
+#'
 #' @return  returns a list with the following elements
 #'  \itemize{
 #'   \item p.inf  the stationary distribution as numeric vector
