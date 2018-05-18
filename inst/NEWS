@@ -1,6 +1,10 @@
 Versions
 ========
 
+### v0.1.4
+
+* Adds `Matrix` to `Suggests`
+
 ### v0.1.3
 
 * Adds correction for hubs
@@ -38,4 +42,4 @@ Versions
 
 ### Author
 
-* Simon Dirmeier <a href="mailto:mail@simon-dirmeier.net">mail@simon-dirmeier.net</a>
+* Simon Dirmeier <a href="mailto:simon.dirmeier@gmx.de">simon.dirmeier@gmx.de</a>
