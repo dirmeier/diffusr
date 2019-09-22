@@ -1,6 +1,6 @@
 # diffusr <img src="https://rawgit.com/dirmeier/diffusr/master/inst/fig/diffusion.gif" align="right" width="160px"/>
 
-[![Project Status](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
+[![Project Status](http://www.repostatus.org/badges/latest/inactive.svg)](http://www.repostatus.org/#inactive)
 [![Build Status](https://travis-ci.org/dirmeier/diffusr.svg?branch=master)](https://travis-ci.org/dirmeier/diffusr)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/dirmeier/diffusr?branch=master&svg=true)](https://ci.appveyor.com/project/dirmeier/diffusr)
 [![codecov](https://codecov.io/gh/dirmeier/diffusr/branch/master/graph/badge.svg)](https://codecov.io/gh/dirmeier/diffusr)
